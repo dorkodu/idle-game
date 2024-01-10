@@ -53,20 +53,11 @@ export default defineConfig({
     }),
   ],
   server: {
-    watch: { usePolling: true },
     host: true,
-    port: 8000,
-    strictPort: true,
-    proxy: {
-      "/api": {
-        target: "app-template_api:8001",
-        ws: true,
-      },
-    },
   },
   resolve: {
     alias: {
-      "@api": path.resolve(__dirname, "../api/src"),
+      "@game": path.resolve(__dirname, "../game/src"),
       "@": path.resolve(__dirname, "./src"),
     },
   },

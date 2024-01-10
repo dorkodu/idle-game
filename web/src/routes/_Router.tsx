@@ -5,14 +5,17 @@ import { util } from "@/lib/util";
 import App from "../App";
 
 // Lazy routes \\
-const Home = React.lazy(util.wait(() => import("./main/Home")));
-const Dashboard = React.lazy(util.wait(() => import("./dashboard/Dashboard")));
+const Shop = React.lazy(util.wait(() => import("./main/Shop")));
+const Bag = React.lazy(util.wait(() => import("./main/Bag")));
+const Campaign = React.lazy(util.wait(() => import("./main/Campaign")));
+const Map = React.lazy(util.wait(() => import("./main/Map")));
+const Events = React.lazy(util.wait(() => import("./main/Events")));
+
 const NotFound = React.lazy(util.wait(() => import("./NotFound")));
 // Lazy routes \\
 
 // Lazy layouts \\
 const MainLayout = React.lazy(util.wait(() => import("../components/layouts/MainLayout")));
-const DashboardLayout = React.lazy(util.wait(() => import("../components/layouts/DashboardLayout")));
 // Lazy layouts \\
 
 function Page(Component: React.LazyExoticComponent<React.ComponentType<any>>) {
@@ -26,15 +29,15 @@ function Page(Component: React.LazyExoticComponent<React.ComponentType<any>>) {
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      {/* Navigate to "/home" on path "/" */}
-      <Route index element={<Navigate to="/home" />} />
+      {/* Navigate to "/campaign" on path "/" */}
+      <Route index element={<Navigate to="/campaign" />} />
 
       <Route element={Page(MainLayout)}>
-        <Route path="/home" element={Page(Home)} />
-      </Route>
-
-      <Route element={Page(DashboardLayout)}>
-        <Route path="/dashboard" element={Page(Dashboard)} />
+        <Route path="/shop" element={Page(Shop)} />
+        <Route path="/bag" element={Page(Bag)} />
+        <Route path="/campaign" element={Page(Campaign)} />
+        <Route path="/map" element={Page(Map)} />
+        <Route path="/events" element={Page(Events)} />
       </Route>
 
       {/* Error routes & catch all */}

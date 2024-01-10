@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
 export interface ApiStoreState {
-  userId: string | undefined;
+
 }
 
 export interface ApiStoreAction {
@@ -10,7 +10,7 @@ export interface ApiStoreAction {
 }
 
 const initialState: ApiStoreState = {
-  userId: undefined,
+
 }
 
 export const useApiStore = create<ApiStoreState & ApiStoreAction>()(

@@ -27,4 +27,15 @@ export function wait<T>(
   })
 }
 
+export function formatNumber(number: number, long?: boolean) {
+  if (long) return Intl.NumberFormat("en").format(number);
+  return Intl.NumberFormat("en", { notation: "compact" }).format(number);
+}
+
+export function clampNumber(number: number, min: number, max: number) {
+  if (number < min) return min;
+  if (number > max) return max;
+  return number;
+}
+
 export * as util from "./util";

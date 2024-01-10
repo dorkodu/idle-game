@@ -28,7 +28,7 @@
     "noUncheckedIndexedAccess": true,
 
     "paths": {
-      "@api/*": ["../api/src/*"],
+      "@game/*": ["../game/src/*"],
       "@/*": ["./src/*"],
     },
   },
