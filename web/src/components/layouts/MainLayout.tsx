@@ -30,8 +30,8 @@ function MainLayout() {
       </Flex>
 
       <Flex
-        direction="column" mx="auto"
-        pos="fixed" top={80} bottom={80} left={0} right={0}
+        direction="column" mx="auto" p="md"
+        pos="fixed" top={80} bottom={64} left={0} right={0}
         maw={theme.breakpoints.xs}
       >
         <Outlet />
