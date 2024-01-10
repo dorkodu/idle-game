@@ -1,4 +1,29 @@
+import { ItemId, items } from "@game/data/items";
+import { MonsterId } from "@game/data/monsters";
+//import { CampaignId } from "@game/data/campaigns";
 import { Tier } from "@game/types/tier";
+
+export function item(id: ItemId | undefined): { emoji?: string, image?: string } {
+  if (!id) return {};
+
+  let emoji;
+  let image;
+
+  switch (id) {
+    case "ot_food": emoji = "🍏"; break;
+    default: image = `/assets/${items[id].type}/${id.substring(3)}.png`; break;
+  }
+
+  return { emoji, image };
+}
+
+export function monster(id: MonsterId | undefined) {
+  return id ? `/assets/monster/${id}.png` : undefined;
+}
+
+//export function campaign(id: CampaignId | undefined) {
+//  return id ? `/assets/campaign/${id}.png` : undefined;
+//}
 
 export const tierColors: Record<Tier, string> = {
   S: "#F21616",
