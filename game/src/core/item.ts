@@ -12,4 +12,8 @@ export interface IItem {
 
 export type IItemData = { type: ItemTypeEquipment; stats: IStats; } | { type: ItemTypeOther; }
 
+export function id(item: IItem) {
+  return `${item.id}-${item.tier}-${item.stars}`;
+}
+
 export * as item from "./item";

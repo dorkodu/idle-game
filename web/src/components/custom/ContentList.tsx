@@ -1,4 +1,4 @@
-import { Card, Flex, ScrollArea } from "@mantine/core"
+import { Flex, ScrollArea } from "@mantine/core"
 
 interface Props {
 

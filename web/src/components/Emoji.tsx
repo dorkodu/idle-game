@@ -20,11 +20,11 @@ function Emoji({ emoji, size, ...props }: React.ComponentPropsWithoutRef<"img"> 
   return (
     <img
       src={src}
-      className={classes.emoji}
       alt={emoji}
       draggable={false}
-      style={{ width: size, height: size }}
       {...props}
+      className={classes.emoji}
+      style={{ width: size, height: size, ...props.style }}
     />
   )
 }

@@ -4,7 +4,7 @@ import { Card, Flex, SegmentedControl } from "@mantine/core"
 
 function Bag() {
   return (
-    <Card withBorder pb={0} h="100%">
+    <Card withBorder h="100%">
       <Flex direction="column" gap="md" h="100%">
 
         <SegmentedControl
@@ -16,8 +16,8 @@ function Bag() {
         />
 
         <ContentList>
-          <Content tier="S" />
-          <Content tier="A" />
+          <Content item={{ id: "am_cameo_blue", count: 1, stars: 5, tier: "A" }} />
+          <Content monster={{ id: "angel", level: 1, stars: 1, uid: "" }} />
           <Content tier="B" />
           <Content tier="C" />
           <Content tier="D" />

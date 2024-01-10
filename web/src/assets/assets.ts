@@ -1,7 +1,10 @@
-import { ItemId, items } from "@game/data/items";
+import { ItemId } from "@game/data/items";
 import { MonsterId } from "@game/data/monsters";
-//import { CampaignId } from "@game/data/campaigns";
+import { CampaignId } from "@game/data/campaigns";
 import { Tier } from "@game/types/tier";
+import { game } from "@game/index";
+
+const _assets = import.meta.glob("@/assets/**/*.png", { eager: true, as: "url" });
 
 export function item(id: ItemId | undefined): { emoji?: string, image?: string } {
   if (!id) return {};
@@ -10,20 +13,22 @@ export function item(id: ItemId | undefined): { emoji?: string, image?: string }
   let image;
 
   switch (id) {
+    case "ot_gold": emoji = "🪙"; break;
+    case "ot_gem": emoji = "💎"; break;
     case "ot_food": emoji = "🍏"; break;
-    default: image = `/assets/${items[id].type}/${id.substring(3)}.png`; break;
+    default: image = _assets[`/src/assets/${game.items[id].type}/${id.substring(3)}.png`]; break;
   }
 
   return { emoji, image };
 }
 
 export function monster(id: MonsterId | undefined) {
-  return id ? `/assets/monster/${id}.png` : undefined;
+  return id ? _assets[`/src/assets/monster/${id}.png`] : undefined;
 }
 
-//export function campaign(id: CampaignId | undefined) {
-//  return id ? `/assets/campaign/${id}.png` : undefined;
-//}
+export function campaign(id: CampaignId | undefined) {
+  return id ? _assets[`/src/assets/campaign/${id}.png`] : undefined;
+}
 
 export const tierColors: Record<Tier, string> = {
   S: "#F21616",
