@@ -1,6 +1,7 @@
 import { IBattleMonster } from "../core/battle"
-import { IMonster, monster } from "../core/monster"
+import { IMonster } from "../core/monster"
 import { Team } from "./team"
+import { game } from "../index";
 
 export type Lineup = [
   string?,
@@ -30,7 +31,7 @@ export type BattleLineup = [
 ]
 
 export function createBattleLineup(monsters: MonsterLineup, team: Team): BattleLineup {
-  return monsters.map(m => monster.createBattleMonster(m, team)) as BattleLineup;
+  return monsters.map(m => game.monster.createBattleMonster(m, team)) as BattleLineup;
 }
 
 export function getPower(lineup: MonsterLineup | undefined): number {
@@ -38,7 +39,7 @@ export function getPower(lineup: MonsterLineup | undefined): number {
 
   lineup?.forEach(m => {
     if (!m) return;
-    power += monster.getPower(m);
+    power += game.monster.getPower(m);
   });
 
   return power;

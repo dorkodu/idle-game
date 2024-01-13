@@ -1,8 +1,22 @@
-import Content from "@/components/custom/Content"
+import Content from "@/components/custom/Content";
 import ContentList from "@/components/custom/ContentList"
+import { useApiStore } from "@/stores/apiStore";
+import { game } from "@game/index";
 import { Card, Flex, SegmentedControl } from "@mantine/core"
+import { useState } from "react"
 
 function Bag() {
+  const [tab, setTab] = useState<"monster" | "item">("monster");
+  const onTabChange = (value: string) => {
+    switch (value) {
+      case "monster": break;
+      case "item": break;
+      default: return;
+    }
+
+    setTab(value);
+  }
+
   return (
     <Card withBorder h="100%">
       <Flex direction="column" gap="md" h="100%">
@@ -10,43 +24,37 @@ function Bag() {
         <SegmentedControl
           mx="auto" w="100%" maw={360} style={{ flexShrink: 0 }}
           data={[
-            { value: "hero", label: "Heroes" },
+            { value: "monster", label: "Monsters" },
             { value: "item", label: "Items" },
           ]}
+          value={tab} onChange={onTabChange}
         />
 
-        <ContentList>
-          <Content item={{ id: "am_cameo_blue", count: 1, stars: 5, tier: "A" }} />
-          <Content monster={{ id: "angel", level: 1, stars: 1, uid: "" }} />
-          <Content tier="B" />
-          <Content tier="C" />
-          <Content tier="D" />
-          <Content tier="E" />
-          <Content tier="F" />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-          <Content />
-        </ContentList>
+        {tab === "monster" && <Monsters />}
+        {tab === "item" && <Items />}
 
       </Flex >
     </Card >
+  )
+}
+
+function Monsters() {
+  const monsters = useApiStore(s => s.player?.monsters);
+
+  return (
+    <ContentList>
+      {monsters && Object.values(monsters).map(m => <Content key={game.monster.id(m)} monster={m} />)}
+    </ContentList>
+  )
+}
+
+function Items() {
+  const items = useApiStore(s => s.player?.items);
+
+  return (
+    <ContentList>
+      {items && Object.values(items).map(i => <Content key={game.item.id(i)} item={i} />)}
+    </ContentList>
   )
 }
 

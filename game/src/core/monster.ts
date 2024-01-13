@@ -1,5 +1,6 @@
 import { game } from "..";
 import { MonsterId } from "../data/monsters";
+import { Team } from "../types/team";
 import { BattleHitData, IBattle, IBattleMonster } from "./battle";
 import { IItem } from "./item";
 import { ISkill } from "./skill";
@@ -49,16 +50,34 @@ export interface IMonsterData {
   onDie: (battle: IBattle, monster: IBattleMonster) => void;
 }
 
+export function id(monster: IMonster) {
+  return `${monster.id}-${monster.stars}-${monster.time}`;
+}
+
+export function createBattleMonster(monster: IMonster | undefined, team: Team): IBattleMonster | undefined {
+  if (!monster) return undefined;
+
+  const stats = getStats(monster);
+  return {
+    id: monster.id,
+    level: monster.level,
+    team: team,
+    health: game.stats.value(stats.health),
+    energy: game.constants.baseEnergy,
+    stats: stats,
+  }
+}
+
 export function getPower(monster: IMonster) {
   if (!monster) return 0;
 
   let power = 0;
 
-  const _stats = getStats(monster);
+  const stats = getStats(monster);
 
-  power += game.stats.value(_stats.health);
-  power += game.stats.value(_stats.damage);
-  power += game.stats.value(_stats.speed);
+  power += game.stats.value(stats.health);
+  power += game.stats.value(stats.damage);
+  power += game.stats.value(stats.speed);
 
   return power;
 }
