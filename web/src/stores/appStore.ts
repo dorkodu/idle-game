@@ -1,3 +1,4 @@
+import { Content } from "@game/types/content";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -9,7 +10,23 @@ export interface AppStoreState {
   segments: {}
   modals: {
     updateSW: { opened: boolean },
-    monsterDetails: { opened: boolean, monsterId: string | undefined },
+
+    contentList: {
+      opened: boolean,
+      contents: Content[],
+
+      onClick?: (id: string) => void,
+
+      removeable?: boolean,
+      onRemove?: () => void,
+
+      notice?: string,
+    },
+
+    monsterDetails: {
+      opened: boolean,
+      monsterId: string | undefined,
+    },
   }
 }
 
@@ -23,6 +40,7 @@ const initialState: AppStoreState = {
   segments: {},
   modals: {
     updateSW: { opened: false },
+    contentList: { opened: false, contents: [] },
     monsterDetails: { opened: false, monsterId: undefined },
   },
 }

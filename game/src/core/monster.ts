@@ -107,4 +107,13 @@ export function getStats(monster: IMonster): IStats {
   }
 }
 
+export function getLevelUpCost(monster: IMonster): { gold: number, food: number } {
+  const levelMultiplier = game.maths.curve(monster.level);
+
+  return {
+    gold: Math.ceil(levelMultiplier * game.constants.monsterLevelUpCostGoldMultiplier),
+    food: Math.ceil(levelMultiplier * game.constants.monsterLevelUpCostFoodMultiplier),
+  }
+}
+
 export * as monster from "./monster";

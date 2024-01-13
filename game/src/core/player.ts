@@ -35,6 +35,11 @@ export interface IPlayer {
   };
 }
 
+export function getMonsterById(player: IPlayer | undefined, id: string | undefined): IMonster | undefined {
+  if (player === undefined || id === undefined) return undefined;
+  return player.monsters[id];
+}
+
 export function getCampaignFarm(player: IPlayer): Farm {
   let elapsed = Math.floor((Date.now() - player.campaign.lastFarmDate) / 1000);
 
