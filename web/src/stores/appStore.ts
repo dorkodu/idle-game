@@ -8,9 +8,8 @@ export interface AppStoreState {
 
   segments: {}
   modals: {
-    updateSW: {
-      opened: boolean;
-    }
+    updateSW: { opened: boolean },
+    monsterDetails: { opened: boolean, monsterId: string | undefined },
   }
 }
 
@@ -24,6 +23,7 @@ const initialState: AppStoreState = {
   segments: {},
   modals: {
     updateSW: { opened: false },
+    monsterDetails: { opened: false, monsterId: undefined },
   },
 }
 

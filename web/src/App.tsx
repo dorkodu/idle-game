@@ -4,6 +4,7 @@ import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { Route, useAppStore } from "./stores/appStore";
 import { useEffect } from "react";
 import UpdateSWModal from "./components/modals/UpdateSWModal";
+import MonsterDetailsModal from "./components/modals/MonsterDetailsModal";
 
 function App() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function App() {
 
         {/* Modals */}
         <UpdateSWModal />
+        <MonsterDetailsModal />
       </MantineProvider>
 
       <ScrollRestoration />

@@ -35,7 +35,13 @@ const initialState: ApiStoreState = {
     level: 1,
     xp: 0,
     items: items,
-    monsters: monsters,
+    monsters: {
+      ...monsters,
+      "angel-2-1": { id: "angel", level: 1, stars: 2, time: 1 },
+      "angel-3-2": { id: "angel", level: 1, stars: 3, time: 2 },
+      "angel-4-3": { id: "angel", level: 1, stars: 4, time: 3 },
+      "angel-5-4": { id: "angel", level: 1, stars: 5, time: 4 },
+    },
     campaign: {
       id: "tree_of_life",
       stage: 0,
