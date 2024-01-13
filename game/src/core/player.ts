@@ -1,4 +1,6 @@
+import { game } from "..";
 import { CampaignId } from "../data/campaigns";
+import { Farm } from "../types/farm";
 import { Lineup } from "../types/lineup";
 import { Tier } from "../types/tier";
 import { IItem } from "./item";
@@ -31,6 +33,46 @@ export interface IPlayer {
     achievements: {},
     dailyQuests: {},
   };
+}
+
+export function getCampaignFarm(player: IPlayer): Farm {
+  let elapsed = Math.floor((Date.now() - player.campaign.lastFarmDate) / 1000);
+
+  // Only allow max 8 hours of farming
+  elapsed = Math.min(elapsed, 60 * 60 * 8);
+
+  const amount = Math.floor(elapsed / 5);
+
+  const farm = game.campaign.getCampaignFarm(
+    player.campaign.tier,
+    player.campaign.id,
+    player.campaign.stage,
+  );
+
+  return {
+    gold: farm.gold * amount,
+    food: farm.food * amount,
+    xp: farm.xp * amount,
+  }
+}
+
+export function handleXp(player: IPlayer): { level: number, xp: number } {
+  let level = player.level;
+  let xp = player.xp;
+  let requiredXp = levelToXp(level);
+
+  // Continue if more/equal xp to required xp and not max level
+  while (xp >= requiredXp && level < game.constants.maxLevel) {
+    level++;
+    xp -= requiredXp;
+    requiredXp = levelToXp(level);
+  }
+
+  return { level, xp };
+}
+
+export function levelToXp(level: number): number {
+  return Math.floor(game.constants.playerLevelToXpBase + level + game.maths.curve(level));
 }
 
 export * as player from "./player";

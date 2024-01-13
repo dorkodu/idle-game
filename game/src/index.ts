@@ -1,3 +1,6 @@
+// Actions
+export { actions } from "./actions/_actions";
+
 // Core
 export { player } from "./core/player";
 

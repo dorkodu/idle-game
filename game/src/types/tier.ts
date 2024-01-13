@@ -35,4 +35,17 @@ export function indexToTier(index: number): Tier | undefined {
   }
 }
 
+export function tierToCampaignCount(tier: Tier | undefined) {
+  switch (tier) {
+    case "S": return 8;
+    case "A": return 7;
+    case "B": return 6;
+    case "C": return 5;
+    case "D": return 4;
+    case "E": return 3;
+    case "F": return 2;
+    default: return 0;
+  }
+}
+
 export * as tier from "./tier";

@@ -4,12 +4,19 @@ import LayoutButton from "../buttons/LayoutButton";
 import { useAppStore } from "@/stores/appStore";
 import ProfileButton from "../buttons/ProfileButton";
 import ResourceButton from "../buttons/ResourceButton";
+import { useApiStore } from "@/stores/apiStore";
+import { game } from "@game/index";
 
 function MainLayout() {
   const theme = useMantineTheme();
   const navigate = useNavigate();
 
   const route = useAppStore(state => state.route);
+
+  const player = useApiStore(state => state.player);
+  const level = player?.level;
+  const gold = player?.items[game.constants.goldId]?.count;
+  const gem = player?.items[game.constants.gemId]?.count;
 
   return (
     <>
@@ -19,11 +26,11 @@ function MainLayout() {
         maw={theme.breakpoints.xs} h={80}
       >
         <Flex direction="row" align="center" gap="xs" px="md" h="100%">
-          <ProfileButton level={1} />
+          <ProfileButton level={level} />
 
           <Flex gap="xs" justify="end" style={{ flex: 1 }}>
-            <ResourceButton emoji="🪙" count={123456} button />
-            <ResourceButton emoji="💎" count={123456} button />
+            <ResourceButton emoji="🪙" count={gold} button />
+            <ResourceButton emoji="💎" count={gem} button />
           </Flex>
         </Flex>
         <Divider />
