@@ -1,6 +1,7 @@
 import { game } from "..";
 import { CampaignId } from "../data/campaigns";
 import { Farm } from "../types/farm";
+import { ItemTypeEquipment } from "../types/item_type";
 import { Lineup } from "../types/lineup";
 import { Tier } from "../types/tier";
 import { IItem } from "./item";
@@ -33,6 +34,12 @@ export interface IPlayer {
     achievements: {},
     dailyQuests: {},
   };
+}
+
+export function getItemsByType(player: IPlayer, type: ItemTypeEquipment): IItem[] {
+  const keys = Object.keys(player.items).filter(k => k.startsWith(type.substring(0, 2)));
+  const items = keys.map(key => player.items[key]).filter(Boolean) as IItem[];
+  return items;
 }
 
 export function getMonsterById(player: IPlayer | undefined, id: string | undefined): IMonster | undefined {

@@ -232,7 +232,39 @@ function Stats({ monster }: Props) {
 
 function Items({ monster }: Props) {
   const onClick = (type: ItemTypeEquipment) => {
+    const player = useApiStore.getState().player;
 
+    useAppStore.setState(s => {
+      if (!player) return;
+
+      const items = game.player.getItemsByType(player, type);
+
+      const hasItems = items.length > 0;
+      const hasEquipped = !!monster.items?.[type];
+
+      s.modals.contentList = {
+        opened: true,
+        contents: items.map(item => ({ item })),
+        onClick: equip,
+        removeable: hasEquipped,
+        onRemove: () => { unequip(type) },
+        notice: !hasItems && !hasEquipped ? "No items to equip." : undefined,
+      };
+    });
+  }
+
+  const equip = (id: string) => {
+    useApiStore.setState(s => {
+      if (!s.player) return;
+      game.actions.equipItem.act(s.player, { item: id, monster: game.monster.id(monster) })
+    });
+  }
+
+  const unequip = (type: ItemTypeEquipment) => {
+    useApiStore.setState(s => {
+      if (!s.player) return;
+      game.actions.unequipItem.act(s.player, { type, monster: game.monster.id(monster) })
+    });
   }
 
   const autoEquip = () => {
@@ -240,7 +272,16 @@ function Items({ monster }: Props) {
   }
 
   const unequipAll = () => {
+    const monsterId = game.monster.id(monster);
 
+    useApiStore.setState(s => {
+      if (!s.player) return;
+      game.actions.unequipItem.act(s.player, { type: "weapon", monster: monsterId });
+      game.actions.unequipItem.act(s.player, { type: "armor", monster: monsterId });
+      game.actions.unequipItem.act(s.player, { type: "amulet", monster: monsterId });
+      game.actions.unequipItem.act(s.player, { type: "rune", monster: monsterId });
+      game.actions.unequipItem.act(s.player, { type: "ring", monster: monsterId });
+    });
   }
 
   return (

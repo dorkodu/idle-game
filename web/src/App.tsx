@@ -5,6 +5,7 @@ import { Route, useAppStore } from "./stores/appStore";
 import { useEffect } from "react";
 import UpdateSWModal from "./components/modals/UpdateSWModal";
 import MonsterDetailsModal from "./components/modals/MonsterDetailsModal";
+import ContentListModal from "./components/modals/ContentListModal";
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
         {/* Modals */}
         <UpdateSWModal />
         <MonsterDetailsModal />
+        <ContentListModal />
       </MantineProvider>
 
       <ScrollRestoration />
