@@ -5,6 +5,7 @@ import type { Tier } from "@game/types/tier";
 import { IMonster } from "@game/core/monster";
 import { assets } from "@/assets/assets";
 import { IItem } from "@game/core/item";
+import { textShadow } from "@/styles/shared.css";
 
 interface Props {
   onClick?: (ev: React.MouseEvent) => void;
@@ -82,13 +83,13 @@ function Content({ onClick, item, monster, image, emoji, hStars, vStars, tCount,
       }
 
       {tCount !== undefined && !hideCount &&
-        <Title order={5} pos="absolute" right={4} top={0} c="var(--text-color)">
+        <Title order={5} pos="absolute" right={4} top={0} c="var(--text-color)" className={textShadow}>
           {util.formatNumber(tCount)}
         </Title>
       }
 
       {bCount !== undefined && !hideCount &&
-        <Title order={5} pos="absolute" right={4} bottom={0} c="var(--text-color)">
+        <Title order={5} pos="absolute" right={4} bottom={0} c="var(--text-color)" className={textShadow}>
           {util.formatNumber(bCount)}
         </Title>
       }

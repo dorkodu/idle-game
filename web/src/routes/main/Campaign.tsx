@@ -3,6 +3,7 @@ import Emoji from "@/components/Emoji"
 import TierBadge from "@/components/custom/TierBadge"
 import { util } from "@/lib/util"
 import { useApiStore } from "@/stores/apiStore"
+import { useAppStore } from "@/stores/appStore"
 import { game } from "@game/index"
 import { ActionIcon, Button, Card, Flex, Image, Progress, Text } from "@mantine/core"
 import { IconSearch } from "@tabler/icons-react"
@@ -33,7 +34,7 @@ function Campaign() {
   }
 
   const onBattle = () => {
-
+    useAppStore.setState(s => { s.modals.lineup.opened = true });
   }
 
   const onFarm = () => {

@@ -42,12 +42,12 @@ const initialState: ApiStoreState = {
       "angel-4-3": { id: "angel", level: 1, stars: 4, time: 3 },
       "angel-5-4": { id: "angel", level: 1, stars: 5, time: 4 },
     },
+    lineup: [undefined, undefined, undefined, undefined, undefined, undefined],
     campaign: {
       id: "tree_of_life",
       stage: 0,
       tier: "F",
       lastFarmDate: Date.now(),
-      lineup: [undefined, undefined, undefined, undefined, undefined, undefined],
     },
     map: {
       tower: { stage: 0 },

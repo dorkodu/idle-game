@@ -1,7 +1,9 @@
 // Player
 export { changePlayerContents } from "./change_player_contents";
+export { changeLineup } from "./change_lineup";
 
 // Campaign
+export { campaignBattle } from "./campaign_battle";
 export { collectCampaignFarm } from "./collect_campaign_farm";
 
 // Item

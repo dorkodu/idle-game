@@ -1,0 +1,25 @@
+@keyframes hit {
+  0% {
+    top: 0px;
+  }
+
+  50% {
+    top: -10px;
+  }
+
+  100% {
+    top: 0px;
+  }
+}
+
+@keyframes getHit {
+  0% {
+    opacity: 1;
+    top: 0px;
+  }
+
+  100% {
+    opacity: 0;
+    top: -32px;
+  }
+}

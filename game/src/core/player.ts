@@ -2,7 +2,7 @@ import { game } from "..";
 import { CampaignId } from "../data/campaigns";
 import { Farm } from "../types/farm";
 import { ItemTypeEquipment } from "../types/item_type";
-import { Lineup } from "../types/lineup";
+import { BattleLineup, Lineup, MonsterLineup } from "../types/lineup";
 import { Tier } from "../types/tier";
 import { IItem } from "./item";
 import { IMonster } from "./monster";
@@ -17,13 +17,13 @@ export interface IPlayer {
   items: Record<string, IItem>;
   monsters: Record<string, IMonster>;
 
+  lineup: Lineup;
+
   campaign: {
     id: CampaignId,
     stage: number,
     tier: Tier,
     lastFarmDate: number,
-
-    lineup: Lineup,
   };
 
   map: {
@@ -45,6 +45,14 @@ export function getItemsByType(player: IPlayer, type: ItemTypeEquipment): IItem[
 export function getMonsterById(player: IPlayer | undefined, id: string | undefined): IMonster | undefined {
   if (player === undefined || id === undefined) return undefined;
   return player.monsters[id];
+}
+
+export function getMonsterLineup(player: IPlayer | undefined): MonsterLineup {
+  return player?.lineup.map(m => getMonsterById(player, m)) as MonsterLineup;
+}
+
+export function getBattleLineup(player: IPlayer | undefined): BattleLineup {
+  return game.lineup?.createBattleLineup(getMonsterLineup(player), "ally");
 }
 
 export function getCampaignFarm(player: IPlayer): Farm {

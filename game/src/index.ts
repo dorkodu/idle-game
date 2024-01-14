@@ -17,10 +17,12 @@ export { campaigns } from "./data/campaigns";
 
 // Lib
 export { maths } from "./lib/maths";
+export { random } from "./lib/random";
 export { constants } from "./lib/constants";
 export { battle } from "./lib/battle";
 
 // Types
 export { tier } from "./types/tier";
+export { lineup } from "./types/lineup";
 
 export * as game from ".";

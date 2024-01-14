@@ -1,3 +1,4 @@
+import { IBattle } from "@game/core/battle";
 import { Content } from "@game/types/content";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -11,6 +12,21 @@ export interface AppStoreState {
   modals: {
     updateSW: { opened: boolean },
 
+    lineup: {
+      opened: boolean;
+    }
+
+    monsterDetails: {
+      opened: boolean,
+      monsterId: string | undefined,
+    },
+
+    battle: {
+      opened: boolean;
+      speed: number;
+      battle: IBattle | undefined;
+    },
+
     contentList: {
       opened: boolean,
       contents: Content[],
@@ -21,11 +37,6 @@ export interface AppStoreState {
       onRemove?: () => void,
 
       notice?: string,
-    },
-
-    monsterDetails: {
-      opened: boolean,
-      monsterId: string | undefined,
     },
   }
 }
@@ -40,8 +51,10 @@ const initialState: AppStoreState = {
   segments: {},
   modals: {
     updateSW: { opened: false },
-    contentList: { opened: false, contents: [] },
+    lineup: { opened: false },
     monsterDetails: { opened: false, monsterId: undefined },
+    battle: { opened: false, speed: 1, battle: undefined },
+    contentList: { opened: false, contents: [] },
   },
 }
 

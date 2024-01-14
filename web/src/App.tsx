@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import UpdateSWModal from "./components/modals/UpdateSWModal";
 import MonsterDetailsModal from "./components/modals/MonsterDetailsModal";
 import ContentListModal from "./components/modals/ContentListModal";
+import LineupModal from "./components/modals/LineupModal";
+import BattleModal from "./components/modals/BattleModal";
 
 function App() {
   const location = useLocation();
@@ -30,7 +32,9 @@ function App() {
         {/* Modals */}
         <UpdateSWModal />
         <MonsterDetailsModal />
+        <LineupModal />
         <ContentListModal />
+        <BattleModal />
       </MantineProvider>
 
       <ScrollRestoration />
