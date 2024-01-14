@@ -1,24 +1,6 @@
-import { IItem } from "@game/core/item";
-import { IMonster } from "@game/core/monster";
 import { IPlayer } from "@game/core/player";
-import { ItemId } from "@game/data/items";
-import { MonsterId } from "@game/data/monsters";
-import { game } from "@game/index";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-
-const items: Record<string, IItem> = {};
-const monsters: Record<string, IMonster> = {};
-
-Object.keys(game.items).forEach((id, i) => {
-  const item: IItem = { id: id as ItemId, count: 1, tier: game.tier.indexToTier(i % 7) ?? "F", stars: 1 };
-  items[game.item.id(item)] = item;
-});
-
-Object.keys(game.monsters).forEach((id) => {
-  const monster: IMonster = { id: id as MonsterId, level: 1, stars: 1, time: Date.now() };
-  monsters[game.monster.id(monster)] = monster;
-});
 
 export interface ApiStoreState {
   player: IPlayer | undefined;
@@ -34,13 +16,9 @@ const initialState: ApiStoreState = {
     username: "Username",
     level: 1,
     xp: 0,
-    items: items,
+    items: {},
     monsters: {
-      ...monsters,
-      "angel-2-1": { id: "angel", level: 1, stars: 2, time: 1 },
-      "angel-3-2": { id: "angel", level: 1, stars: 3, time: 2 },
-      "angel-4-3": { id: "angel", level: 1, stars: 4, time: 3 },
-      "angel-5-4": { id: "angel", level: 1, stars: 5, time: 4 },
+      "angel-1-1": { id: "angel", level: 1, stars: 1, time: 1 },
     },
     lineup: [undefined, undefined, undefined, undefined, undefined, undefined],
     campaign: {
