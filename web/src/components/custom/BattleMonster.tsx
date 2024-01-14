@@ -21,7 +21,7 @@ function BattleMonster({ monster }: Props) {
   const [blur, setBlur] = useState(false);
 
   return (
-    <Flex direction="column" justify="center" w={64} pos="relative">
+    <Flex direction="column" justify="center" w={64} h={100} pos="relative">
 
       <Flex direction="column" gap={1} mb="xs">
         <Progress value={util.clampNumber(healthValue, 0, 100)} size="sm" radius="xs"
