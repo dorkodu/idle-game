@@ -42,6 +42,11 @@ export function getItemsByType(player: IPlayer, type: ItemTypeEquipment): IItem[
   return items;
 }
 
+export function getBestItem(player: IPlayer, type: ItemTypeEquipment): IItem | undefined {
+  const items = getItemsByType(player, type).map(item => ({ data: item, power: game.item.getPower(item) }));
+  return items.sort((a, b) => b.power - a.power)[0]?.data;
+}
+
 export function getMonsterById(player: IPlayer | undefined, id: string | undefined): IMonster | undefined {
   if (player === undefined || id === undefined) return undefined;
   return player.monsters[id];

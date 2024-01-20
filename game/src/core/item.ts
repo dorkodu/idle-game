@@ -1,6 +1,6 @@
 import { game } from "..";
 import { ItemId } from "../data/items";
-import { ItemTypeEquipment, ItemTypeOther } from "../types/item_type";
+import { ItemType, ItemTypeEquipment, ItemTypeOther } from "../types/item_type";
 import { Tier } from "../types/tier";
 import { IStats } from "./stats";
 
@@ -11,10 +11,26 @@ export interface IItem {
   stars: number;
 }
 
-export type IItemData = { type: ItemTypeEquipment; stats: IStats; } | { type: ItemTypeOther; }
+export type IItemData = {
+  type: ItemTypeEquipment;
+  index: number;
+  stats: IStats;
+} |
+{
+  type: ItemTypeOther;
+  index: number;
+}
 
 export function id(item: IItem) {
   return `${item.id}-${item.tier}-${item.stars}`;
+}
+
+export function itemToIndex(item: IItem): number {
+  return game.items[item.id].index;
+}
+
+export function indexToItem(index: number, type: ItemType): ItemId | undefined {
+  return Object.entries(game.itemData[type]).filter(([_, data]) => index === data.index)[0]?.[0] as ItemId | undefined;
 }
 
 export function getStats(item: IItem): IStats | undefined {
@@ -61,6 +77,21 @@ export function getStats(item: IItem): IStats | undefined {
       percentBonus: Math.floor(speed.percentBonus * multiplier),
     },
   }
+}
+
+export function getPower(item: IItem) {
+  if (!item) return 0;
+
+  let power = 0;
+
+  const stats = getStats(item);
+  if (!stats) return 0;
+
+  power += game.stats.value(stats.health);
+  power += game.stats.value(stats.damage);
+  power += game.stats.value(stats.speed);
+
+  return power;
 }
 
 export * as item from "./item";

@@ -268,7 +268,30 @@ function Items({ monster }: Props) {
   }
 
   const autoEquip = () => {
+    const monsterId = game.monster.id(monster);
 
+    useApiStore.setState(s => {
+      if (!s.player) return;
+
+      // Un-equip all the items first, then find the best items to equip
+      game.actions.unequipItem.act(s.player, { monster: monsterId, type: "weapon" });
+      game.actions.unequipItem.act(s.player, { monster: monsterId, type: "armor" });
+      game.actions.unequipItem.act(s.player, { monster: monsterId, type: "amulet" });
+      game.actions.unequipItem.act(s.player, { monster: monsterId, type: "rune" });
+      game.actions.unequipItem.act(s.player, { monster: monsterId, type: "ring" });
+
+      let weapon = game.player.getBestItem(s.player, "weapon");
+      let armor = game.player.getBestItem(s.player, "armor");
+      let amulet = game.player.getBestItem(s.player, "amulet");
+      let rune = game.player.getBestItem(s.player, "rune");
+      let ring = game.player.getBestItem(s.player, "ring");
+
+      if (weapon) game.actions.equipItem.act(s.player, { monster: monsterId, item: game.item.id(weapon) });
+      if (armor) game.actions.equipItem.act(s.player, { monster: monsterId, item: game.item.id(armor) });
+      if (amulet) game.actions.equipItem.act(s.player, { monster: monsterId, item: game.item.id(amulet) });
+      if (rune) game.actions.equipItem.act(s.player, { monster: monsterId, item: game.item.id(rune) });
+      if (ring) game.actions.equipItem.act(s.player, { monster: monsterId, item: game.item.id(ring) });
+    });
   }
 
   const unequipAll = () => {
@@ -276,11 +299,12 @@ function Items({ monster }: Props) {
 
     useApiStore.setState(s => {
       if (!s.player) return;
-      game.actions.unequipItem.act(s.player, { type: "weapon", monster: monsterId });
-      game.actions.unequipItem.act(s.player, { type: "armor", monster: monsterId });
-      game.actions.unequipItem.act(s.player, { type: "amulet", monster: monsterId });
-      game.actions.unequipItem.act(s.player, { type: "rune", monster: monsterId });
-      game.actions.unequipItem.act(s.player, { type: "ring", monster: monsterId });
+
+      game.actions.unequipItem.act(s.player, { monster: monsterId, type: "weapon" });
+      game.actions.unequipItem.act(s.player, { monster: monsterId, type: "armor" });
+      game.actions.unequipItem.act(s.player, { monster: monsterId, type: "amulet" });
+      game.actions.unequipItem.act(s.player, { monster: monsterId, type: "rune" });
+      game.actions.unequipItem.act(s.player, { monster: monsterId, type: "ring" });
     });
   }
 
