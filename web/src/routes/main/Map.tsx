@@ -40,7 +40,7 @@ interface ModalProps {
 function TowerModal({ opened, onClose }: ModalProps) {
   return (
     <FullscreenModal opened={opened} onClose={onClose}>
-      TowerModal
+      Tower
     </FullscreenModal>
   )
 }
@@ -48,7 +48,7 @@ function TowerModal({ opened, onClose }: ModalProps) {
 function ArenaModal({ opened, onClose }: ModalProps) {
   return (
     <FullscreenModal opened={opened} onClose={onClose}>
-      ArenaModal
+      Arena
     </FullscreenModal>
   )
 }
@@ -56,7 +56,7 @@ function ArenaModal({ opened, onClose }: ModalProps) {
 function BlacksmithModal({ opened, onClose }: ModalProps) {
   return (
     <FullscreenModal opened={opened} onClose={onClose}>
-      BlacksmithModal
+      Blacksmith
     </FullscreenModal>
   )
 }
@@ -64,7 +64,7 @@ function BlacksmithModal({ opened, onClose }: ModalProps) {
 function AltarModal({ opened, onClose }: ModalProps) {
   return (
     <FullscreenModal opened={opened} onClose={onClose}>
-      AltarModal
+      Altar
     </FullscreenModal>
   )
 }

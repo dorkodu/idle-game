@@ -32,7 +32,10 @@ export interface IPlayer {
 
   events: {
     achievements: {},
-    dailyQuests: {},
+    dailyQuests: {
+      done: number,
+      todo: number,
+    },
   };
 }
 

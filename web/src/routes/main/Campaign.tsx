@@ -73,12 +73,13 @@ function Campaign() {
         style={{ imageRendering: "pixelated", width: "auto", height: 200, flex: "unset" }}
       />
 
-      <Flex direction="column" justify="center" pos="relative" w="100%" maw={100}>
-        <Progress value={(campaignProgress / campaignLength) * 100} size="lg" />
-        <Text size="sm" pos="absolute" style={{ transform: "translate(-50%,0)", left: "50%" }}>
-          {`${campaignProgress} / ${campaignLength}`}
-        </Text>
-      </Flex>
+      <Progress.Root size="xl" w="100%" maw={100}>
+        <Progress.Section value={(campaignProgress / campaignLength) * 100}>
+          <Progress.Label pos="absolute" style={{ transform: "translate(-50%,0)", left: "50%" }}>
+            {`${campaignProgress} / ${campaignLength}`}
+          </Progress.Label>
+        </Progress.Section>
+      </Progress.Root>
 
       <Button size="md" onClick={onBattle}>Battle</Button>
 

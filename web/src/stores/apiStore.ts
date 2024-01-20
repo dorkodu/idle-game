@@ -40,7 +40,10 @@ const initialState: ApiStoreState = {
     },
     events: {
       achievements: {},
-      dailyQuests: {},
+      dailyQuests: {
+        done: 0,
+        todo: 10,
+      },
     },
   },
 }
