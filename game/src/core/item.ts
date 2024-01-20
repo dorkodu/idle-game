@@ -25,8 +25,8 @@ export function id(item: IItem) {
   return `${item.id}-${item.tier}-${item.stars}`;
 }
 
-export function itemToIndex(item: IItem): number {
-  return game.items[item.id].index;
+export function itemToIndex(itemId: ItemId): number {
+  return game.items[itemId].index;
 }
 
 export function indexToItem(index: number, type: ItemType): ItemId | undefined {

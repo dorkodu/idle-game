@@ -32,6 +32,8 @@ export interface IMonster {
 }
 
 export interface IMonsterData {
+  index: number;
+
   health: number;
   damage: number;
   speed: number;
@@ -52,6 +54,14 @@ export interface IMonsterData {
 
 export function id(monster: IMonster) {
   return `${monster.id}-${monster.stars}-${monster.time}`;
+}
+
+export function monsterToIndex(monsterId: MonsterId) {
+  return game.monsters[monsterId].index;
+}
+
+export function indexToMonster(index: number) {
+  return Object.entries(game.monsters).filter(([_, data]) => index === data.index)[0]?.[0] as MonsterId | undefined;
 }
 
 export function createBattleMonster(monster: IMonster | undefined, team: Team): IBattleMonster | undefined {
