@@ -35,6 +35,8 @@ function LineupModal() {
   }
 
   const onBattle = () => {
+    let shouldClose = false;
+
     useAppStore.setState(s => {
       const player = useApiStore.getState().player;
       let actable = false;
@@ -43,7 +45,10 @@ function LineupModal() {
         if (!s.player) return;
 
         actable = game.actions.campaignBattle.actable(s.player, {});
-        if (actable) game.actions.campaignBattle.act(s.player, {});
+        if (actable) {
+          game.actions.campaignBattle.act(s.player, {});
+          shouldClose = true;
+        }
       });
 
       if (!player || !actable) return;
@@ -55,7 +60,7 @@ function LineupModal() {
       }
     });
 
-    close();
+    if (shouldClose) close();
   }
 
   const changeLineup = (monster: string | undefined, index: number) => {
