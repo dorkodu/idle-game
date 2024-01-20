@@ -25,4 +25,12 @@ export function percent(stat: IPercentStat | undefined): number {
   return (stat.basePercent + stat.percentBonus);
 }
 
+export function addValue(stat1: IValueStat, stat2: IValueStat): IValueStat {
+  return {
+    baseValue: stat1.baseValue + stat2.baseValue,
+    valueBonus: stat1.valueBonus + stat2.valueBonus,
+    percentBonus: stat1.percentBonus + stat2.percentBonus,
+  }
+}
+
 export * as stats from "./stats";

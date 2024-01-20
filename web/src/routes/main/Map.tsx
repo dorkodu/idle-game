@@ -1,10 +1,7 @@
-import { assets } from "@/assets/assets";
 import RouteButton from "@/components/buttons/RouteButton"
-import Content from "@/components/custom/Content";
 import FullscreenModal from "@/components/custom/FullscreenModal"
-import { Button, Card, Flex, ScrollArea, SegmentedControl } from "@mantine/core"
+import { Flex, ScrollArea } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
-import { IconArrowBigDownFilled } from "@tabler/icons-react";
 
 function Map() {
   const [towerOpened, { open: openTower, close: closeTower }] = useDisclosure();
@@ -67,34 +64,7 @@ function BlacksmithModal({ opened, onClose }: ModalProps) {
 function AltarModal({ opened, onClose }: ModalProps) {
   return (
     <FullscreenModal opened={opened} onClose={onClose}>
-      <Flex direction="column" align="center" justify="center" h="100%">
-        <Card withBorder radius="md" w="100%" maw={360} h={360}>
-          <Flex direction="column" gap="md" h="100%">
-
-            <SegmentedControl
-              data={[
-                { value: "evolve", label: "Evolve" },
-                { value: "sacrifice", label: "Sacrifice" },
-              ]}
-            />
-
-            <Flex direction="column" align="center" justify="center" gap="md" style={{ flex: 1 }}>
-              <Flex gap="xs">
-                <Content placeholder={assets.monster("angel")} />
-                <Content placeholder={assets.monster("angel")} />
-                <Content placeholder={assets.monster("angel")} />
-              </Flex>
-
-              <IconArrowBigDownFilled />
-
-              <Content placeholder={assets.monster("angel")} />
-            </Flex>
-
-            <Button>Evolve</Button>
-
-          </Flex>
-        </Card>
-      </Flex>
+      AltarModal
     </FullscreenModal>
   )
 }

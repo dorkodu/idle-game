@@ -100,10 +100,10 @@ function MonsterDetailsModal() {
             <Card withBorder h={360} radius="md" style={{ overflow: "visible" }}>
 
               <Flex gap="xs" pos="absolute" mt={-36} style={{ left: "50%", transform: "translate(-50%,0)" }}>
-                <ActionIcon variant="default" radius="xl" size={40} onClick={() => setTab("stats")}>
+                <ActionIcon variant={tab !== "stats" ? "default" : undefined} radius="xl" size={40} onClick={() => setTab("stats")}>
                   <Emoji emoji="📊" size={20} />
                 </ActionIcon>
-                <ActionIcon variant="default" radius="xl" size={40} onClick={() => setTab("items")}>
+                <ActionIcon variant={tab !== "items" ? "default" : undefined} radius="xl" size={40} onClick={() => setTab("items")}>
                   <Emoji emoji="⚔" size={20} />
                 </ActionIcon>
               </Flex>

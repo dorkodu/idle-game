@@ -76,9 +76,7 @@ export function getCampaignFarm(player: IPlayer): Farm {
   }
 }
 
-export function handleXp(player: IPlayer): { level: number, xp: number } {
-  let level = player.level;
-  let xp = player.xp;
+export function handleXp(level: number, xp: number): { level: number, xp: number } {
   let requiredXp = levelToXp(level);
 
   // Continue if more/equal xp to required xp and not max level

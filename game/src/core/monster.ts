@@ -4,7 +4,7 @@ import { Team } from "../types/team";
 import { BattleHitData, IBattle, IBattleMonster } from "./battle";
 import { IItem } from "./item";
 import { ISkill } from "./skill";
-import { IStats } from "./stats";
+import { IStats, IValueStat } from "./stats";
 
 export interface IMonster {
   time: number;
@@ -83,7 +83,6 @@ export function getPower(monster: IMonster) {
 }
 
 export function getStats(monster: IMonster): IStats {
-  // TODO: Use items' stats for stats calculation
   const data = game.monsters[monster.id];
 
   /**
@@ -96,15 +95,23 @@ export function getStats(monster: IMonster): IStats {
   const starMultiplier = (1 - 0.1) + (monster.stars / 10);
   const levelMultiplier = game.maths.curve(monster.level);
 
-  const health = data.health * starMultiplier * levelMultiplier;
-  const damage = data.damage * starMultiplier * levelMultiplier;
-  const speed = data.speed * starMultiplier;
+  let health: IValueStat = { baseValue: Math.floor(data.health * starMultiplier * levelMultiplier), valueBonus: 0, percentBonus: 0 };
+  let damage: IValueStat = { baseValue: Math.floor(data.damage * starMultiplier * levelMultiplier), valueBonus: 0, percentBonus: 0 };
+  let speed: IValueStat = { baseValue: Math.floor(data.speed * starMultiplier), valueBonus: 0, percentBonus: 0 };
 
-  return {
-    health: { baseValue: Math.floor(health), valueBonus: 0, percentBonus: 0 },
-    damage: { baseValue: Math.floor(damage), valueBonus: 0, percentBonus: 0 },
-    speed: { baseValue: Math.floor(speed), valueBonus: 0, percentBonus: 0 },
-  }
+  // Add monster's items' stats
+  Object
+    .values(monster.items ?? {})
+    .map(item => game.item.getStats(item))
+    .forEach(stats => {
+      if (!stats) return;
+
+      health = game.stats.addValue(health, stats.health);
+      damage = game.stats.addValue(damage, stats.damage);
+      speed = game.stats.addValue(speed, stats.speed);
+    })
+
+  return { health, damage, speed };
 }
 
 export function getLevelUpCost(monster: IMonster): { gold: number, food: number } {

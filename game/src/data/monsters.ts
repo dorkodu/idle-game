@@ -52,6 +52,11 @@ function createMonsterData(health: number, damage: number, speed: number): IMons
   }
 }
 
+// Monster data is generated as:
+// Health 300-1000
+// Damage 50-200
+// Speed 10-100
+
 export type MonsterId = keyof typeof monsters
 export const monsters = {
   angel: createMonsterData(336, 50, 10),

@@ -19,6 +19,13 @@ export function act(player: IPlayer, props: Props) {
 
   props.toAdd?.forEach(c => {
     if (c.item) {
+      if (c.item.id === "ot_xp") {
+        const { level, xp } = game.player.handleXp(player.level, player.xp + c.item.count);
+        player.level = level;
+        player.xp = xp;
+        return;
+      }
+
       const itemId = game.item.id(c.item);
       if (player.items[itemId]) player.items[itemId]!.count += c.item.count;
       else player.items[itemId] = c.item;
@@ -32,6 +39,8 @@ export function act(player: IPlayer, props: Props) {
 
   props.toRemove?.forEach(c => {
     if (c.item) {
+      if (c.item.id === "ot_xp") throw "Can not remove xp from the player!";
+
       const itemId = game.item.id(c.item);
       if (player.items[itemId]) {
         player.items[itemId]!.count -= c.item.count;

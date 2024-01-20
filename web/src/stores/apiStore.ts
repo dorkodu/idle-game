@@ -16,7 +16,9 @@ const initialState: ApiStoreState = {
     username: "Username",
     level: 1,
     xp: 0,
-    items: {},
+    items: {
+      "we_ancient_sword-F-1": { id: "we_ancient_sword", tier: "F", stars: 1, count: 1 },
+    },
     monsters: {
       "angel-1-1": { id: "angel", level: 1, stars: 1, time: 1 },
     },

@@ -27,8 +27,7 @@ export function act(player: IPlayer, _props: Props) {
   ];
 
   // Handle xp & level
-  player.xp += farm.xp;
-  const { level, xp } = game.player.handleXp(player);
+  const { level, xp } = game.player.handleXp(player.level, player.xp + farm.xp);
   const levelChangeCount = level - player.level;
   player.level = level;
   player.xp = xp;
