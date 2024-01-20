@@ -6,7 +6,9 @@ import { Farm } from "../types/farm";
 import { MonsterLineup } from "../types/lineup";
 import { Tier } from "../types/tier";
 import { IBattle } from "./battle";
-import { IPlayer } from "./player";
+import { IItem } from "./item";
+import { IMonster } from "./monster";
+import { IPlayer, levelToXp } from "./player";
 
 export interface ICampaign {
   id: CampaignId;
@@ -65,7 +67,38 @@ export function getCampaignLineup(tier: Tier, campaign: CampaignId, stage: numbe
 }
 
 export function getCampaignRewards(tier: Tier, campaign: CampaignId, stage: number): Content[] {
-  return [];
+  const rewards: Content[] = [];
+
+  // Add 1 to completed stages because stages start from 0, and 0 * x is 0
+  const completedStages = getCompletedStages(tier, campaign, stage) + 1;
+
+  const xp = Math.floor(levelToXp(completedStages) * 0.1);
+  rewards.push({ item: game.constants.createXp(xp) });
+
+  // Every 10th stage, give player a monster
+  if (completedStages % 10 === 0) {
+    const monster: IMonster = { id: "angel", stars: 1, level: 1, time: Date.now() }
+    rewards.push({ monster });
+  }
+  // Every 5th stage, give player an item
+  else if (completedStages % 5 === 0) {
+    // Index will be either 0, 1, 2, 3, or 4. Each representing a different equipment.
+    const index = ((completedStages / 5) - 1) % 5;
+    let item: IItem | undefined = undefined;
+
+    switch (index) {
+      case 0: item = { id: "we_ancient_sword", tier, stars: 1, count: 1 }; break;
+      case 1: item = { id: "ar_animal_skin_1", tier, stars: 1, count: 1 }; break;
+      case 2: item = { id: "am_bone_gray", tier, stars: 1, count: 1 }; break;
+      case 3: item = { id: "ru_generic", tier, stars: 1, count: 1 }; break;
+      case 4: item = { id: "ri_agate", tier, stars: 1, count: 1 }; break;
+      default: break;
+    }
+
+    if (item) rewards.push({ item });
+  }
+
+  return rewards;
 }
 
 export function getCampaignFarm(tier: Tier, campaign: CampaignId, stage: number): Farm {
