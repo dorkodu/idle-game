@@ -21,9 +21,16 @@ const initialState: ApiStoreState = {
       "ar_animal_skin_1-F-1": { id: "ar_animal_skin_1", tier: "F", stars: 1, count: 1 },
       "am_bone_gray-F-1": { id: "am_bone_gray", tier: "F", stars: 1, count: 1 },
       "ru_generic-F-1": { id: "ru_generic", tier: "F", stars: 1, count: 1 },
-      "ri_agate-F-1": { id: "ri_agate", tier: "F", stars: 1, count: 1 },
+      //"ri_agate-F-1": { id: "ri_agate", tier: "F", stars: 1, count: 1 },
+
       "ri_agate-S-1": { id: "ri_agate", tier: "S", stars: 1, count: 1 },
+      "ri_agate-A-1": { id: "ri_agate", tier: "A", stars: 1, count: 1 },
+      "ri_agate-B-1": { id: "ri_agate", tier: "B", stars: 1, count: 1 },
+      "ri_agate-C-1": { id: "ri_agate", tier: "C", stars: 1, count: 1 },
       "ri_agate-D-1": { id: "ri_agate", tier: "D", stars: 1, count: 1 },
+      "ri_agate-E-1": { id: "ri_agate", tier: "E", stars: 1, count: 1 },
+      "ri_agate-F-1": { id: "ri_agate", tier: "F", stars: 1, count: 1 },
+
       "ot_monster_scroll-F-0": { id: "ot_monster_scroll", tier: "F", stars: 0, count: 1 },
     },
     monsters: {

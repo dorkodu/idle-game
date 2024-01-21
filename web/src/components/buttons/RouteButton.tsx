@@ -7,12 +7,12 @@ interface Props {
   title: string;
   onClick: () => void;
 }
-
+console.log(import.meta.env.BASE_URL)
 function RouteButton({ children, emoji, title, onClick }: PropsWithChildren<Props>) {
   return (
     <Button
       p="md" h="auto" variant="default"
-      styles={{ root: { backgroundImage: "url(/ssspot.svg)" }, label: { flex: 1 } }}
+      styles={{ root: { backgroundImage: `url(${import.meta.env.BASE_URL}ssspot.svg)` }, label: { flex: 1 } }}
       onClick={onClick}
     >
       <Flex gap="md" w="100%">

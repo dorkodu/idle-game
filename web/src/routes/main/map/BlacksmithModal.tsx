@@ -5,7 +5,7 @@ import ContentList from "@/components/custom/ContentList";
 import FullscreenModal from "@/components/custom/FullscreenModal";
 import { useApiStore } from "@/stores/apiStore";
 import { game } from "@game/index";
-import { Button, Card, Divider, Flex, Text, Title } from "@mantine/core";
+import { Button, Card, Divider, Flex, Title } from "@mantine/core";
 import { IconArrowBigRightFilled } from "@tabler/icons-react";
 
 interface ModalProps {

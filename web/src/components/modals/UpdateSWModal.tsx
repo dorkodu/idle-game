@@ -28,7 +28,7 @@ function UpdateSWModal() {
       size={360}
     >
       <Flex direction="column" gap="md" align="center">
-        <Image src="/favicon.svg" w={100} h={100} />
+        <Image src={`url(${import.meta.env.BASE_URL}favicon.svg)`} w={100} h={100} />
 
         <Title order={4}>
           Updating the App!

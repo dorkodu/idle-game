@@ -12,7 +12,7 @@ function Shop() {
 
         <Divider label={<Flex align="center"><Emoji emoji="✨" size={16} />&nbsp;Special Offer</Flex>} />
 
-        <Card withBorder styles={{ root: { backgroundImage: "url(/gggrain.svg)" } }}>
+        <Card withBorder styles={{ root: { backgroundImage: `url(${import.meta.env.BASE_URL}gggrain.svg)` } }}>
           <Flex direction="column" align="center" gap="xs">
             <ContentAsset size={100} emoji="🗞" />
             <Title order={3} c="white">Monster Package</Title>
