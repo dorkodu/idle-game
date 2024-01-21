@@ -1,4 +1,5 @@
 import Emoji from "@/components/Emoji";
+import ResourceButton from "@/components/buttons/ResourceButton";
 import Content from "@/components/custom/Content";
 import FullscreenModal from "@/components/custom/FullscreenModal";
 import { useApiStore } from "@/stores/apiStore";
@@ -14,6 +15,8 @@ interface ModalProps {
 
 function TowerModal({ opened, onClose }: ModalProps) {
   const player = useApiStore(state => state.player);
+
+  const gold = player?.items[game.constants.goldId]?.count ?? 0;
 
   const stage = player?.map.tower.stage ?? 0;
   const enemies = Object.values(game.player.getTowerLineup(stage)).filter(Boolean) as IMonster[];
@@ -32,7 +35,10 @@ function TowerModal({ opened, onClose }: ModalProps) {
   }
 
   return (
-    <FullscreenModal opened={opened} onClose={onClose}>
+    <FullscreenModal
+      opened={opened} onClose={onClose}
+      header={<ResourceButton emoji="🪙" count={gold} />}
+    >
       <Flex direction="column" align="center" justify="center" gap="md" h="100%">
 
         <Card withBorder radius="md" w="100%" maw={360}>

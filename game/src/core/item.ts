@@ -8,6 +8,12 @@ export interface IItem {
   id: ItemId;
   count: number;
   tier: Tier;
+
+  /**
+   * Stars are upgradeable.
+   * Upgrade cost is significantly increased for the next type of star.
+   * - Yellow stars: 1 to 5
+   */
   stars: number;
 }
 
