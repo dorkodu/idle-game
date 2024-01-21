@@ -1,7 +1,7 @@
 import { game } from "..";
 import { MonsterId } from "../data/monsters";
 import { Team } from "../types/team";
-import { BattleHitData, IBattle, IBattleMonster } from "./battle";
+import { BattleAnimation, BattleHitData, IBattle } from "./battle";
 import { IItem } from "./item";
 import { ISkill } from "./skill";
 import { IStats, IValueStat } from "./stats";
@@ -49,6 +49,19 @@ export interface IMonsterData {
   onSkillGetHit: (battle: IBattle, monster: IBattleMonster) => void;
   onKill: (battle: IBattle, monster: IBattleMonster) => void;
   onDie: (battle: IBattle, monster: IBattleMonster) => void;
+}
+
+export interface IBattleMonster {
+  id: MonsterId;
+  level: number;
+
+  team: Team;
+
+  health: number;
+  energy: number;
+  stats: IStats;
+
+  animation?: BattleAnimation;
 }
 
 export function id(monster: IMonster) {

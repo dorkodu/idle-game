@@ -1,7 +1,7 @@
 import { game } from "..";
+import { BattleResult } from "../core/battle";
 import { IPlayer } from "../core/player";
 import { BattleId } from "../data/battles";
-import { BattleResult } from "../lib/battle";
 
 type Props = {
   battleId: BattleId;

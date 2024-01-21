@@ -1,5 +1,4 @@
-import { IBattleMonster } from "../core/battle"
-import { IMonster } from "../core/monster"
+import { IBattleMonster, IMonster } from "../core/monster"
 import { Team } from "./team"
 import { game } from "../index";
 
