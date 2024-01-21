@@ -1,13 +1,13 @@
+import { BattleId } from "../data/battles";
 import { MonsterId } from "../data/monsters";
 import { Content } from "../types/content";
-import { BattleLineup } from "../types/lineup";
+import { BattleLineup, MonsterLineup } from "../types/lineup";
 import { Team } from "../types/team";
+import { IPlayer } from "./player";
 import { IStats } from "./stats";
 
-export type BattleType = "campaign" | "tower";
-
 export interface IBattle {
-  type: BattleType;
+  id: BattleId;
 
   ally: BattleLineup;
   enemy: BattleLineup;
@@ -15,6 +15,16 @@ export interface IBattle {
   rewards: Content[];
 
   animation: number;
+}
+
+export interface IBattleData {
+  getLineup: (player: IPlayer) => MonsterLineup;
+  getRewards: (player: IPlayer) => Content[];
+
+  canCreate: (player: IPlayer) => boolean;
+  onCreate: (player: IPlayer) => IBattle;
+
+  onWin: (player: IPlayer, battle: IBattle) => void;
 }
 
 export interface IBattleMonster {

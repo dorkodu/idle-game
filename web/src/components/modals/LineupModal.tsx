@@ -36,44 +36,21 @@ function LineupModal() {
   }
 
   const onBattle = () => {
-    if (!lineup.battleType) return;
+    let actable = false;
+    let battle: IBattle | undefined = undefined;
 
-    let shouldClose = false;
+    useApiStore.setState(s => {
+      if (!s.player) return;
+      if (!lineup.battleId) return;
+
+      actable = game.actions.performBattle.actable(s.player, { battleId: lineup.battleId });
+      if (actable) {
+        game.actions.performBattle.act(s.player, { battleId: lineup.battleId });
+        battle = game.battles[lineup.battleId].onCreate(s.player);
+      }
+    });
 
     useAppStore.setState(s => {
-      const player = useApiStore.getState().player;
-
-      let actable = false;
-      let battle: IBattle | undefined = undefined;
-
-      useApiStore.setState(s => {
-        if (!s.player) return;
-
-        switch (lineup.battleType) {
-          case "campaign":
-            actable = game.actions.campaignBattle.actable(s.player, {});
-            if (actable) {
-              game.actions.campaignBattle.act(s.player, {});
-              shouldClose = true;
-
-              battle = game.campaign.createBattle(s.player);
-            }
-            break;
-          case "tower":
-            actable = game.actions.towerBattle.actable(s.player, {});
-            if (actable) {
-              game.actions.towerBattle.act(s.player, {});
-              shouldClose = true;
-
-              battle = game.player.createTowerBattle(s.player);
-            }
-            break;
-          default: break;
-        }
-      });
-
-      if (!player || !actable) return;
-
       s.modals.battle = {
         opened: true,
         speed: s.modals.battle.speed,
@@ -81,7 +58,7 @@ function LineupModal() {
       }
     });
 
-    if (shouldClose) close();
+    if (actable && battle) close();
   }
 
   const changeLineup = (monster: string | undefined, index: number) => {
@@ -100,7 +77,7 @@ function LineupModal() {
       <Flex direction="column">
         <Flex align="center" gap="xs">
           <Emoji emoji="⚡" />
-          <Title order={5}>{util.formatNumber(game.lineup.getPower(game.player.getMonsterLineup(player)))}</Title>
+          <Title order={5}>{util.formatNumber(game.lineup.getPower(game.player.getLineup(player)))}</Title>
         </Flex>
 
         <Flex direction="column" align="center">

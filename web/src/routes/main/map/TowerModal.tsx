@@ -19,18 +19,16 @@ function TowerModal({ opened, onClose }: ModalProps) {
   const gold = player?.items[game.constants.goldId]?.count ?? 0;
 
   const stage = player?.map.tower.stage ?? 0;
-  const enemies = Object.values(game.player.getTowerLineup(stage)).filter(Boolean) as IMonster[];
-  const rewards = game.player.getTowerRewards(stage);
+
+  const enemies = player ? Object.values(game.battles.tower.getLineup(player)).filter(Boolean) as IMonster[] : undefined
+  const rewards = player ? game.battles.tower.getRewards(player) : undefined;
 
   const onBattle = () => {
     const player = useApiStore.getState().player;
     if (!player) return;
 
     useAppStore.setState(s => {
-      s.modals.lineup = {
-        opened: true,
-        battleType: "tower",
-      }
+      s.modals.lineup = { opened: true, battleId: "tower" }
     });
   }
 
@@ -46,7 +44,7 @@ function TowerModal({ opened, onClose }: ModalProps) {
             <Divider label="Stage Enemies" />
             <ScrollArea>
               <Flex gap="xs">
-                {enemies.map((c, i) => <Content key={i} monster={c} />)}
+                {enemies?.map((c, i) => <Content key={i} monster={c} />)}
               </Flex>
             </ScrollArea>
           </Flex>
@@ -69,7 +67,7 @@ function TowerModal({ opened, onClose }: ModalProps) {
             <Divider label="Stage Rewards" />
             <ScrollArea>
               <Flex gap="xs">
-                {rewards.map(c =>
+                {rewards?.map(c =>
                   c.item ?
                     <Content key={game.item.id(c.item)} item={c.item} />
                     :

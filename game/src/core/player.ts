@@ -1,12 +1,9 @@
 import { game } from "..";
 import { CampaignId } from "../data/campaigns";
-import { MonsterId } from "../data/monsters";
-import { Content } from "../types/content";
 import { Farm } from "../types/farm";
 import { ItemTypeEquipment } from "../types/item_type";
-import { BattleLineup, Lineup, MonsterLineup } from "../types/lineup";
+import { Lineup, MonsterLineup } from "../types/lineup";
 import { Tier } from "../types/tier";
-import { IBattle } from "./battle";
 import { IItem } from "./item";
 import { IMonster } from "./monster";
 
@@ -58,12 +55,8 @@ export function getMonsterById(player: IPlayer | undefined, id: string | undefin
   return player.monsters[id];
 }
 
-export function getMonsterLineup(player: IPlayer | undefined): MonsterLineup {
+export function getLineup(player: IPlayer | undefined): MonsterLineup {
   return player?.lineup.map(m => getMonsterById(player, m)) as MonsterLineup;
-}
-
-export function getBattleLineup(player: IPlayer | undefined): BattleLineup {
-  return game.lineup?.createBattleLineup(getMonsterLineup(player), "ally");
 }
 
 export function getCampaignFarm(player: IPlayer): Farm {
@@ -102,78 +95,6 @@ export function handleXp(level: number, xp: number): { level: number, xp: number
 
 export function levelToXp(level: number): number {
   return Math.floor(game.constants.playerLevelToXpBase + level + game.maths.curve(level));
-}
-
-/// Tower stuff \\\
-export function createTowerBattle(player: IPlayer): IBattle {
-  const campaignLineup = getTowerLineup(player.map.tower.stage);
-  const campaignRewards = getTowerRewards(player.map.tower.stage);
-
-  return {
-    type: "tower",
-    ally: game.player.getBattleLineup(player),
-    enemy: game.lineup.createBattleLineup(campaignLineup, "enemy"),
-    turn: { count: 1, ally: [], enemy: [] },
-    rewards: campaignRewards,
-    animation: 0,
-  }
-}
-
-export function getTowerLineup(stage: number): MonsterLineup {
-  const monsterCount = 6;
-  const monsterLevel = stage + 1;
-  const monsterStars = 1;
-
-  const lineup = Array(monsterCount).fill(0).map((_, i) => {
-    const monsterId: MonsterId = game.random.percent(
-      { seed: stage * i },
-      Object.keys(game.monsters).map(result => ({ percent: 1, result: result as MonsterId }))
-    ) || "angel";
-
-    return {
-      id: monsterId,
-      level: monsterLevel,
-      stars: monsterStars,
-      time: i,
-    }
-  }) as MonsterLineup;
-
-  return lineup;
-}
-
-export function getTowerRewards(stage: number): Content[] {
-  // Add 1 to stage as stage starts from 0
-  stage += 1;
-
-  const rewards: Content[] = [];
-
-  const gold = Math.floor(stage * 1000);
-  rewards.push({ item: game.constants.createGold(gold) });
-
-  // Every 10th stage, give player a monster
-  if (stage % 10 === 0) {
-    const monster: IMonster = { id: "angel", stars: 1, level: 1, time: Date.now() }
-    rewards.push({ monster });
-  }
-  // Every 5th stage, give player an item
-  else if (stage % 5 === 0) {
-    // Index will be either 0, 1, 2, 3, or 4. Each representing a different equipment.
-    const index = ((stage / 5) - 1) % 5;
-    let item: IItem | undefined = undefined;
-
-    switch (index) {
-      case 0: item = { id: "we_ancient_sword", tier: "F", stars: 1, count: 1 }; break;
-      case 1: item = { id: "ar_animal_skin_1", tier: "F", stars: 1, count: 1 }; break;
-      case 2: item = { id: "am_bone_gray", tier: "F", stars: 1, count: 1 }; break;
-      case 3: item = { id: "ru_generic", tier: "F", stars: 1, count: 1 }; break;
-      case 4: item = { id: "ri_agate", tier: "F", stars: 1, count: 1 }; break;
-      default: break;
-    }
-
-    if (item) rewards.push({ item });
-  }
-
-  return rewards;
 }
 
 export * as player from "./player";

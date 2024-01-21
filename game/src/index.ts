@@ -14,6 +14,7 @@ export { stats } from "./core/stats";
 export { items, itemData } from "./data/items";
 export { monsters } from "./data/monsters";
 export { campaigns } from "./data/campaigns";
+export { battles } from "./data/battles";
 
 // Lib
 export { maths } from "./lib/maths";

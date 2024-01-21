@@ -38,10 +38,7 @@ function Campaign() {
     if (!player) return;
 
     useAppStore.setState(s => {
-      s.modals.lineup = {
-        opened: true,
-        battleType: "campaign",
-      }
+      s.modals.lineup = { opened: true, battleId: "campaign" }
     });
   }
 
