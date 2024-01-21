@@ -78,7 +78,7 @@ function ShopItem() {
       <Button fullWidth size="compact-sm" px={0} mt="xs">
         <Emoji emoji="🪙" />&nbsp;123K
       </Button>
-      <Text size="xs" mt="xs">Limit ∞</Text>
+      <Text size="xs" my="xs">Limit ∞</Text>
     </Flex>
   )
 }

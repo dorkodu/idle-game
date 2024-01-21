@@ -10,7 +10,11 @@ interface Props {
 
 function RouteButton({ children, emoji, title, onClick }: PropsWithChildren<Props>) {
   return (
-    <Button p="md" h="auto" variant="default" styles={{ label: { flex: 1 } }} onClick={onClick}>
+    <Button
+      p="md" h="auto" variant="default"
+      styles={{ root: { backgroundImage: "url(/ssspot.svg)" }, label: { flex: 1 } }}
+      onClick={onClick}
+    >
       <Flex gap="md" w="100%">
         <Emoji emoji={emoji} size={32} style={{ flexShrink: 0 }} />
         <Flex justify="center" direction="column" w="100%">
