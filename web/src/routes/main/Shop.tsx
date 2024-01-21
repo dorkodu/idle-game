@@ -69,7 +69,7 @@ function ShopItem({ shopItem }: { shopItem: IShopItem }) {
       <Content item={shopItem.item} />
 
       <Button fullWidth size="compact-sm" px={0} mt="xs">
-        {shopItem.price.money !== undefined && <>$&nbsp;{shopItem.price.money}</>}
+        {shopItem.price.money !== undefined && <>${shopItem.price.money}</>}
         {shopItem.price.gem !== undefined && <><Emoji emoji="💎" />&nbsp;{shopItem.price.gem}</>}
         {shopItem.price.gold !== undefined && <><Emoji emoji="🪙" />&nbsp;{shopItem.price.gold}</>}
       </Button>
