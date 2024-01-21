@@ -16,6 +16,11 @@ export interface AppStoreState {
       opened: boolean;
     }
 
+    itemDetails: {
+      opened: boolean,
+      itemId: string | undefined,
+    },
+
     monsterDetails: {
       opened: boolean,
       monsterId: string | undefined,
@@ -52,6 +57,7 @@ const initialState: AppStoreState = {
   modals: {
     updateSW: { opened: false },
     lineup: { opened: false },
+    itemDetails: { opened: false, itemId: undefined },
     monsterDetails: { opened: false, monsterId: undefined },
     battle: { opened: false, speed: 1, battle: undefined },
     contentList: { opened: false, contents: [] },

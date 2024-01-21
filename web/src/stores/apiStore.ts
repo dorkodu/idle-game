@@ -24,6 +24,7 @@ const initialState: ApiStoreState = {
       "ri_agate-F-1": { id: "ri_agate", tier: "F", stars: 1, count: 1 },
       "ri_agate-S-1": { id: "ri_agate", tier: "S", stars: 1, count: 1 },
       "ri_agate-D-1": { id: "ri_agate", tier: "D", stars: 1, count: 1 },
+      "ot_monster_scroll-F-0": { id: "ot_monster_scroll", tier: "F", stars: 0, count: 1 },
     },
     monsters: {
       "angel-1-1": { id: "angel", level: 1, stars: 1, time: 1 },

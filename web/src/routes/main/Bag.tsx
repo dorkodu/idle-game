@@ -2,6 +2,7 @@ import Content from "@/components/custom/Content";
 import ContentList from "@/components/custom/ContentList"
 import { useApiStore } from "@/stores/apiStore";
 import { useAppStore } from "@/stores/appStore";
+import { IItem } from "@game/core/item";
 import { IMonster } from "@game/core/monster";
 import { game } from "@game/index";
 import { Card, Flex, SegmentedControl } from "@mantine/core"
@@ -61,10 +62,16 @@ function Monsters() {
 function Items() {
   const items = useApiStore(s => s.player?.items);
 
+  const onClick = (i: IItem) => {
+    useAppStore.setState(s => {
+      s.modals.itemDetails = { opened: true, itemId: game.item.id(i) };
+    });
+  }
+
   return (
     <ContentList>
       {items && Object.values(items).map(i =>
-        <Content key={game.item.id(i)} item={i} />
+        <Content key={game.item.id(i)} item={i} onClick={() => onClick(i)} />
       )}
     </ContentList>
   )

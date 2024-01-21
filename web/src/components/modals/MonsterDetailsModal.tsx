@@ -1,6 +1,6 @@
 import { useAppStore } from "@/stores/appStore";
 import { ActionIcon, Button, Card, Flex, Image, Modal, Text, Title, useMantineTheme } from "@mantine/core";
-import { IconArrowBigLeftFilled, IconArrowBigRightFilled, IconArrowBigUpFilled, IconArrowLeft, IconQuestionMark } from "@tabler/icons-react";
+import { IconArrowBigLeftFilled, IconArrowBigRightFilled, IconArrowBigUpFilled, IconArrowLeft } from "@tabler/icons-react";
 import ResourceButton from "../buttons/ResourceButton";
 import { useApiStore } from "@/stores/apiStore";
 import { game } from "@game/index";
@@ -12,6 +12,7 @@ import { IMonster } from "@game/core/monster";
 import { util } from "@/lib/util";
 import Content from "../custom/Content";
 import { ItemTypeEquipment } from "@game/types/item_type";
+import Stats from "../custom/Stats";
 
 function MonsterDetailsModal() {
   const monsterDetails = useAppStore(state => state.modals.monsterDetails);
@@ -108,8 +109,8 @@ function MonsterDetailsModal() {
                 </ActionIcon>
               </Flex>
 
-              {tab === "stats" && <Stats monster={monster} />}
-              {tab === "items" && <Items monster={monster} />}
+              {tab === "stats" && <StatsSection monster={monster} />}
+              {tab === "items" && <ItemsSection monster={monster} />}
 
             </Card>
 
@@ -125,16 +126,12 @@ interface Props {
   monster: IMonster;
 }
 
-function Stats({ monster }: Props) {
+function StatsSection({ monster }: Props) {
   const player = useApiStore(state => state.player);
 
   const cost = game.monster.getLevelUpCost(monster);
   const stats = game.monster.getStats(monster);
   const power = game.monster.getPower(monster);
-
-  const health = game.stats.value(stats.health);
-  const damage = game.stats.value(stats.damage);
-  const speed = game.stats.value(stats.speed);
 
   const canUpgrade = player && game.actions.levelupMonster.actable(player, { monster: game.monster.id(monster) });
   const lowGold = player ? (player.items[game.constants.goldId]?.count ?? 0) < cost.gold : true;
@@ -184,40 +181,7 @@ function Stats({ monster }: Props) {
         </Flex>
       </Flex>
 
-      <Flex direction="column">
-        <Text size="sm">Stats:</Text>
-
-        <Card withBorder style={{ overflow: "visible" }}>
-          <Flex gap="xs">
-
-            <ActionIcon size={24} radius="xl" pos="absolute" top={-12} right={-12}>
-              <IconQuestionMark />
-            </ActionIcon>
-
-            <Card withBorder style={{ flex: 1 }}>
-              <Flex direction="column" align="center">
-                <Emoji emoji="❤" style={{ width: 24, height: 24 }} />
-                <Title order={5}>{util.formatNumber(health)}</Title>
-              </Flex>
-            </Card>
-
-            <Card withBorder style={{ flex: 1 }}>
-              <Flex direction="column" align="center">
-                <Emoji emoji="⚔" style={{ width: 24, height: 24 }} />
-                <Title order={5}>{util.formatNumber(damage)}</Title>
-              </Flex>
-            </Card>
-
-            <Card withBorder style={{ flex: 1 }}>
-              <Flex direction="column" align="center">
-                <Emoji emoji="👟" style={{ width: 24, height: 24 }} />
-                <Title order={5}>{util.formatNumber(speed)}</Title>
-              </Flex>
-            </Card>
-
-          </Flex>
-        </Card>
-      </Flex>
+      <Stats stats={stats} />
 
       <Flex gap="xs" align="center" justify="center" style={{ flex: 1 }}>
         <ActionIcon radius="xl" w={48} h={48}>X</ActionIcon>
@@ -230,7 +194,7 @@ function Stats({ monster }: Props) {
   )
 }
 
-function Items({ monster }: Props) {
+function ItemsSection({ monster }: Props) {
   const onClick = (type: ItemTypeEquipment) => {
     const player = useApiStore.getState().player;
 

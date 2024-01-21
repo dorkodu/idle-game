@@ -8,6 +8,7 @@ import MonsterDetailsModal from "./components/modals/MonsterDetailsModal";
 import ContentListModal from "./components/modals/ContentListModal";
 import LineupModal from "./components/modals/LineupModal";
 import BattleModal from "./components/modals/BattleModal";
+import ItemDetailsModal from "./components/modals/ItemDetailsModal";
 
 function App() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function App() {
 
         {/* Modals */}
         <UpdateSWModal />
+        <ItemDetailsModal />
         <MonsterDetailsModal />
         <LineupModal />
         <ContentListModal />

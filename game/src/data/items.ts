@@ -186,6 +186,7 @@ const other = {
   ot_gem: createOtherData("other", 1),
   ot_food: createOtherData("other", 2),
   ot_xp: createOtherData("other", 3),
+  ot_monster_scroll: createOtherData("other", 4),
 }
 
 export type ItemId = keyof typeof items
