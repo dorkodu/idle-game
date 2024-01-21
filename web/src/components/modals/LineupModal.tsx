@@ -5,6 +5,7 @@ import Emoji from "../Emoji";
 import { util } from "@/lib/util";
 import { useApiStore } from "@/stores/apiStore";
 import { game } from "@game/index";
+import { IBattle } from "@game/core/battle";
 
 function LineupModal() {
   const lineup = useAppStore(state => state.modals.lineup);
@@ -35,23 +36,27 @@ function LineupModal() {
   }
 
   const onBattle = () => {
-    if (!lineup.battle) return;
+    if (!lineup.battleType) return;
 
     let shouldClose = false;
 
     useAppStore.setState(s => {
       const player = useApiStore.getState().player;
+
       let actable = false;
+      let battle: IBattle | undefined = undefined;
 
       useApiStore.setState(s => {
         if (!s.player) return;
 
-        switch (lineup.battle?.type) {
+        switch (lineup.battleType) {
           case "campaign":
             actable = game.actions.campaignBattle.actable(s.player, {});
             if (actable) {
               game.actions.campaignBattle.act(s.player, {});
               shouldClose = true;
+
+              battle = game.campaign.createBattle(s.player);
             }
             break;
           case "tower":
@@ -59,6 +64,8 @@ function LineupModal() {
             if (actable) {
               game.actions.towerBattle.act(s.player, {});
               shouldClose = true;
+
+              battle = game.player.createTowerBattle(s.player);
             }
             break;
           default: break;
@@ -70,7 +77,7 @@ function LineupModal() {
       s.modals.battle = {
         opened: true,
         speed: s.modals.battle.speed,
-        battle: lineup.battle,
+        battle: battle,
       }
     });
 

@@ -29,7 +29,7 @@ function TowerModal({ opened, onClose }: ModalProps) {
     useAppStore.setState(s => {
       s.modals.lineup = {
         opened: true,
-        battle: game.player.createTowerBattle(player),
+        battleType: "tower",
       }
     });
   }

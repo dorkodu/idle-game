@@ -1,4 +1,4 @@
-import { IBattle } from "@game/core/battle";
+import { BattleType, IBattle } from "@game/core/battle";
 import { Content } from "@game/types/content";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
@@ -14,7 +14,7 @@ export interface AppStoreState {
 
     lineup: {
       opened: boolean;
-      battle: IBattle | undefined;
+      battleType: BattleType;
     }
 
     itemDetails: {
@@ -57,7 +57,7 @@ const initialState: AppStoreState = {
   segments: {},
   modals: {
     updateSW: { opened: false },
-    lineup: { opened: false, battle: undefined },
+    lineup: { opened: false, battleType: "campaign" },
     itemDetails: { opened: false, itemId: undefined },
     monsterDetails: { opened: false, monsterId: undefined },
     battle: { opened: false, speed: 1, battle: undefined },

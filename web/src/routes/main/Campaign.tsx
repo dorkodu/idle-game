@@ -40,7 +40,7 @@ function Campaign() {
     useAppStore.setState(s => {
       s.modals.lineup = {
         opened: true,
-        battle: game.campaign.createBattle(player),
+        battleType: "campaign",
       }
     });
   }
