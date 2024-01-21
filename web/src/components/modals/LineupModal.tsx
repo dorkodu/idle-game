@@ -51,6 +51,8 @@ function LineupModal() {
     });
 
     useAppStore.setState(s => {
+      if (!actable || !battle) return;
+
       s.modals.battle = {
         opened: true,
         speed: s.modals.battle.speed,
