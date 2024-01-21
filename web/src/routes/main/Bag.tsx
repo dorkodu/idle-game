@@ -21,23 +21,21 @@ function Bag() {
   }
 
   return (
-    <Card withBorder h="100%">
-      <Flex direction="column" gap="md" h="100%">
+    <Flex direction="column" gap="md" h="100%">
 
-        <SegmentedControl
-          mx="auto" w="100%" maw={360} style={{ flexShrink: 0 }}
-          data={[
-            { value: "monster", label: "Monsters" },
-            { value: "item", label: "Items" },
-          ]}
-          value={tab} onChange={onTabChange}
-        />
+      <SegmentedControl
+        mx="auto" w="100%" maw={360} style={{ flexShrink: 0 }}
+        data={[
+          { value: "monster", label: "Monsters" },
+          { value: "item", label: "Items" },
+        ]}
+        value={tab} onChange={onTabChange}
+      />
 
-        {tab === "monster" && <Monsters />}
-        {tab === "item" && <Items />}
+      {tab === "monster" && <Monsters />}
+      {tab === "item" && <Items />}
 
-      </Flex >
-    </Card >
+    </Flex>
   )
 }
 

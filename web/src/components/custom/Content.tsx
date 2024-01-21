@@ -49,8 +49,8 @@ function Content({ onClick, item, monster, image, emoji, hStars, vStars, tCount,
       onClick={onClick}
       style={{
         "--button-bd": `2px solid ${assets.tierColors[tier]}`,
-        "--button-bg": `${assets.tierColors[tier]}44`,
-        "--button-hover": `${assets.tierColors[tier]}66`,
+        "--button-bg": assets.tierColorsBg[tier],
+        "--button-hover": assets.tierColorsHover[tier],
       }}
     >
       {image &&

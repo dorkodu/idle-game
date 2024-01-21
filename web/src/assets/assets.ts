@@ -47,13 +47,23 @@ export const tierColors: Record<Tier, string> = {
 }
 
 export const tierColorsBg: Record<Tier, string> = {
-  S: "#F2161644",
-  A: "#D9D02F44",
-  B: "#6B31B244",
-  C: "#2BDD6644",
-  D: "#0969FF44",
-  E: "#F3F3FE44",
-  F: "#656A7E44",
+  S: "#632828",
+  A: "#5C592F",
+  B: "#3F2F51",
+  C: "#2D5D3D",
+  D: "#243E66",
+  E: "#636366",
+  F: "#3D3E44",
+}
+
+export const tierColorsHover: Record<Tier, string> = {
+  S: "#7D2525",
+  A: "#736F2F",
+  B: "#473063",
+  C: "#2D7445",
+  D: "#204682",
+  E: "#7D7D82",
+  F: "#44464E",
 }
 
 
