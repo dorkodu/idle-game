@@ -4,7 +4,7 @@ import { IconPlayerTrackNextFilled, IconQuestionMark } from "@tabler/icons-react
 import BattleMonster from "../custom/BattleMonster";
 import { useEffect } from "react";
 import { game } from "@game/index";
-import { BattleResult } from "@game/lib/battle";
+import { BattleResult } from "@game/core/battle";
 
 function BattleModal() {
   const battle = useAppStore(state => state.modals.battle);

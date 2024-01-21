@@ -16,6 +16,7 @@ const initialState: ApiStoreState = {
     username: "Username",
     level: 1,
     xp: 0,
+    lineup: [undefined, undefined, undefined, undefined, undefined, undefined],
     items: {
       "we_ancient_sword-F-1": { id: "we_ancient_sword", tier: "F", stars: 1, count: 1 },
       "ar_animal_skin_1-F-1": { id: "ar_animal_skin_1", tier: "F", stars: 1, count: 1 },
@@ -36,7 +37,9 @@ const initialState: ApiStoreState = {
     monsters: {
       "angel-1-1": { id: "angel", level: 1, stars: 1, time: 1 },
     },
-    lineup: [undefined, undefined, undefined, undefined, undefined, undefined],
+    shop: {
+
+    },
     campaign: {
       id: "tree_of_life",
       stage: 0,

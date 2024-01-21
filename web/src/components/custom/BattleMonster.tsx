@@ -1,11 +1,11 @@
 import { Flex, Image, Progress, Text } from "@mantine/core"
 import { assets } from "@/assets/assets";
-import { IBattleMonster } from "@game/core/battle";
 import { game } from "@game/index";
 import { useState } from "react";
 import { util } from "@/lib/util";
 import { textShadow } from "@/styles/shared.css";
 import classes from "./BattleMonster.module.css";
+import { IBattleMonster } from "@game/core/monster";
 
 interface Props {
   monster?: IBattleMonster;

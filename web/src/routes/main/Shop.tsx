@@ -4,6 +4,7 @@ import Content from "@/components/custom/Content";
 import ContentList from "@/components/custom/ContentList";
 import Emoji from "@/components/Emoji";
 import { game } from "@game/index";
+import { IShopItem, IShopSpecialOffer } from "@game/types/shop";
 
 function Shop() {
   return (
@@ -12,74 +13,24 @@ function Shop() {
 
         <Divider label={<Flex align="center"><Emoji emoji="✨" size={16} />&nbsp;Special Offer</Flex>} />
 
-        <Card withBorder styles={{ root: { backgroundImage: `url(${import.meta.env.BASE_URL}gggrain.svg)` } }}>
-          <Flex direction="column" align="center" gap="xs">
-            <ContentAsset size={100} emoji="🗞" />
-            <Title order={3} c="white">Monster Package</Title>
-
-            <Flex direction="column" w="100%">
-              <ContentList gap="xs">
-                <Content item={game.constants.createMonsterScroll(1000)} />
-                <Content item={game.constants.createGem(10_000)} />
-              </ContentList>
-            </Flex>
-
-            <Button w="100%" maw={128}>Buy for $8.88</Button>
-          </Flex>
-        </Card>
+        <ShopSpecialOffer specialOffer={game.constants.shopSpecialOffer} />
 
         <Divider label={<Flex align="center"><Emoji emoji="👑" size={16} />&nbsp;Premium Shop</Flex>} />
 
         <ContentList gap="xs">
-
-          <ShopItem limit={-1} />
-          <ShopItem limit={-1} />
-          <ShopItem limit={-1} />
-          <ShopItem limit={-1} />
-          <ShopItem limit={-1} />
-
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-
+          {game.constants.shopPremium.map(shopItem => <ShopItem shopItem={shopItem} />)}
         </ContentList>
 
         <Divider label={<Flex align="center"><Emoji emoji="🪙" size={16} />&nbsp;Gold Shop</Flex>} />
 
         <ContentList gap="xs">
-
-          <ShopItem limit={-1} />
-          <ShopItem limit={-1} />
-          <ShopItem limit={-1} />
-          <ShopItem limit={-1} />
-          <ShopItem limit={-1} />
-
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-
+          {game.constants.shopGold.map(shopItem => <ShopItem shopItem={shopItem} />)}
         </ContentList>
 
         <Divider label={<Flex align="center"><Emoji emoji="💎" size={16} />&nbsp;Gem Shop</Flex>} />
 
         <ContentList gap="xs">
-
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-          <ShopItem limit={123} />
-
+          {game.constants.shopGem.map(shopItem => <ShopItem shopItem={shopItem} />)}
         </ContentList>
 
       </Flex>
@@ -89,23 +40,42 @@ function Shop() {
 
 export default Shop
 
-interface ShopItemProps {
-  /**
-   * - 0 -> Buy limit has been reached.
-   * - Positive -> Buy limit has not been reached.
-   * - Negative -> No buy limit.
-   */
-  limit: number;
+function ShopSpecialOffer({ specialOffer }: { specialOffer: IShopSpecialOffer }) {
+  return (
+    <Card withBorder styles={{ root: { backgroundImage: `url(${import.meta.env.BASE_URL}gggrain.svg)` } }}>
+      <Flex direction="column" align="center" gap="xs">
+
+        <ContentAsset size={100} image={specialOffer.asset.image} emoji={specialOffer.asset.emoji} />
+
+        <Title order={3} c="white">{specialOffer.name}</Title>
+
+        <Flex direction="column" w="100%">
+          <ContentList gap="xs">
+            {specialOffer.items.map(item => <Content item={item} />)}
+          </ContentList>
+        </Flex>
+
+        <Button w="100%" maw={128}>{`Buy for $${specialOffer.money}`}</Button>
+
+      </Flex>
+    </Card>
+  )
 }
 
-function ShopItem({ limit }: ShopItemProps) {
+function ShopItem({ shopItem }: { shopItem: IShopItem }) {
   return (
     <Flex direction="column" align="center" w={64}>
-      <Content emoji="🪙" />
+
+      <Content item={shopItem.item} />
+
       <Button fullWidth size="compact-sm" px={0} mt="xs">
-        <Emoji emoji="🪙" />&nbsp;123K
+        {shopItem.price.money !== undefined && <>$&nbsp;{shopItem.price.money}</>}
+        {shopItem.price.gem !== undefined && <><Emoji emoji="💎" />&nbsp;{shopItem.price.gem}</>}
+        {shopItem.price.gold !== undefined && <><Emoji emoji="🪙" />&nbsp;{shopItem.price.gold}</>}
       </Button>
-      <Text size="xs" my="xs">{`Limit ${limit < 0 ? "∞" : limit}`}</Text>
+
+      <Text size="xs" my="xs">{`Limit ${1 < 0 ? "∞" : 1}`}</Text>
+
     </Flex>
   )
 }

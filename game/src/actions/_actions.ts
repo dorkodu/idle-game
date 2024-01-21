@@ -15,4 +15,7 @@ export { performBattle } from "./perform_battle";
 // Campaign
 export { collectCampaignFarm } from "./collect_campaign_farm";
 
+// Shop
+export { buyShopItem } from "./buy_shop_item";
+
 export * as actions from "./_actions";

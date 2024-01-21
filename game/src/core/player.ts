@@ -14,10 +14,14 @@ export interface IPlayer {
   level: number;
   xp: number;
 
+  lineup: Lineup;
+
   items: Record<string, IItem>;
   monsters: Record<string, IMonster>;
 
-  lineup: Lineup;
+  shop: {
+
+  }
 
   campaign: {
     id: CampaignId,
