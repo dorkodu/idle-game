@@ -14,6 +14,7 @@ export interface AppStoreState {
 
     lineup: {
       opened: boolean;
+      battle: IBattle | undefined;
     }
 
     itemDetails: {
@@ -56,7 +57,7 @@ const initialState: AppStoreState = {
   segments: {},
   modals: {
     updateSW: { opened: false },
-    lineup: { opened: false },
+    lineup: { opened: false, battle: undefined },
     itemDetails: { opened: false, itemId: undefined },
     monsterDetails: { opened: false, monsterId: undefined },
     battle: { opened: false, speed: 1, battle: undefined },

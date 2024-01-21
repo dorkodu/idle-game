@@ -2,6 +2,7 @@ import RouteButton from "@/components/buttons/RouteButton"
 import FullscreenModal from "@/components/custom/FullscreenModal"
 import { Flex, ScrollArea } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
+import TowerModal from "./map/TowerModal";
 
 function Map() {
   const [towerOpened, { open: openTower, close: closeTower }] = useDisclosure();
@@ -35,14 +36,6 @@ export default Map
 interface ModalProps {
   opened: boolean;
   onClose: () => void;
-}
-
-function TowerModal({ opened, onClose }: ModalProps) {
-  return (
-    <FullscreenModal opened={opened} onClose={onClose}>
-      Tower
-    </FullscreenModal>
-  )
 }
 
 function ArenaModal({ opened, onClose }: ModalProps) {

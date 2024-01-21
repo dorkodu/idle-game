@@ -28,21 +28,39 @@ function Shop() {
           </Flex>
         </Card>
 
+        <Divider label={<Flex align="center"><Emoji emoji="👑" size={16} />&nbsp;Premium Shop</Flex>} />
+
+        <ContentList gap="xs">
+
+          <ShopItem limit={-1} />
+          <ShopItem limit={-1} />
+          <ShopItem limit={-1} />
+          <ShopItem limit={-1} />
+          <ShopItem limit={-1} />
+
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+
+        </ContentList>
+
         <Divider label={<Flex align="center"><Emoji emoji="🪙" size={16} />&nbsp;Gold Shop</Flex>} />
 
         <ContentList gap="xs">
 
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
+          <ShopItem limit={-1} />
+          <ShopItem limit={-1} />
+          <ShopItem limit={-1} />
+          <ShopItem limit={-1} />
+          <ShopItem limit={-1} />
 
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
 
         </ContentList>
 
@@ -50,17 +68,17 @@ function Shop() {
 
         <ContentList gap="xs">
 
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
 
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
-          <ShopItem />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
+          <ShopItem limit={123} />
 
         </ContentList>
 
@@ -71,14 +89,23 @@ function Shop() {
 
 export default Shop
 
-function ShopItem() {
+interface ShopItemProps {
+  /**
+   * - 0 -> Buy limit has been reached.
+   * - Positive -> Buy limit has not been reached.
+   * - Negative -> No buy limit.
+   */
+  limit: number;
+}
+
+function ShopItem({ limit }: ShopItemProps) {
   return (
     <Flex direction="column" align="center" w={64}>
       <Content emoji="🪙" />
       <Button fullWidth size="compact-sm" px={0} mt="xs">
         <Emoji emoji="🪙" />&nbsp;123K
       </Button>
-      <Text size="xs" my="xs">Limit ∞</Text>
+      <Text size="xs" my="xs">{`Limit ${limit < 0 ? "∞" : limit}`}</Text>
     </Flex>
   )
 }

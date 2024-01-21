@@ -4,7 +4,11 @@ import { BattleLineup } from "../types/lineup";
 import { Team } from "../types/team";
 import { IStats } from "./stats";
 
+export type BattleType = "campaign" | "tower";
+
 export interface IBattle {
+  type: BattleType;
+
   ally: BattleLineup;
   enemy: BattleLineup;
   turn: { count: number, ally: number[], enemy: number[] };

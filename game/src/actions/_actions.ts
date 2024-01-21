@@ -6,6 +6,9 @@ export { changeLineup } from "./change_lineup";
 export { campaignBattle } from "./campaign_battle";
 export { collectCampaignFarm } from "./collect_campaign_farm";
 
+// Tower
+export { towerBattle } from "./tower_battle";
+
 // Item
 export { equipItem } from "./equip_item";
 export { unequipItem } from "./unequip_item";

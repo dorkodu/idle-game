@@ -13,7 +13,7 @@ function ContentAsset({ size = 32, image, emoji }: Props) {
     <>
       {image &&
         <Image
-          src={image} width={size} height={size}
+          src={image} w={size} h={size}
           style={{ imageRendering: "pixelated" }}
           draggable={false}
         />

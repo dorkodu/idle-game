@@ -31,6 +31,7 @@ export function createBattle(player: IPlayer): IBattle {
   const campaignRewards = getCampaignRewards(player.campaign.tier, player.campaign.id, player.campaign.stage);
 
   return {
+    type: "campaign",
     ally: game.player.getBattleLineup(player),
     enemy: game.lineup.createBattleLineup(campaignLineup, "enemy"),
     turn: { count: 1, ally: [], enemy: [] },

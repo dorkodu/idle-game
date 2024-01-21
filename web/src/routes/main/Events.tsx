@@ -7,8 +7,6 @@ import { useDisclosure } from "@mantine/hooks";
 function Events() {
   const [dailyQuestsOpened, { open: openDailyQuests, close: closeDailyQuests }] = useDisclosure();
   const [achievementsOpened, { open: openAchievements, close: closeAchievements }] = useDisclosure();
-  const [monsterHuntOpened, { open: openMonsterHunt, close: closeMonsterHunt }] = useDisclosure();
-  const [spendingSpreeOpened, { open: openSpendingSpree, close: closeSpendingSpree }] = useDisclosure();
 
   const player = useApiStore(state => state.player);
   const dailyQuestsDone = player?.events.dailyQuests.done ?? 0;
@@ -35,11 +33,11 @@ function Events() {
 
           <Divider label="Limited Events" />
 
-          <RouteButton emoji="😈" title="Monster Hunt" onClick={openMonsterHunt}>
+          <RouteButton emoji="😈" title="Monster Hunt" onClick={() => { }}>
             <Text ta="left" size="sm" c="yellow">Coming soon...</Text>
           </RouteButton>
 
-          <RouteButton emoji="💳" title="Spending Spree" onClick={openSpendingSpree}>
+          <RouteButton emoji="💳" title="Spending Spree" onClick={() => { }}>
             <Text ta="left" size="sm" c="yellow">Coming soon...</Text>
           </RouteButton>
 
@@ -48,8 +46,6 @@ function Events() {
 
       <DailyQuestsModal opened={dailyQuestsOpened} onClose={closeDailyQuests} />
       <AchievementsModal opened={achievementsOpened} onClose={closeAchievements} />
-      <MonsterHuntModal opened={monsterHuntOpened} onClose={closeMonsterHunt} />
-      <SpendingSpreeModal opened={spendingSpreeOpened} onClose={closeSpendingSpree} />
     </>
   )
 }
@@ -73,22 +69,6 @@ function AchievementsModal({ opened, onClose }: ModalProps) {
   return (
     <FullscreenModal opened={opened} onClose={onClose}>
       Achievements
-    </FullscreenModal>
-  )
-}
-
-function MonsterHuntModal({ opened, onClose }: ModalProps) {
-  return (
-    <FullscreenModal opened={opened} onClose={onClose}>
-      Monster Hunt
-    </FullscreenModal>
-  )
-}
-
-function SpendingSpreeModal({ opened, onClose }: ModalProps) {
-  return (
-    <FullscreenModal opened={opened} onClose={onClose}>
-      Spending Spree
     </FullscreenModal>
   )
 }

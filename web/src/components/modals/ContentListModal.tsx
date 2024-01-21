@@ -34,7 +34,7 @@ function ContentListModal() {
     <Modal
       opened={contentList.opened} onClose={close}
       centered size={360}
-      title="List"
+      title="List" zIndex={1000}
     >
       <Flex direction="column">
 

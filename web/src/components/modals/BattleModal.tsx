@@ -48,7 +48,7 @@ function BattleModal() {
   return (
     <Modal
       opened={battle.opened} onClose={() => { }}
-      withCloseButton={false} fullScreen
+      withCloseButton={false} fullScreen zIndex={1000}
       styles={{ body: { height: "100%", backgroundImage: "url(/endless-constellation.svg)" } }} radius={0}
     >
       <Flex

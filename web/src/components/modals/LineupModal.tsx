@@ -35,6 +35,8 @@ function LineupModal() {
   }
 
   const onBattle = () => {
+    if (!lineup.battle) return;
+
     let shouldClose = false;
 
     useAppStore.setState(s => {
@@ -44,10 +46,22 @@ function LineupModal() {
       useApiStore.setState(s => {
         if (!s.player) return;
 
-        actable = game.actions.campaignBattle.actable(s.player, {});
-        if (actable) {
-          game.actions.campaignBattle.act(s.player, {});
-          shouldClose = true;
+        switch (lineup.battle?.type) {
+          case "campaign":
+            actable = game.actions.campaignBattle.actable(s.player, {});
+            if (actable) {
+              game.actions.campaignBattle.act(s.player, {});
+              shouldClose = true;
+            }
+            break;
+          case "tower":
+            actable = game.actions.towerBattle.actable(s.player, {});
+            if (actable) {
+              game.actions.towerBattle.act(s.player, {});
+              shouldClose = true;
+            }
+            break;
+          default: break;
         }
       });
 
@@ -56,7 +70,7 @@ function LineupModal() {
       s.modals.battle = {
         opened: true,
         speed: s.modals.battle.speed,
-        battle: game.campaign.createBattle(player),
+        battle: lineup.battle,
       }
     });
 
@@ -74,7 +88,7 @@ function LineupModal() {
     <Modal
       opened={lineup.opened} onClose={close}
       centered lockScroll={false} size={360}
-      title="Lineup"
+      title="Lineup" zIndex={1000}
     >
       <Flex direction="column">
         <Flex align="center" gap="xs">

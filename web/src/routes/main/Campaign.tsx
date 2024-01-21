@@ -34,7 +34,15 @@ function Campaign() {
   }
 
   const onBattle = () => {
-    useAppStore.setState(s => { s.modals.lineup.opened = true });
+    const player = useApiStore.getState().player;
+    if (!player) return;
+
+    useAppStore.setState(s => {
+      s.modals.lineup = {
+        opened: true,
+        battle: game.campaign.createBattle(player),
+      }
+    });
   }
 
   const onFarm = () => {
