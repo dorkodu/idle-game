@@ -4,7 +4,11 @@ import { CampaignId } from "@game/data/campaigns";
 import { Tier } from "@game/types/tier";
 import { game } from "@game/index";
 
-const _assets = import.meta.glob("@/assets/**/*.png", { eager: true, as: "url" });
+const _assets = import.meta.glob("@/assets/**/*.(png|svg)", { eager: true, as: "url" });
+
+export function asset(path: string) {
+  return _assets[`/src/assets/${path}`];
+}
 
 export function item(id: ItemId | undefined): { emoji?: string, image?: string } {
   if (!id) return {};

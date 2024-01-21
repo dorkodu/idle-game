@@ -6,6 +6,7 @@ import { IMonster } from "@game/core/monster";
 import { assets } from "@/assets/assets";
 import { IItem } from "@game/core/item";
 import { textShadow } from "@/styles/shared.css";
+import Stars from "./Stars";
 
 interface Props {
   onClick?: (ev: React.MouseEvent) => void;
@@ -72,13 +73,13 @@ function Content({ onClick, item, monster, image, emoji, hStars, vStars, tCount,
 
       {vStars !== undefined &&
         <Flex direction="column" pos="absolute" bottom={4} left={4}>
-          {[...Array(vStars).keys()].map(s => <Emoji key={s} emoji="⭐" size={10} style={{ margin: 0 }} />)}
+          <Stars stars={vStars} />
         </Flex>
       }
 
       {hStars !== undefined &&
         <Flex pos="absolute" bottom={4} left="50%" style={{ transform: "translate(-50%,0)" }}>
-          {[...Array(hStars).keys()].map(s => <Emoji key={s} emoji="⭐" size={10} style={{ margin: 0 }} />)}
+          <Stars stars={hStars} />
         </Flex>
       }
 

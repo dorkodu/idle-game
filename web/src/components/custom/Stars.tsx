@@ -1,4 +1,5 @@
-import Emoji from "../Emoji";
+import { assets } from "@/assets/assets";
+import { useMemo } from "react";
 
 interface Props {
   stars: number;
@@ -7,9 +8,25 @@ interface Props {
 }
 
 function Stars({ stars, size = 10 }: Props) {
+  const _stars = useMemo((): number => {
+    if (stars < 6) return stars;
+    else if (stars < 9) return stars - 5;
+    else if (stars < 12) return stars - 5 - 3;
+    return 0;
+  }, [stars]);
+
+  const _src = useMemo((): string | undefined => {
+    if (stars < 6) return assets.asset("yellow_star.svg");
+    else if (stars < 9) return assets.asset("red_star.svg");
+    else if (stars < 12) return assets.asset("transcended_star.svg");
+    return undefined;
+  }, [stars]);
+
   return (
     <>
-      {[...Array(stars).keys()].map(s => <Emoji key={s} emoji="⭐" size={size} style={{ margin: 0 }} />)}
+      {[...Array(_stars).keys()].map(s =>
+        <img key={s} src={_src} width={size} height={size} />
+      )}
     </>
   )
 }

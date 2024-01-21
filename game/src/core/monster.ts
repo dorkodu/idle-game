@@ -24,8 +24,7 @@ export interface IMonster {
    * Stars are upgradeable.
    * Upgrade cost is significantly increased for the next type of star.
    * - Yellow stars: 1 to 5
-   * - Orange stars: 1 to 3
-   * - Red stars: 1 to 5
+   * - Evolved stars: 1 to 3
    * - Transcended stars: 1 to 3
    */
   stars: number;
