@@ -1,15 +1,15 @@
-import { Flex, ScrollArea } from "@mantine/core"
+import { Flex, MantineSize, ScrollArea } from "@mantine/core"
 
 interface Props {
-
+  gap?: MantineSize;
 }
 
-function ContentList({ children }: React.PropsWithChildren<Props>) {
+function ContentList({ children, gap }: React.PropsWithChildren<Props>) {
   return (
     <ScrollArea>
       <Flex
         justify="center"
-        gap="md"
+        gap={gap ?? "md"}
         style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(64px,max-content))" }}
       >
         {children}

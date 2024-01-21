@@ -5,7 +5,7 @@ import { useAppStore } from "@/stores/appStore";
 import { IItem } from "@game/core/item";
 import { IMonster } from "@game/core/monster";
 import { game } from "@game/index";
-import { Card, Flex, SegmentedControl } from "@mantine/core"
+import { Flex, SegmentedControl } from "@mantine/core"
 import { useState } from "react"
 
 function Bag() {
