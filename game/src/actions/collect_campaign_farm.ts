@@ -24,18 +24,8 @@ export function act(player: IPlayer, _props: Props) {
   const contents: Content[] = [
     { item: game.constants.createGold(farm.gold) },
     { item: game.constants.createFood(farm.food) },
+    { item: game.constants.createXp(farm.xp) },
   ];
-
-  // Handle xp & level
-  const { level, xp } = game.player.handleXp(player.level, player.xp + farm.xp);
-  const levelChangeCount = level - player.level;
-  player.level = level;
-  player.xp = xp;
-
-  // If player has leveled up, also increase their gems
-  if (levelChangeCount > 0) {
-    contents.push({ item: game.constants.createGem(levelChangeCount * game.constants.levelUpGemReward) });
-  }
 
   player.campaign.lastFarmDate = Date.now();
   game.actions.changePlayerContents.act(player, { toAdd: contents });

@@ -21,8 +21,15 @@ export function act(player: IPlayer, props: Props) {
     if (c.item) {
       if (c.item.id === "ot_xp") {
         const { level, xp } = game.player.handleXp(player.level, player.xp + c.item.count);
+        const levelChange = level - player.level;
         player.level = level;
         player.xp = xp;
+
+        // If player has leveled up, also give the player gems
+        if (levelChange > 0) {
+          act(player, { toAdd: [{ item: game.constants.createGem(levelChange * game.constants.levelUpGemReward) }] });
+        }
+
         return;
       }
 
