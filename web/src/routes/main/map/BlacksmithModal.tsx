@@ -18,7 +18,6 @@ function BlacksmithModal({ opened, onClose }: ModalProps) {
   const player = useApiStore(state => state.player);
 
   const [selectedItemId, setSelectedItemId] = useState<string | undefined>(undefined);
-
   const selectedItem = player && selectedItemId ? player.items[selectedItemId] : undefined;
   const upgradedItem = selectedItem ? game.item.getUpgradedItem(selectedItem) : undefined;
 

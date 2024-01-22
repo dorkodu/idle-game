@@ -13,21 +13,16 @@ function ContentListModal() {
 
   const onClickItem = (item: IItem | undefined) => {
     if (!item) return;
-
     contentList.onClick?.(game.item.id(item));
-    close();
   }
 
   const onClickMonster = (monster: IMonster | undefined) => {
     if (!monster) return;
-
     contentList.onClick?.(game.monster.id(monster));
-    close();
   }
 
   const onClickRemove = () => {
     contentList.onRemove?.();
-    close();
   }
 
   return (

@@ -222,6 +222,9 @@ function ItemsSection({ monster }: Props) {
       if (!s.player) return;
       game.actions.equipItem.act(s.player, { item: id, monster: game.monster.id(monster) })
     });
+
+    // Close the content list modal as it was open while equiping the item
+    useAppStore.setState(s => { s.modals.contentList.opened = false });
   }
 
   const unequip = (type: ItemTypeEquipment) => {
@@ -229,6 +232,9 @@ function ItemsSection({ monster }: Props) {
       if (!s.player) return;
       game.actions.unequipItem.act(s.player, { type, monster: game.monster.id(monster) })
     });
+
+    // Close the content list modal as it was open while unequiping the item
+    useAppStore.setState(s => { s.modals.contentList.opened = false });
   }
 
   const autoEquip = () => {

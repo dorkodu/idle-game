@@ -68,6 +68,9 @@ function LineupModal() {
       if (!s.player) return;
       game.actions.changeLineup.act(s.player, { monster, index });
     });
+
+    // Close the content list modal as it was open while changing the lineup
+    useAppStore.setState(s => { s.modals.contentList.opened = false });
   }
 
   return (

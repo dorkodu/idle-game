@@ -24,13 +24,12 @@ export const createGold = (count: number): IItem => ({ id: "ot_gold", tier: "F",
 export const createGem = (count: number): IItem => ({ id: "ot_gem", tier: "F", stars: 0, count });
 export const createFood = (count: number): IItem => ({ id: "ot_food", tier: "F", stars: 0, count });
 export const createXp = (count: number): IItem => ({ id: "ot_xp", tier: "F", stars: 0, count });
-export const createMonsterScroll = (count: number): IItem => ({ id: "ot_monster_scroll", tier: "F", stars: 0, count });
+export const createMonsterScroll = (stars: number, count: number): IItem => ({ id: "ot_monster_scroll", tier: "F", stars, count });
 
 export const goldId = game.item.id(createGold(0));
 export const gemId = game.item.id(createGem(0));
 export const foodId = game.item.id(createFood(0));
 export const xpId = game.item.id(createXp(0));
-export const monsterScrollId = game.item.id(createMonsterScroll(0));
 
 /// Shop \\\
 /** Obtained by Date.now(), must be changed on every shop update. */
@@ -40,7 +39,7 @@ export const shopSpecialOffer: IShopSpecialOffer = {
   asset: { emoji: "🗞" },
   name: "Monster Package",
   money: 8.88,
-  items: [createMonsterScroll(1000), createGem(10000)],
+  items: [createMonsterScroll(5, 100), createGem(10000)],
 };
 
 export const shopPremium: IShopItem[] = [
