@@ -191,9 +191,8 @@ function Evolve() {
         {monsters?.map(m =>
           <Content
             key={game.monster.id(m)}
-            monster={m}
+            monster={!selectedIds.includes(game.monster.id(m)) ? m : undefined}
             onClick={() => onSelectItem(game.monster.id(m))}
-            tier={selectedIds.includes(game.monster.id(m)) ? "E" : undefined}
           />
         )}
       </ContentList>

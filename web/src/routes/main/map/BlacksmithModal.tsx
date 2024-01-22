@@ -89,7 +89,13 @@ function BlacksmithModal({ opened, onClose }: ModalProps) {
             <Divider label="Items" />
 
             <ContentList>
-              {items?.map(i => <Content key={game.item.id(i)} item={i} onClick={() => onSelectItem(game.item.id(i))} />)}
+              {items?.map(i =>
+                <Content
+                  key={game.item.id(i)}
+                  item={selectedItemId !== game.item.id(i) ? i : undefined}
+                  onClick={() => onSelectItem(game.item.id(i))}
+                />
+              )}
             </ContentList>
 
           </Flex>
