@@ -39,6 +39,25 @@ export function indexToItem(index: number, type: ItemType): ItemId | undefined {
   return Object.entries(game.itemData[type]).filter(([_, data]) => index === data.index)[0]?.[0] as ItemId | undefined;
 }
 
+export function getUpgradedItem(item: IItem): IItem | undefined {
+  let tier = item.tier;
+  let stars = item.stars;
+
+  if (stars >= 5) {
+    // Get 1 tier above (if exists)
+    const newTier = game.tier.indexToTier(game.tier.tierToIndex(tier) + 1);
+    if (!newTier) return undefined;
+
+    tier = newTier;
+    stars = 1;
+  }
+  else {
+    stars++;
+  }
+
+  return { id: item.id, tier: tier, stars: stars, count: 1 };
+}
+
 export function getStats(item: IItem): IStats | undefined {
   const data = game.items[item.id];
   if (data.type === "other") return undefined;
