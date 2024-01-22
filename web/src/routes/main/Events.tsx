@@ -1,13 +1,8 @@
 import RouteButton from "@/components/buttons/RouteButton"
-import FullscreenModal from "@/components/custom/FullscreenModal";
 import { useApiStore } from "@/stores/apiStore";
 import { Divider, Flex, Progress, ScrollArea, Text } from "@mantine/core"
-import { useDisclosure } from "@mantine/hooks";
 
 function Events() {
-  const [dailyQuestsOpened, { open: openDailyQuests, close: closeDailyQuests }] = useDisclosure();
-  const [achievementsOpened, { open: openAchievements, close: closeAchievements }] = useDisclosure();
-
   const player = useApiStore(state => state.player);
   const dailyQuestsDone = player?.events.dailyQuests.done ?? 0;
   const dailyQuestsTodo = player?.events.dailyQuests.todo ?? 0;
@@ -19,7 +14,8 @@ function Events() {
 
           <Divider label="Continuous Events" />
 
-          <RouteButton emoji="📜" title="Daily Quests" onClick={openDailyQuests}>
+          <RouteButton emoji="📜" title="Daily Quests" onClick={() => { }}>
+            <Text ta="left" size="sm" c="yellow">Coming soon...</Text>
             <Progress.Root size="xl" mt="xs" w="100%">
               <Progress.Section value={(dailyQuestsDone / dailyQuestsTodo) * 100}>
                 <Progress.Label pos="absolute" style={{ transform: "translate(-50%,0)", left: "50%" }}>
@@ -29,7 +25,9 @@ function Events() {
             </Progress.Root>
           </RouteButton>
 
-          <RouteButton emoji="🎯" title="Achievements" onClick={openAchievements} />
+          <RouteButton emoji="🎯" title="Achievements" onClick={() => { }}>
+            <Text ta="left" size="sm" c="yellow">Coming soon...</Text>
+          </RouteButton>
 
           <Divider label="Limited Events" />
 
@@ -43,32 +41,8 @@ function Events() {
 
         </Flex>
       </ScrollArea>
-
-      <DailyQuestsModal opened={dailyQuestsOpened} onClose={closeDailyQuests} />
-      <AchievementsModal opened={achievementsOpened} onClose={closeAchievements} />
     </>
   )
 }
 
 export default Events
-
-interface ModalProps {
-  opened: boolean;
-  onClose: () => void;
-}
-
-function DailyQuestsModal({ opened, onClose }: ModalProps) {
-  return (
-    <FullscreenModal opened={opened} onClose={onClose}>
-      Daily Quests
-    </FullscreenModal>
-  )
-}
-
-function AchievementsModal({ opened, onClose }: ModalProps) {
-  return (
-    <FullscreenModal opened={opened} onClose={onClose}>
-      Achievements
-    </FullscreenModal>
-  )
-}
