@@ -38,7 +38,7 @@ function ItemDetailsModal() {
 
             {item.stars > 0 &&
               <Flex gap={5}>
-                <Stars stars={5} size={16} />
+                <Stars stars={item.stars} size={16} />
               </Flex>
             }
 
