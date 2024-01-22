@@ -18,4 +18,10 @@ export { collectCampaignFarm } from "./collect_campaign_farm";
 // Shop
 export { buyShopItem } from "./buy_shop_item";
 
+// Map
+export { blacksmithUpgrade } from "./blacksmith_upgrade";
+export { altarSummon } from "./altar_summon";
+export { altarEvolve } from "./altar_evolve";
+export { altarSacrifice } from "./altar_sacrifice";
+
 export * as actions from "./_actions";

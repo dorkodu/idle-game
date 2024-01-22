@@ -4,6 +4,7 @@ import { Flex, ScrollArea } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import TowerModal from "./map/TowerModal";
 import BlacksmithModal from "./map/BlacksmithModal";
+import AltarModal from "./map/AltarModal";
 
 function Map() {
   const [towerOpened, { open: openTower, close: closeTower }] = useDisclosure();
@@ -43,14 +44,6 @@ function ArenaModal({ opened, onClose }: ModalProps) {
   return (
     <FullscreenModal opened={opened} onClose={onClose}>
       Arena
-    </FullscreenModal>
-  )
-}
-
-function AltarModal({ opened, onClose }: ModalProps) {
-  return (
-    <FullscreenModal opened={opened} onClose={onClose}>
-      Altar
     </FullscreenModal>
   )
 }

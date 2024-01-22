@@ -27,8 +27,9 @@ function BlacksmithModal({ opened, onClose }: ModalProps) {
     >
       <Card withBorder radius="md" h="100%">
         <ScrollArea>
-
           <Flex direction="column" gap="md" h="100%">
+
+            <Divider label="Upgrade Items" />
 
             <Flex direction="column" align="center" gap="md">
               <Flex align="center" gap="md" pos="relative">
