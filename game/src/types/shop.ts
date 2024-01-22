@@ -1,5 +1,7 @@
 import { IItem } from "../core/item";
 
+export type ShopType = "premium" | "gold" | "gem";
+
 export interface IShopSpecialOffer {
   asset: { image?: string; emoji?: string; };
   name: string;
@@ -13,7 +15,6 @@ export interface IShopItem {
   price: { money?: number, gold?: number, gem?: number };
 
   /**
-   * - 0 -> Buy limit has been reached.
    * - Positive -> Buy limit has not been reached.
    * - Negative -> No buy limit.
    */

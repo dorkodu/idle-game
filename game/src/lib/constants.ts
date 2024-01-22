@@ -32,7 +32,10 @@ export const foodId = game.item.id(createFood(0));
 export const xpId = game.item.id(createXp(0));
 export const monsterScrollId = game.item.id(createMonsterScroll(0));
 
-/// Shop items \\\
+/// Shop \\\
+/** Obtained by Date.now(), must be changed on every shop update. */
+export const shopSnapshot = 1705908399559;
+
 export const shopSpecialOffer: IShopSpecialOffer = {
   asset: { emoji: "🗞" },
   name: "Monster Package",
@@ -48,11 +51,17 @@ export const shopPremium: IShopItem[] = [
 ];
 
 export const shopGold: IShopItem[] = [
-
+  { item: createGem(1000), price: { gold: 4 }, limit: 10 },
+  { item: createGem(2500), price: { gold: 6 }, limit: 10 },
+  { item: createGem(5000), price: { gold: 8 }, limit: -1 },
+  { item: createGem(10000), price: { gold: 10 }, limit: 10 },
 ];
 
 export const shopGem: IShopItem[] = [
-
+  { item: createGem(1000), price: { gem: 4 }, limit: 10 },
+  { item: createGem(2500), price: { gem: 6 }, limit: 10 },
+  { item: createGem(5000), price: { gem: 8 }, limit: 10 },
+  { item: createGem(10000), price: { gem: 10 }, limit: 10 },
 ];
 
 export * as constants from "./constants";

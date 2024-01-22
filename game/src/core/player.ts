@@ -20,7 +20,19 @@ export interface IPlayer {
   monsters: Record<string, IMonster>;
 
   shop: {
+    /**
+     * Used for handling buy limits. Over-written when shop get an update.
+     */
+    snapshot: number;
 
+    /** Usage: premium[shopItemIndex] -> boughtAmount */
+    premium: Record<number, number>;
+
+    /** Usage: gold[shopItemIndex] -> boughtAmount */
+    gold: Record<number, number>;
+
+    /** Usage: gem[shopItemIndex] -> boughtAmount */
+    gem: Record<number, number>;
   }
 
   campaign: {
