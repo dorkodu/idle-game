@@ -114,6 +114,45 @@ function Evolve() {
   const player = useApiStore(state => state.player);
   const monsters = player ? Object.values(player.monsters) : undefined;
 
+  const [selectedIds, setSelectedIds] = useState<[string?, string?, string?]>([undefined, undefined, undefined]);
+  const selectedMonsters = player ? selectedIds.map(id => id ? player.monsters[id] : undefined) as [IMonster?, IMonster?, IMonster?] : undefined;
+  const evolvedMonster = selectedMonsters ? game.monster.getEvolvedMonster(selectedMonsters) : undefined;;
+
+  const onEvolve = () => {
+    useApiStore.setState(s => {
+      if (!s.player) return;
+      if (selectedIds.filter(Boolean).length < 3) return;
+      const acted = game.actions.altarEvolve.act(s.player, { monsters: selectedIds as [string, string, string] });
+      if (acted) setSelectedIds([undefined, undefined, undefined]);
+    });
+  }
+
+  const canEvolve = (): boolean => {
+    if (!player) return false;
+    if (selectedIds.filter(Boolean).length < 3) return false;
+    return game.actions.altarEvolve.actable(player, { monsters: selectedIds as [string, string, string] });
+  }
+
+  const onSelectItem = (monsterId: string) => {
+    // Check if the same monster id is already selected
+    if (selectedIds.filter(id => id === monsterId).length > 0) return;
+
+    // Find empty index in the selected ids array
+    const index = selectedIds.findIndex((id) => id === undefined);
+    if (index === -1) return;
+
+    const newIds: typeof selectedIds = [...selectedIds];
+    newIds.splice(index, 1, monsterId);
+    setSelectedIds(newIds);
+  }
+
+  const onDeselectItem = (index: number) => {
+    const newIds: typeof selectedIds = [...selectedIds];
+    newIds[index] = undefined;
+
+    setSelectedIds(newIds);
+  }
+
   return (
     <>
       <Divider label="Evolve Monsters" />
@@ -121,20 +160,42 @@ function Evolve() {
       <Flex direction="column" align="center" gap="md">
 
         <Flex align="center" gap="xs">
-          <Content placeholder={assets.monster("angel")} />
-          <Content placeholder={assets.monster("angel")} />
-          <Content placeholder={assets.monster("angel")} />
+          <Content
+            placeholder={assets.monster("angel")}
+            monster={selectedMonsters?.[0]}
+            onClick={() => onDeselectItem(0)}
+          />
+          <Content
+            placeholder={assets.monster("angel")}
+            monster={selectedMonsters?.[1]}
+            onClick={() => onDeselectItem(1)}
+          />
+          <Content
+            placeholder={assets.monster("angel")}
+            monster={selectedMonsters?.[2]}
+            onClick={() => onDeselectItem(2)}
+          />
         </Flex>
         <IconArrowBigDownFilled />
-        <Content placeholder={assets.monster("death_knight")} />
+        <Content
+          placeholder={assets.monster("death_knight")}
+          monster={evolvedMonster}
+        />
 
-        <Button>Upgrade</Button>
+        <Button onClick={onEvolve} disabled={!canEvolve()}>Upgrade</Button>
       </Flex>
 
       <Divider label="Monsters" />
 
       <ContentList>
-        {monsters?.map(m => <Content key={game.monster.id(m)} monster={m} onClick={() => { }} />)}
+        {monsters?.map(m =>
+          <Content
+            key={game.monster.id(m)}
+            monster={m}
+            onClick={() => onSelectItem(game.monster.id(m))}
+            tier={selectedIds.includes(game.monster.id(m)) ? "E" : undefined}
+          />
+        )}
       </ContentList>
     </>
   )

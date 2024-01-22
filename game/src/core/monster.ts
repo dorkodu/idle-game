@@ -24,8 +24,8 @@ export interface IMonster {
    * Stars are upgradeable.
    * Upgrade cost is significantly increased for the next type of star.
    * - Yellow stars: 1 to 5
-   * - Evolved stars: 1 to 3
-   * - Transcended stars: 1 to 3
+   * - Evolved stars: 1 to 3 (6 to 8)
+   * - Transcended stars: 1 to 3 ( 9 to 11)
    */
   stars: number;
 }
@@ -74,6 +74,45 @@ export function monsterToIndex(monsterId: MonsterId) {
 
 export function indexToMonster(index: number) {
   return Object.entries(game.monsters).filter(([_, data]) => index === data.index)[0]?.[0] as MonsterId | undefined;
+}
+
+export function getEvolvedMonster(monsters: [IMonster?, IMonster?, IMonster?]): IMonster | undefined {
+  const monster1 = monsters[0];
+  const monster2 = monsters[1];
+  const monster3 = monsters[2];
+
+  // All monsters must be defined
+  if (!monster1 || !monster2 || !monster3) return undefined;
+
+  const id1 = game.monster.id(monster1);
+  const id2 = game.monster.id(monster2);
+  const id3 = game.monster.id(monster3);
+
+  // No duplicate monsters
+  if (id1 === id2 || id2 === id3 || id1 === id3) return undefined;
+
+  // All monsters should have the same id
+  if (
+    monster1.id !== monster2.id ||
+    monster2.id !== monster3.id ||
+    monster1.id !== monster3.id
+  ) return undefined;
+
+  // All monsters should have the same stars
+  if (
+    monster1.stars !== monster2.stars ||
+    monster2.stars !== monster3.stars ||
+    monster1.stars !== monster3.stars
+  ) return undefined;
+
+  // Only first monsters level and items are kept when evolving
+  return {
+    id: monster1.id,
+    stars: monster1.stars + 1,
+    level: monster1.level,
+    time: Date.now(),
+    items: monster1.items,
+  };
 }
 
 export function createBattleMonster(monster: IMonster | undefined, team: Team): IBattleMonster | undefined {
