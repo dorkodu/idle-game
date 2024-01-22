@@ -5,32 +5,19 @@ import { useAppStore } from "@/stores/appStore";
 import { IItem } from "@game/core/item";
 import { IMonster } from "@game/core/monster";
 import { game } from "@game/index";
-import { Flex, SegmentedControl } from "@mantine/core"
+import { Button, Flex } from "@mantine/core"
 import { useState } from "react"
 
 function Bag() {
   const [tab, setTab] = useState<"monster" | "item">("monster");
-  const onTabChange = (value: string) => {
-    switch (value) {
-      case "monster": break;
-      case "item": break;
-      default: return;
-    }
-
-    setTab(value);
-  }
 
   return (
     <Flex direction="column" gap="md" h="100%">
 
-      <SegmentedControl
-        mx="auto" w="100%" maw={360} style={{ flexShrink: 0 }}
-        data={[
-          { value: "monster", label: "Monsters" },
-          { value: "item", label: "Items" },
-        ]}
-        value={tab} onChange={onTabChange}
-      />
+      <Button.Group mx="auto" w="100%" maw={360}>
+        <Button fullWidth px={0} variant={tab !== "monster" ? "default" : undefined} onClick={() => setTab("monster")}>Monsters</Button>
+        <Button fullWidth px={0} variant={tab !== "item" ? "default" : undefined} onClick={() => setTab("item")}>Items</Button>
+      </Button.Group>
 
       {tab === "monster" && <Monsters />}
       {tab === "item" && <Items />}
