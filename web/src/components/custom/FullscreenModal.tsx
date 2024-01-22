@@ -35,7 +35,7 @@ function FullscreenModal({ children, opened, onClose, header }: PropsWithChildre
           </Flex>
         </Flex>
 
-        <Flex direction="column" mx="auto" mt={48} w="100%" h="100%">
+        <Flex direction="column" mx="auto" pos="absolute" top={48} bottom={0} left={0} right={0}>
           {children}
         </Flex>
       </Flex>

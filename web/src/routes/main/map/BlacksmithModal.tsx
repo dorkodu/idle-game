@@ -5,7 +5,7 @@ import ContentList from "@/components/custom/ContentList";
 import FullscreenModal from "@/components/custom/FullscreenModal";
 import { useApiStore } from "@/stores/apiStore";
 import { game } from "@game/index";
-import { Button, Card, Divider, Flex, Title } from "@mantine/core";
+import { Button, Card, Divider, Flex, ScrollArea, Title } from "@mantine/core";
 import { IconArrowBigRightFilled } from "@tabler/icons-react";
 
 interface ModalProps {
@@ -26,28 +26,29 @@ function BlacksmithModal({ opened, onClose }: ModalProps) {
       header={<ResourceButton emoji="🪙" count={gold} />}
     >
       <Card withBorder radius="md" h="100%">
-        <Flex direction="column" gap="md" h="100%">
+        <ScrollArea>
 
-          <Flex direction="column" align="center" gap="md">
-            <Flex align="center" gap="md">
-              <Content placeholder={assets.item("we_ancient_sword").image} />
-              <Flex direction="column" align="center">
+          <Flex direction="column" gap="md" h="100%">
+
+            <Flex direction="column" align="center" gap="md">
+              <Flex align="center" gap="md" pos="relative">
+                <Content placeholder={assets.item("we_ancient_sword").image} />
                 <IconArrowBigRightFilled />
-                <Title order={5} pos="absolute" mt="lg">0 / 3</Title>
+                <Title order={5} mt={48} pos="absolute" style={{ transform: "translate(-50%,0)", left: "50%" }}>0 / 3</Title>
+                <Content placeholder={assets.item("we_broad_axe_5").image} />
               </Flex>
-              <Content placeholder={assets.item("we_broad_axe_5").image} />
+
+              <Button>Upgrade</Button>
             </Flex>
 
-            <Button>Upgrade</Button>
+            <Divider label="Items" />
+
+            <ContentList>
+              {items?.map(i => <Content key={game.item.id(i)} item={i} onClick={() => { }} />)}
+            </ContentList>
+
           </Flex>
-
-          <Divider label="Items" />
-
-          <ContentList>
-            {items?.map(i => <Content key={game.item.id(i)} item={i} onClick={() => { }} />)}
-          </ContentList>
-
-        </Flex>
+        </ScrollArea>
       </Card>
     </FullscreenModal>
   )
