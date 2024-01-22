@@ -7,7 +7,7 @@ interface Props {
   title: string;
   onClick: () => void;
 }
-console.log(import.meta.env.BASE_URL)
+
 function RouteButton({ children, emoji, title, onClick }: PropsWithChildren<Props>) {
   return (
     <Button
