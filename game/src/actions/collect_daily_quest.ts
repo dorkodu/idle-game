@@ -10,7 +10,7 @@ export function actable(player: IPlayer, props: Props): boolean {
   const startDate = new Date(player.events.dailyQuests.startDate);
   const endDate = new Date(game.dailyQuest.getResetDate(Date.now()));
 
-  // Check startDate and endDate are in the same day
+  // Check startDate and endDate are not in the same day
   if (
     startDate.getUTCFullYear() !== endDate.getUTCFullYear() ||
     startDate.getUTCMonth() !== endDate.getUTCMonth() ||

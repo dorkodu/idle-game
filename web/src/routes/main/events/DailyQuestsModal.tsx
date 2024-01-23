@@ -30,17 +30,25 @@ function DailyQuestsModal({ opened, onClose }: ModalProps) {
       if (!player) return;
 
       const currentDate = new Date();
-      const nextDate = new Date(game.dailyQuest.getResetDate(Date.now()));
+      const resetDate = new Date(game.dailyQuest.getResetDate(player.events.dailyQuests.startDate));
 
-      const _hour = Math.abs(nextDate.getUTCHours() - currentDate.getUTCHours());
-      const _minute = Math.abs(nextDate.getUTCMinutes() - currentDate.getUTCMinutes());
-      const _second = Math.abs(nextDate.getUTCSeconds() - currentDate.getUTCSeconds());
+      const _hour = Math.abs(resetDate.getUTCHours() - currentDate.getUTCHours());
+      const _minute = Math.abs(resetDate.getUTCMinutes() - currentDate.getUTCMinutes());
+      const _second = Math.abs(resetDate.getUTCSeconds() - currentDate.getUTCSeconds());
 
       const hour = _hour > 9 ? _hour : `0${_hour}`;
       const minute = _minute > 9 ? _minute : `0${_minute}`;
       const second = _second > 9 ? _second : `0${_second}`;
 
       setTime(`${hour}:${minute}:${second}`);
+
+      // If currentDate has passed/reached resetDate, reset the daily quests
+      if (currentDate.getTime() >= resetDate.getTime()) {
+        useApiStore.setState(s => {
+          if (!s.player) return;
+          game.actions.resetDailyQuests.act(s.player, {});
+        });
+      }
     }
 
     const interval = setInterval(callback, 1000);

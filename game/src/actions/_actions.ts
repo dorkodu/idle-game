@@ -26,5 +26,6 @@ export { altarSacrifice } from "./altar_sacrifice";
 
 // Events
 export { collectDailyQuest } from "./collect_daily_quest";
+export { resetDailyQuests } from "./reset_daily_quests";
 
 export * as actions from "./_actions";
