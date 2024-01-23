@@ -40,8 +40,8 @@ export default defineConfig({
         start_url: "/",
         display: "standalone",
         orientation: "any",
-        theme_color: "#1A1B1E",
-        background_color: "#1A1B1E",
+        theme_color: "#242424",
+        background_color: "#242424",
         icons: [
           { "src": "/favicon.ico", "type": "image/x-icon", "sizes": "16x16 32x32" },
           { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" },
@@ -64,5 +64,5 @@ export default defineConfig({
   build: {
     reportCompressedSize: false,
   },
-  base: "/",
+  base: "/idle-demo/",
 })
