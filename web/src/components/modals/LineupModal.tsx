@@ -45,8 +45,8 @@ function LineupModal() {
 
       actable = game.actions.performBattle.actable(s.player, { battleId: lineup.battleId });
       if (actable) {
-        game.actions.performBattle.act(s.player, { battleId: lineup.battleId });
         battle = game.battles[lineup.battleId].onCreate(s.player);
+        game.actions.performBattle.act(s.player, { battleId: lineup.battleId });
       }
     });
 
