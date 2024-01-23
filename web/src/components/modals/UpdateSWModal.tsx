@@ -28,13 +28,13 @@ function UpdateSWModal() {
       size={360}
     >
       <Flex direction="column" gap="md" align="center">
-        <Image src={`url(${import.meta.env.BASE_URL}favicon.svg)`} w={100} h={100} />
+        <Image src={`${import.meta.env.BASE_URL}favicon.png`} w={128} h={128} />
 
         <Title order={4}>
-          Updating the App!
+          Updating the Game!
         </Title>
 
-        <Loader type="dots" />
+        <Loader />
       </Flex>
     </Modal>
   )
