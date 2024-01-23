@@ -16,6 +16,7 @@ export { campaign } from "./core/campaign";
 export { battle } from "./core/battle";
 
 export { dailyQuest } from "./core/daily_quest";
+export { achievement } from "./core/achievement";
 
 export { stats } from "./core/stats";
 
@@ -25,6 +26,7 @@ export { monsters } from "./data/monsters";
 export { campaigns } from "./data/campaigns";
 export { battles } from "./data/battles";
 export { dailyQuests } from "./data/daily_quests";
+export { achievements } from "./data/achievements";
 
 // Types
 export { tier } from "./types/tier";

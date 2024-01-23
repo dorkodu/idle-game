@@ -6,6 +6,7 @@ import { IContent } from "@game/types/content";
 import { IDailyQuest } from "@game/core/daily_quest";
 import { useMemo } from "react";
 import { useApiStore } from "@/stores/apiStore";
+import { IAchievement } from "@game/core/achievement";
 
 interface Vars {
   name: string;
@@ -19,7 +20,7 @@ interface Vars {
 
 interface Props {
   dailyQuest?: IDailyQuest;
-  achievement?: any;
+  achievement?: IAchievement;
 }
 
 function CollectableRewardCard({ dailyQuest, achievement }: Props) {
@@ -45,8 +46,22 @@ function CollectableRewardCard({ dailyQuest, achievement }: Props) {
       }
     }
     else if (achievement) {
-      return undefined;
+      return {
+        name: achievement.id,
+        rewards: game.achievements[achievement.id].rewards,
+        done: player ? game.achievement.getDone(player, achievement) : 0,
+        todo: game.achievement.getTodo(achievement),
+        onCollect() {
+          useApiStore.setState(s => {
+            if (!s.player) return;
+            game.actions.collectAchievement.act(s.player, { achievementId: achievement.id });
+          });
+        },
+        collectible: game.actions.collectAchievement.actable(player, { achievementId: achievement.id }),
+        collected: !!player?.events.achievements.collected[achievement.id],
+      }
     }
+
     return undefined;
   }, [player, dailyQuest, achievement]);
 

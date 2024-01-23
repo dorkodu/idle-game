@@ -54,7 +54,10 @@ const initialState: ApiStoreState = {
       tower: { stage: 0 },
     },
     events: {
-      achievements: {},
+      achievements: {
+        progress: {},
+        collected: {},
+      },
       dailyQuests: {
         startDate: Date.now(),
         progress: {},

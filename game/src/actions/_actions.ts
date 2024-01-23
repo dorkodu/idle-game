@@ -25,6 +25,7 @@ export { altarEvolve } from "./altar_evolve";
 export { altarSacrifice } from "./altar_sacrifice";
 
 // Events
+export { collectAchievement } from "./collect_achievement";
 export { collectDailyQuest } from "./collect_daily_quest";
 export { resetDailyQuests } from "./reset_daily_quests";
 

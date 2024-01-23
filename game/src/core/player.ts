@@ -1,4 +1,5 @@
 import { game } from "..";
+import { AchievementId } from "../data/achievements";
 import { CampaignId } from "../data/campaigns";
 import { DailyQuestId } from "../data/daily_quests";
 import { Farm } from "../types/farm";
@@ -48,8 +49,6 @@ export interface IPlayer {
   };
 
   events: {
-    achievements: {},
-
     dailyQuests: {
       startDate: number;
 
@@ -58,7 +57,14 @@ export interface IPlayer {
 
       /** Usage: collected[DailyQuestId] -> boolean */
       collected: Partial<Record<DailyQuestId, boolean>>;
-    };
+    },
+    achievements: {
+      /** Usage: progress[AchievementId] -> number */
+      progress: Partial<Record<AchievementId, number>>;
+
+      /** Usage: collected[DailyQuestId] -> boolean */
+      collected: Partial<Record<AchievementId, boolean>>;
+    },
   };
 }
 

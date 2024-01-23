@@ -4,9 +4,11 @@ import { game } from "@game/index";
 import { Divider, Flex, Progress, ScrollArea, Text } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks";
 import DailyQuestsModal from "./events/DailyQuestsModal";
+import AchievementsModal from "./events/AchievementsModal";
 
 function Events() {
   const [dailyQuestsOpened, { open: openDailyQuests, close: closeDailyQuests }] = useDisclosure();
+  const [achievementsOpened, { open: openAchievements, close: closeAchievements }] = useDisclosure();
 
   const player = useApiStore(state => state.player);
 
@@ -30,9 +32,7 @@ function Events() {
             </Progress.Root>
           </RouteButton>
 
-          <RouteButton emoji="🎯" title="Achievements" onClick={() => { }}>
-            <Text ta="left" size="sm" c="yellow">Coming soon...</Text>
-          </RouteButton>
+          <RouteButton emoji="🎯" title="Achievements" onClick={openAchievements} />
 
           <Divider label="Limited Events" />
 
@@ -48,6 +48,7 @@ function Events() {
       </ScrollArea>
 
       <DailyQuestsModal opened={dailyQuestsOpened} onClose={closeDailyQuests} />
+      <AchievementsModal opened={achievementsOpened} onClose={closeAchievements} />
     </>
   )
 }
