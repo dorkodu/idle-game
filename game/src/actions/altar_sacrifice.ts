@@ -39,6 +39,8 @@ export function act(player: IPlayer, props: Props): boolean {
     }
   );
 
+  game.signals.sacrificeMonsters.dispatch({ player });
+
   return true;
 }
 

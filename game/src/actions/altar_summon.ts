@@ -46,6 +46,8 @@ export function act(player: IPlayer, props: Props): IMonster | undefined {
     }
   );
 
+  game.signals.summonMonster.dispatch({ player });
+
   return monster;
 }
 

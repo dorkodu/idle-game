@@ -26,6 +26,11 @@ export function act(player: IPlayer, props: Props) {
 
   if (result === "win") {
     game.battles[props.battleId].onWin(player, battle);
+
+    switch (props.battleId) {
+      case "campaign": game.signals.progressCampaign.dispatch({ player }); break;
+      case "tower": game.signals.progressTower.dispatch({ player }); break;
+    }
   }
 }
 

@@ -43,6 +43,8 @@ export function act(player: IPlayer, props: Props): boolean {
     }
   );
 
+  game.signals.evolveMonster.dispatch({ player });
+
   return true;
 }
 

@@ -1,5 +1,6 @@
 import { game } from "..";
 import { CampaignId } from "../data/campaigns";
+import { DailyQuestId } from "../data/daily_quests";
 import { Farm } from "../types/farm";
 import { ItemTypeEquipment } from "../types/item_type";
 import { Lineup, MonsterLineup } from "../types/lineup";
@@ -48,10 +49,16 @@ export interface IPlayer {
 
   events: {
     achievements: {},
+
     dailyQuests: {
-      done: number,
-      todo: number,
-    },
+      startDate: number;
+
+      /** Usage: progress[DailyQuestId] -> number */
+      progress: Partial<Record<DailyQuestId, number>>;
+
+      /** Usage: collected[DailyQuestId] -> boolean */
+      collected: Partial<Record<DailyQuestId, boolean>>;
+    };
   };
 }
 

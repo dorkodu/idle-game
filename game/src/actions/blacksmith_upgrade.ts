@@ -36,6 +36,8 @@ export function act(player: IPlayer, props: Props) {
       toRemove: [{ item: { id: item.id, tier: item.tier, stars: item.stars, count: 3 } }],
     },
   );
+
+  game.signals.upgradeItem.dispatch({ player });
 }
 
 export * as blacksmithUpgrade from "./blacksmith_upgrade";

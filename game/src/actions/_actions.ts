@@ -24,4 +24,7 @@ export { altarSummon } from "./altar_summon";
 export { altarEvolve } from "./altar_evolve";
 export { altarSacrifice } from "./altar_sacrifice";
 
+// Events
+export { collectDailyQuest } from "./collect_daily_quest";
+
 export * as actions from "./_actions";

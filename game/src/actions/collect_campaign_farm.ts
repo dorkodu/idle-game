@@ -29,6 +29,8 @@ export function act(player: IPlayer, _props: Props) {
 
   player.campaign.lastFarmDate = Date.now();
   game.actions.changePlayerContents.act(player, { toAdd: contents });
+
+  game.signals.collectCampaignFarm.dispatch({ player });
 }
 
 export * as collectCampaignFarm from "./collect_campaign_farm";
