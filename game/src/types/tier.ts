@@ -49,3 +49,4 @@ export function tierToCampaignCount(tier: Tier | undefined) {
 }
 
 export * as tier from "./tier";
+export const tiers: Tier[] = ["F", "E", "D", "C", "B", "A", "S"];

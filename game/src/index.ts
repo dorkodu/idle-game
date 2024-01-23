@@ -29,7 +29,7 @@ export { dailyQuests } from "./data/daily_quests";
 export { achievements } from "./data/achievements";
 
 // Types
-export { tier } from "./types/tier";
+export { tier, tiers } from "./types/tier";
 export { lineup } from "./types/lineup";
 
 export * as game from ".";
