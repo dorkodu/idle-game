@@ -1,6 +1,6 @@
 import { game } from "..";
 import { BattleId } from "../data/battles";
-import { Content } from "../types/content";
+import { IContent } from "../types/content";
 import { BattleLineup, MonsterLineup } from "../types/lineup";
 import { IBattleMonster } from "./monster";
 import { IPlayer } from "./player";
@@ -11,14 +11,14 @@ export interface IBattle {
   ally: BattleLineup;
   enemy: BattleLineup;
   turn: { count: number, ally: number[], enemy: number[] };
-  rewards: Content[];
+  rewards: IContent[];
 
   animation: number;
 }
 
 export interface IBattleData {
   getLineup: (player: IPlayer) => MonsterLineup;
-  getRewards: (player: IPlayer) => Content[];
+  getRewards: (player: IPlayer) => IContent[];
 
   canCreate: (player: IPlayer) => boolean;
   onCreate: (player: IPlayer) => IBattle;

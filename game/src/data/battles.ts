@@ -3,7 +3,7 @@ import { IBattleData } from "../core/battle"
 import { IItem } from "../core/item";
 import { IMonster } from "../core/monster";
 import { IPlayer } from "../core/player"
-import { Content } from "../types/content";
+import { IContent } from "../types/content";
 import { MonsterLineup } from "../types/lineup";
 import { MonsterId } from "./monsters";
 
@@ -48,7 +48,7 @@ function createCampaignBattleData(): IBattleData {
       const tier = player.campaign.tier;
       const stage = player.campaign.stage;
 
-      const rewards: Content[] = [];
+      const rewards: IContent[] = [];
 
       // Add 1 to completed stages because stages start from 0, and 0 * x is 0
       const completedStages = game.campaign.getCompletedStages(tier, campaign, stage) + 1;
@@ -148,7 +148,7 @@ function createTowerBattleData(): IBattleData {
       // Add 1 to stage as stage starts from 0
       const stage = player.map.tower.stage + 1;
 
-      const rewards: Content[] = [];
+      const rewards: IContent[] = [];
 
       const gold = Math.floor(stage * 1000);
       rewards.push({ item: game.constants.createGold(gold) });

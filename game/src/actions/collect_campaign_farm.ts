@@ -1,6 +1,6 @@
 import { game } from "..";
 import { IPlayer } from "../core/player";
-import { Content } from "../types/content";
+import { IContent } from "../types/content";
 
 type Props = {
 
@@ -21,7 +21,7 @@ export function act(player: IPlayer, _props: Props) {
 
   const farm = game.player.getCampaignFarm(player);
 
-  const contents: Content[] = [
+  const contents: IContent[] = [
     { item: game.constants.createGold(farm.gold) },
     { item: game.constants.createFood(farm.food) },
     { item: game.constants.createXp(farm.xp) },

@@ -1,10 +1,10 @@
 import { game } from "..";
 import { IPlayer } from "../core/player";
-import { Content } from "../types/content";
+import { IContent } from "../types/content";
 
 type Props = {
-  toAdd?: Content[];
-  toRemove?: Content[];
+  toAdd?: IContent[];
+  toRemove?: IContent[];
 }
 
 export function actable(_player: IPlayer, props: Props): boolean {

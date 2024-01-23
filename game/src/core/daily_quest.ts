@@ -1,6 +1,6 @@
 import { game } from "..";
 import { DailyQuestId } from "../data/daily_quests";
-import { Content } from "../types/content";
+import { IContent } from "../types/content";
 import { IPlayer } from "./player";
 
 export interface IDailyQuest {
@@ -9,7 +9,7 @@ export interface IDailyQuest {
 
 export interface IDailyQuestData {
   targetProgress: number;
-  rewards: Content[];
+  rewards: IContent[];
   onInit: () => void;
 }
 

@@ -1,6 +1,6 @@
 import { game } from "..";
 import { IPlayer } from "../core/player";
-import { Content } from "../types/content";
+import { IContent } from "../types/content";
 import { IShopItem, ShopType } from "../types/shop";
 
 type Props = {
@@ -62,7 +62,7 @@ export function act(player: IPlayer, props: Props) {
   }
 
   let shopItem: IShopItem | undefined = undefined;
-  let itemCost: Content[] = [];
+  let itemCost: IContent[] = [];
 
   switch (props.shop) {
     case "gold":

@@ -1,6 +1,6 @@
 import { IBattle } from "@game/core/battle";
 import { BattleId } from "@game/data/battles";
-import { Content } from "@game/types/content";
+import { IContent } from "@game/types/content";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -36,7 +36,7 @@ export interface AppStoreState {
 
     contentList: {
       opened: boolean,
-      contents: Content[],
+      contents: IContent[],
 
       onClick?: (id: string) => void,
 

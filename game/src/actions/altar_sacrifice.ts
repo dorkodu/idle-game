@@ -1,6 +1,7 @@
 import { game } from "..";
 import { IMonster } from "../core/monster";
-import { IPlayer } from "../core/player"; import { Content } from "../types/content";
+import { IPlayer } from "../core/player";
+import { IContent } from "../types/content";
 ;
 
 type Props = {
@@ -20,8 +21,8 @@ export function act(player: IPlayer, props: Props): boolean {
 
   const monsters = props.monsters.map(m => player.monsters[m]).filter(Boolean) as IMonster[];
 
-  const monsterContents: Content[] = monsters.map(monster => ({ monster }));
-  const itemContents: Content[] = [];
+  const monsterContents: IContent[] = monsters.map(monster => ({ monster }));
+  const itemContents: IContent[] = [];
   const rewards = game.monster.getSacrificeRewards(monsters);
 
   monsters.forEach(m => {
