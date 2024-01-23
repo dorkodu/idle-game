@@ -12,14 +12,17 @@ interface Props {
 }
 
 function BattleMonster({ monster }: Props) {
-  if (!monster) return <div style={{ width: 64, height: 100 }} />
-
-  const healthValue = (monster.health / game.stats.value(monster.stats.health)) * 100;
-  const energyValue = (monster.energy / game.constants.maxEnergy) * 100;
-  const isAlive = monster.health > 0;
-
   const [blur, setBlur] = useState(false);
 
+  const maxHealth = monster ? game.stats.value(monster.stats.health) : 0;
+  const health = monster?.health ?? 0;
+  const energy = monster?.energy ?? 0;
+
+  const healthValue = (health / maxHealth) * 100;
+  const energyValue = (energy / game.constants.maxEnergy) * 100;
+  const isAlive = health > 0;
+
+  if (!monster) return <div style={{ width: 64, height: 100 }} />
   return (
     <Flex direction="column" justify="center" w={64} h={100} pos="relative">
 
