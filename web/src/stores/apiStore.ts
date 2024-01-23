@@ -13,7 +13,7 @@ export interface ApiStoreAction {
 const initialState: ApiStoreState = {
   player: {
     id: "0",
-    username: "Username",
+    username: "Player",
     level: 1,
     xp: 0,
     lineup: [undefined, undefined, undefined, undefined, undefined, undefined],
