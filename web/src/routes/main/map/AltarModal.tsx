@@ -21,11 +21,17 @@ function AltarModal({ opened, onClose }: ModalProps) {
   const player = useApiStore(state => state.player);
 
   const gold = player?.items[game.constants.goldId]?.count ?? 0;
+  const food = player?.items[game.constants.foodId]?.count ?? 0;
 
   return (
     <FullscreenModal
       opened={opened} onClose={onClose}
-      header={<ResourceButton emoji="🪙" count={gold} />}
+      header={
+        <>
+          <ResourceButton emoji="🪙" count={gold} />
+          <ResourceButton emoji="🍏" count={food} />
+        </>
+      }
     >
       <Card withBorder radius="md" h="100%">
         <ScrollArea scrollbars="y" h="100%">
@@ -204,22 +210,90 @@ function Sacrifice() {
   const player = useApiStore(state => state.player);
   const monsters = player ? Object.values(player.monsters) : undefined;
 
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const selectedMonsters = player ? selectedIds.map(id => id ? player.monsters[id] : undefined).filter(Boolean) as IMonster[] : undefined;
+  const sacrificeRewards = selectedMonsters ? game.monster.getSacrificeRewards(selectedMonsters) : [];
+
+  const onSacrifice = () => {
+    useApiStore.setState(s => {
+      if (!s.player) return;
+      if (!selectedMonsters) return;
+      const acted = game.actions.altarSacrifice.act(s.player, { monsters: selectedIds });
+      if (acted) setSelectedIds([]);
+    });
+  }
+
+  const canSacrifice = (): boolean => {
+    if (!player) return false;
+    if (!selectedMonsters) return false;
+    return game.actions.altarSacrifice.actable(player, { monsters: selectedIds });
+  }
+
+  const onSelectItem = (monsterId: string) => {
+    // Check if the same monster id is already selected
+    if (selectedIds.filter(id => id === monsterId).length > 0) return;
+
+    setSelectedIds([...selectedIds, monsterId]);
+  }
+
+  const onDeselectItem = (index: number) => {
+    const newIds = [...selectedIds];
+    newIds.splice(index, 1);
+
+    setSelectedIds(newIds);
+  }
+
   return (
     <>
       <Divider label="Sacrifice Monsters" />
 
-      <ContentList>
-        {monsters?.map(m => <Content key={game.monster.id(m)} monster={m} onClick={() => { }} />)}
-      </ContentList>
+      <Flex direction="column" style={{ display: "grid", gridTemplateColumns: "auto" }}>
+        <ScrollArea scrollbars="x">
+          <Flex justify="center" gap="xs">
+
+            {selectedIds.length === 0 && <Content placeholder={assets.monster("angel")} />}
+
+            {selectedMonsters?.map((m, i) =>
+              <Content
+                key={game.monster.id(m)}
+                monster={m}
+                onClick={() => onDeselectItem(i)}
+              />
+            )}
+
+          </Flex>
+        </ScrollArea>
+      </Flex>
 
       <Flex justify="center">
-        <Button variant="light" color="red">Sacrifice</Button>
+        <Button onClick={onSacrifice} disabled={!canSacrifice()} variant="light" color="red">Sacrifice & Receive</Button>
+      </Flex>
+
+      <Flex direction="column" style={{ display: "grid", gridTemplateColumns: "auto" }}>
+        <ScrollArea scrollbars="x">
+          <Flex justify="center" gap="xs">
+
+            {sacrificeRewards?.map(c =>
+              c.item ?
+                <Content key={game.item.id(c.item)} item={c.item} />
+                :
+                <Content key={game.monster.id(c.monster!)} monster={c.monster} />
+            )}
+
+          </Flex>
+        </ScrollArea>
       </Flex>
 
       <Divider label="Monsters" />
 
       <ContentList>
-        {monsters?.map(m => <Content key={game.monster.id(m)} monster={m} onClick={() => { }} />)}
+        {monsters?.map(m =>
+          <Content
+            key={game.monster.id(m)}
+            monster={!selectedIds.includes(game.monster.id(m)) ? m : undefined}
+            onClick={() => onSelectItem(game.monster.id(m))}
+          />
+        )}
       </ContentList>
     </>
   )

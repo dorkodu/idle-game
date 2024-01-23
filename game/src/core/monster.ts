@@ -1,5 +1,6 @@
 import { game } from "..";
 import { MonsterId } from "../data/monsters";
+import { Content } from "../types/content";
 import { Team } from "../types/team";
 import { BattleAnimation, BattleHitData, IBattle } from "./battle";
 import { IItem } from "./item";
@@ -113,6 +114,13 @@ export function getEvolvedMonster(monsters: [IMonster?, IMonster?, IMonster?]): 
     time: Date.now(),
     items: monster1.items,
   };
+}
+
+export function getSacrificeRewards(monsters: IMonster[]): Content[] {
+  return [
+    { item: game.constants.createGold(1000 * monsters.length) },
+    { item: game.constants.createFood(1000 * monsters.length) },
+  ]
 }
 
 export function createBattleMonster(monster: IMonster | undefined, team: Team): IBattleMonster | undefined {
