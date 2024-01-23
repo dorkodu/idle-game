@@ -64,5 +64,5 @@ export default defineConfig({
   build: {
     reportCompressedSize: false,
   },
-  base: "/idle-demo/",
+  base: "/",
 })
