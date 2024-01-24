@@ -19,6 +19,7 @@ export { collectCampaignFarm } from "./collect_campaign_farm";
 export { buyShopItem } from "./buy_shop_item";
 
 // Map
+export { resetArenaBattles } from "./reset_arena_battles";
 export { blacksmithUpgrade } from "./blacksmith_upgrade";
 export { altarSummon } from "./altar_summon";
 export { altarEvolve } from "./altar_evolve";

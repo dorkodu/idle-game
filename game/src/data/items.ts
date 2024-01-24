@@ -187,6 +187,8 @@ const other = {
   ot_food: createOtherData("other", 2),
   ot_xp: createOtherData("other", 3),
   ot_monster_scroll: createOtherData("other", 4),
+  ot_arena_trophy: createOtherData("other", 5),
+  ot_wheel_spin_token: createOtherData("other", 6),
 }
 
 export type ItemId = keyof typeof items

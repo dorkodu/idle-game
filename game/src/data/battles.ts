@@ -199,8 +199,59 @@ function createTowerBattleData(): IBattleData {
   }
 }
 
+// TODO: Arena battles' lineup & rewards are copied from tower battle, create unique ones.
+function createArenaBattleData(): IBattleData<{ date: number }> {
+  return {
+    getLineup(player) {
+      const stage = player.map.tower.stage;
+
+      const monsterCount = 6;
+      const monsterLevel = stage + 1;
+      const monsterStars = 1;
+
+      const lineup = Array(monsterCount).fill(0).map((_, i) => {
+        const monsterId: MonsterId = game.random.percent(
+          { seed: stage * i },
+          Object.keys(game.monsters).map(result => ({ percent: 1, result: result as MonsterId }))
+        ) || "angel";
+
+        return {
+          id: monsterId,
+          level: monsterLevel,
+          stars: monsterStars,
+          time: i,
+        }
+      }) as MonsterLineup;
+
+      return lineup;
+    },
+    getRewards(_player) {
+      return [{ item: game.constants.createArenaTrophy(10) }];
+    },
+    canCreate,
+    onCreate(player, _props) {
+      return {
+        id: "tower",
+        ally: game.lineup.createBattleLineup(game.player.getLineup(player), "ally"),
+        enemy: game.lineup.createBattleLineup(this.getLineup(player), "enemy"),
+        turn: { count: 1, ally: [], enemy: [] },
+        rewards: this.getRewards(player),
+        animation: 0,
+      }
+    },
+    onWin(player, battle) {
+      // Add player battle reward contents
+      game.actions.changePlayerContents.act(player, { toAdd: battle.rewards });
+
+      // Increase the stage
+      player.map.tower.stage++;
+    },
+  }
+}
+
 export type BattleId = keyof typeof battles
 export const battles = {
   campaign: createCampaignBattleData(),
   tower: createTowerBattleData(),
+  arena: createArenaBattleData(),
 }

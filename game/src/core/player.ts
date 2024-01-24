@@ -46,6 +46,10 @@ export interface IPlayer {
 
   map: {
     tower: { stage: number },
+    arena: {
+      /** Date is used to generate arena battles */
+      dates: [number, number, number];
+    },
   };
 
   events: {

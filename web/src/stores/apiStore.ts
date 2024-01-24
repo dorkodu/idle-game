@@ -52,6 +52,7 @@ const initialState: ApiStoreState = {
     },
     map: {
       tower: { stage: 0 },
+      arena: { dates: [0, 1, 2] },
     },
     events: {
       achievements: {

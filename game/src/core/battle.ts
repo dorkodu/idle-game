@@ -16,14 +16,14 @@ export interface IBattle {
   animation: number;
 }
 
-export interface IBattleData {
-  getLineup: (player: IPlayer) => MonsterLineup;
-  getRewards: (player: IPlayer) => IContent[];
+export interface IBattleData<T = unknown> {
+  getLineup: (player: IPlayer, props?: T) => MonsterLineup;
+  getRewards: (player: IPlayer, props?: T) => IContent[];
 
-  canCreate: (player: IPlayer) => boolean;
-  onCreate: (player: IPlayer) => IBattle;
+  canCreate: (player: IPlayer, props?: T) => boolean;
+  onCreate: (player: IPlayer, props?: T) => IBattle;
 
-  onWin: (player: IPlayer, battle: IBattle) => void;
+  onWin: (player: IPlayer, battle: IBattle, props?: T) => void;
 }
 
 export type BattleAnimationId = BattleAnimation["id"];
