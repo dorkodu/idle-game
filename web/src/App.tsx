@@ -9,6 +9,7 @@ import ContentListModal from "./components/modals/ContentListModal";
 import LineupModal from "./components/modals/LineupModal";
 import BattleModal from "./components/modals/BattleModal";
 import ItemDetailsModal from "./components/modals/ItemDetailsModal";
+import DevTools from "./components/DevTools";
 
 function App() {
   const location = useLocation();
@@ -37,6 +38,8 @@ function App() {
         <LineupModal />
         <ContentListModal />
         <BattleModal />
+
+        {import.meta.env.DEV && <DevTools />}
       </MantineProvider>
 
       <ScrollRestoration />
