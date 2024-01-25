@@ -2,6 +2,8 @@ import { game } from "..";
 import { IItem } from "../core/item";
 import { IShopItem, IShopSpecialOffer } from "../types/shop";
 
+export const version = "0.1.0";
+
 /// Battle constants \\\
 export const maxEnergy = 100;
 export const baseEnergy = 50;
@@ -40,7 +42,7 @@ export const wheelSpinTokenId = game.item.id(createWheelSpinToken(0));
 export const shopSnapshot = 1705908399559;
 
 export const shopSpecialOffer: IShopSpecialOffer = {
-  asset: { emoji: "🗞" },
+  asset: { emoji: "📜" },
   name: "Monster Package",
   money: 8.88,
   items: [createMonsterScroll(5, 100), createGem(10000)],

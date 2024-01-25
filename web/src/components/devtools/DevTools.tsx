@@ -4,6 +4,7 @@ import { draggable, handle } from './DevTools.css';
 import { IconDots, IconX } from '@tabler/icons-react';
 import { useHotkeys } from '@mantine/hooks';
 import { useState } from 'react';
+import { game } from '@game/index';
 
 type Tab = keyof typeof tabs;
 const tabs = {
@@ -32,7 +33,7 @@ function DevTools() {
         <Flex direction="column" gap="md">
 
           <Flex justify="space-between" gap="md">
-            <Title order={5} className={`handle ${handle}`}>Dev Tools</Title>
+            <Title order={5} className={`handle ${handle}`}>{`Dev Tools (v${game.constants.version})`}</Title>
             <ActionIcon size={32} onClick={() => setOpen(false)}><IconX /></ActionIcon>
           </Flex>
 

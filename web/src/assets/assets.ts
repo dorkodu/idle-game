@@ -21,7 +21,7 @@ export function item(id: ItemId | undefined): { emoji?: string, image?: string }
     case "ot_gem": emoji = "💎"; break;
     case "ot_food": emoji = "🍏"; break;
     case "ot_xp": emoji = "⭐"; break;
-    case "ot_monster_scroll": emoji = "🗞"; break;
+    case "ot_monster_scroll": emoji = "📜"; break;
     case "ot_arena_trophy": emoji = "🏆"; break;
     case "ot_wheel_spin_token": emoji = "🎟"; break;
     default: image = _assets[`/src/assets/${game.items[id].type}/${id.substring(3)}.png`]; break;

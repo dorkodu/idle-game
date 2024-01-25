@@ -22,7 +22,7 @@ function Events() {
 
           <Divider label="Continuous Events" />
 
-          <RouteButton emoji="📜" title="Daily Quests" onClick={openDailyQuests}>
+          <RouteButton emoji="📋" title="Daily Quests" onClick={openDailyQuests}>
             <Progress.Root size="xl" mt="xs" w="100%">
               <Progress.Section value={(dailyQuestsDone / dailyQuestsTodo) * 100}>
                 <Progress.Label pos="absolute" style={{ transform: "translate(-50%,0)", left: "50%" }}>
