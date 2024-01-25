@@ -9,7 +9,7 @@ import ContentListModal from "./components/modals/ContentListModal";
 import LineupModal from "./components/modals/LineupModal";
 import BattleModal from "./components/modals/BattleModal";
 import ItemDetailsModal from "./components/modals/ItemDetailsModal";
-import DevTools from "./components/DevTools";
+import DevTools from "./components/devtools/DevTools";
 
 function App() {
   const location = useLocation();
