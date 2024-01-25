@@ -1,4 +1,5 @@
 import { IPlayer } from "@game/core/player";
+import { game } from "@game/index";
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 
@@ -41,7 +42,8 @@ const initialState: ApiStoreState = {
       "angel-1-1": { id: "angel", level: 1, stars: 1, time: 1 },
     },
     shop: {
-      snapshot: 0,
+      snapshot: game.constants.version,
+      startDate: Date.now(),
       premium: {},
       gold: {},
       gem: {},

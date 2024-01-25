@@ -17,6 +17,7 @@ export { collectCampaignFarm } from "./collect_campaign_farm";
 
 // Shop
 export { buyShopItem } from "./buy_shop_item";
+export { resetShopItems } from "./reset_shop_items";
 
 // Map
 export { resetArenaBattles } from "./reset_arena_battles";

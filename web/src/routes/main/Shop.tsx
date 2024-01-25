@@ -6,11 +6,29 @@ import Emoji from "@/components/Emoji";
 import { game } from "@game/index";
 import { IShopItem, IShopSpecialOffer, ShopType } from "@game/types/shop";
 import { useApiStore } from "@/stores/apiStore";
+import { useAppStore } from "@/stores/appStore";
+import { IItem } from "@game/core/item";
+import { useTimer } from "@/components/hooks";
 
 function Shop() {
+  const player = useApiStore(state => state.player);
+
+  const resetDate = player ? game.dailyQuest.getResetDate(player.events.dailyQuests.startDate) : Date.now();
+  const time = useTimer(
+    resetDate,
+    () => {
+      useApiStore.setState(s => {
+        if (!s.player) return;
+        game.actions.resetShopItems.act(s.player, {});
+      });
+    }
+  );
+
   return (
     <ScrollArea scrollbars="y">
       <Flex direction="column" gap="md">
+
+        <Title order={6} ta="center">Shop resets in {time}</Title>
 
         <Divider label={<Flex align="center"><Emoji emoji="✨" size={16} />&nbsp;Special Offer</Flex>} />
 
@@ -53,6 +71,10 @@ interface ShopSpecialOfferProps {
 }
 
 function ShopSpecialOffer({ specialOffer, onBuy }: ShopSpecialOfferProps) {
+  const onClick = (item: IItem) => {
+    useAppStore.setState(s => { s.modals.itemDetails = { opened: true, item } });
+  }
+
   return (
     <Card withBorder styles={{ root: { backgroundImage: `url(${import.meta.env.BASE_URL}gggrain.svg)` } }}>
       <Flex direction="column" align="center" gap="xs">
@@ -63,7 +85,9 @@ function ShopSpecialOffer({ specialOffer, onBuy }: ShopSpecialOfferProps) {
 
         <Flex direction="column" w="100%">
           <ContentList gap="xs">
-            {specialOffer.items.map(item => <Content key={game.item.id(item)} item={item} />)}
+            {specialOffer.items.map(item =>
+              <Content key={game.item.id(item)} item={item} onClick={() => onClick(item)} />
+            )}
           </ContentList>
         </Flex>
 
@@ -83,6 +107,10 @@ interface ShopItemProps {
 
 function ShopItem({ shop, index, shopItem }: ShopItemProps) {
   const player = useApiStore(state => state.player);
+
+  const onClick = () => {
+    useAppStore.setState(s => { s.modals.itemDetails = { opened: true, item: shopItem.item } });
+  }
 
   const onBuy = () => {
     useApiStore.setState(s => {
@@ -107,7 +135,7 @@ function ShopItem({ shop, index, shopItem }: ShopItemProps) {
   return (
     <Flex direction="column" align="center" w={64}>
 
-      <Content item={shopItem.item} />
+      <Content item={shopItem.item} onClick={onClick} />
 
       <Button fullWidth size="compact-sm" px={0} mt="xs" onClick={onBuy} disabled={!canBuy()}>
         {shopItem.price.money !== undefined && <>${shopItem.price.money}</>}

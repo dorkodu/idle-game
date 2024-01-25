@@ -3,6 +3,7 @@ import { IItem } from "../core/item";
 import { IShopItem, IShopSpecialOffer } from "../types/shop";
 import { Tier } from "../types/tier";
 
+/* Current version of the game. Must be change after each game update. */
 export const version = "0.1.0";
 
 /// Battle constants \\\
@@ -40,9 +41,6 @@ export const arenaTrophyId = game.item.id(createArenaTrophy(0));
 export const wheelSpinTokenId = game.item.id(createWheelSpinToken(0));
 
 /// Shop \\\
-/** Obtained by Date.now(), must be changed on every shop update. */
-export const shopSnapshot = 1705908399559;
-
 export const shopSpecialOffer: IShopSpecialOffer = {
   asset: { emoji: "📜" },
   name: "Monster Package",

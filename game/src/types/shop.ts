@@ -20,3 +20,13 @@ export interface IShopItem {
    */
   limit: number;
 }
+
+export function getResetDate(startDate: number) {
+  const date = new Date(startDate);
+
+  date.setUTCHours(23, 59, 59);
+
+  return date.getTime();
+}
+
+export * as shop from "./shop";

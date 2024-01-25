@@ -1,21 +1,18 @@
 import { useAppStore } from "@/stores/appStore";
-import { Flex, Image, Modal, Title } from "@mantine/core";
+import { Badge, Flex, Image, Modal, Title } from "@mantine/core";
 import Emoji from "../Emoji";
-import { useApiStore } from "@/stores/apiStore";
 import { game } from "@game/index";
 import { assets } from "@/assets/assets";
 import Stats from "../custom/Stats";
 import Stars from "../custom/Stars";
 import TierBadge from "../custom/TierBadge";
+import { util } from "@/lib/util";
 
 function ItemDetailsModal() {
   const itemDetails = useAppStore(state => state.modals.itemDetails);
   const close = () => useAppStore.setState(s => { s.modals.itemDetails.opened = false });
 
-  const player = useApiStore(s => s.player);
-
-  const itemId = itemDetails.itemId;
-  const item = player && itemId ? player?.items[itemId] : undefined;
+  const item = itemDetails.item;
 
   const asset = item ? assets.item(item.id) : undefined;
 
@@ -47,6 +44,8 @@ function ItemDetailsModal() {
             }
 
             {stats && <Stats stats={stats} />}
+
+            <Badge size="xl">{util.formatNumber(item.count, true)}</Badge>
           </>
         }
       </Flex>

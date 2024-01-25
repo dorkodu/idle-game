@@ -31,5 +31,6 @@ export { achievements } from "./data/achievements";
 // Types
 export { tier, tiers } from "./types/tier";
 export { lineup } from "./types/lineup";
+export { shop } from "./types/shop";
 
 export * as game from ".";

@@ -1,4 +1,5 @@
 import { IBattle } from "@game/core/battle";
+import { IItem } from "@game/core/item";
 import { BattleId } from "@game/data/battles";
 import { IContent } from "@game/types/content";
 import { create } from "zustand";
@@ -20,7 +21,7 @@ export interface AppStoreState {
 
     itemDetails: {
       opened: boolean,
-      itemId: string | undefined,
+      item: IItem | undefined,
     },
 
     monsterDetails: {
@@ -59,7 +60,7 @@ const initialState: AppStoreState = {
   modals: {
     updateSW: { opened: false },
     lineup: { opened: false, battleId: undefined },
-    itemDetails: { opened: false, itemId: undefined },
+    itemDetails: { opened: false, item: undefined },
     monsterDetails: { opened: false, monsterId: undefined },
     battle: { opened: false, speed: 1, battle: undefined },
     contentList: { opened: false, contents: [] },

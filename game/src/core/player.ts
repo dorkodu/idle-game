@@ -22,10 +22,10 @@ export interface IPlayer {
   monsters: Record<string, IMonster>;
 
   shop: {
-    /**
-     * Used for handling buy limits. Over-written when shop get an update.
-     */
-    snapshot: number;
+    /** Used for handling buy limits. Over-written when the game gets an update. */
+    snapshot: string;
+
+    startDate: number;
 
     /** Usage: premium[shopItemIndex] -> boughtAmount */
     premium: Record<number, number>;

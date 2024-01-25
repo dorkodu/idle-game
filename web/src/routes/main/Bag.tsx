@@ -48,9 +48,7 @@ function Items() {
   const items = useApiStore(s => s.player?.items);
 
   const onClick = (i: IItem) => {
-    useAppStore.setState(s => {
-      s.modals.itemDetails = { opened: true, itemId: game.item.id(i) };
-    });
+    useAppStore.setState(s => { s.modals.itemDetails = { opened: true, item: i } });
   }
 
   return (

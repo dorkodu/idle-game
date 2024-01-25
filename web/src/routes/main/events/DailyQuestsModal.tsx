@@ -1,11 +1,11 @@
 import ResourceButton from "@/components/buttons/ResourceButton";
 import CollectableRewardCard from "@/components/cards/CollectableRewardCard";
 import FullscreenModal from "@/components/custom/FullscreenModal";
+import { useTimer } from "@/components/hooks";
 import { useApiStore } from "@/stores/apiStore";
 import { DailyQuestId } from "@game/data/daily_quests";
 import { game } from "@game/index";
 import { Divider, Flex, Progress, ScrollArea, Title } from "@mantine/core";
-import { useEffect, useState } from "react";
 
 interface ModalProps {
   opened: boolean;
@@ -21,37 +21,16 @@ function DailyQuestsModal({ opened, onClose }: ModalProps) {
   const dailyQuestsDone = player ? game.dailyQuest.getDoneAll(player) : 0;
   const dailyQuestsTodo = game.dailyQuest.getTodoAll();
 
-  const [time, setTime] = useState("00:00:00")
-  useEffect(() => {
-    const callback = () => {
-      const player = useApiStore.getState().player;
-      if (!player) return;
-
-      const currentDate = new Date();
-      const resetDate = new Date(game.dailyQuest.getResetDate(player.events.dailyQuests.startDate));
-
-      const _hour = Math.abs(resetDate.getUTCHours() - currentDate.getUTCHours());
-      const _minute = Math.abs(resetDate.getUTCMinutes() - currentDate.getUTCMinutes());
-      const _second = Math.abs(resetDate.getUTCSeconds() - currentDate.getUTCSeconds());
-
-      const hour = _hour > 9 ? _hour : `0${_hour}`;
-      const minute = _minute > 9 ? _minute : `0${_minute}`;
-      const second = _second > 9 ? _second : `0${_second}`;
-
-      setTime(`${hour}:${minute}:${second}`);
-
-      // If currentDate has passed/reached resetDate, reset the daily quests
-      if (currentDate.getTime() >= resetDate.getTime()) {
-        useApiStore.setState(s => {
-          if (!s.player) return;
-          game.actions.resetDailyQuests.act(s.player, {});
-        });
-      }
+  const resetDate = player ? game.dailyQuest.getResetDate(player.events.dailyQuests.startDate) : Date.now();
+  const time = useTimer(
+    resetDate,
+    () => {
+      useApiStore.setState(s => {
+        if (!s.player) return;
+        game.actions.resetDailyQuests.act(s.player, {});
+      });
     }
-
-    const interval = setInterval(callback, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  );
 
   return (
     <FullscreenModal

@@ -40,7 +40,7 @@ export function actable(player: IPlayer, props: Props): boolean {
 
   // Only check buy limit if player's snapshot is the same as the shop's one
   if (
-    game.constants.shopSnapshot === player.shop.snapshot &&
+    game.constants.version === player.shop.snapshot &&
     shopItem.limit > 0 &&
     shopItem.limit <= bought
   ) return false;
@@ -52,9 +52,10 @@ export function act(player: IPlayer, props: Props) {
   if (!actable(player, props)) return;
 
   // If not already, set player's snapshot to shops one
-  if (game.constants.shopSnapshot !== player.shop.snapshot) {
+  if (game.constants.version !== player.shop.snapshot) {
     player.shop = {
-      snapshot: game.constants.shopSnapshot,
+      snapshot: game.constants.version,
+      startDate: Date.now(),
       premium: {},
       gold: {},
       gem: {},
