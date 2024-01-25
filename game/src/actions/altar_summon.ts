@@ -8,9 +8,9 @@ type Props = {
 }
 
 export function actable(player: IPlayer, props: Props): boolean {
-  const item = player.items[props.itemId];
-  if (!item) return false;
-  if (item.count <= 0) return false;
+  const monsterScroll = player.items[props.itemId];
+  if (!monsterScroll) return false;
+  if (monsterScroll.count <= 0) return false;
 
   return true;
 }
@@ -24,8 +24,8 @@ export function actable(player: IPlayer, props: Props): boolean {
 export function act(player: IPlayer, props: Props): IMonster | undefined {
   if (!actable(player, props)) return;
 
-  const item = player.items[props.itemId];
-  if (!item) return;
+  const monsterScroll = player.items[props.itemId];
+  if (!monsterScroll) return;
 
   // Try selecting a random monster
   const monsterIds = Object.keys(game.monsters) as MonsterId[];
@@ -37,11 +37,12 @@ export function act(player: IPlayer, props: Props): IMonster | undefined {
   if (!monsterId) return;
 
   // Consturct the randomly selected monster, remove scroll and add monster to the player's bag
-  const monster: IMonster = { id: monsterId, stars: item.stars, level: 1, time: Date.now() }
+  const monster: IMonster = { id: monsterId, stars: monsterScroll.stars, level: 1, time: Date.now() }
+
   game.actions.changePlayerContents.act(
     player,
     {
-      toRemove: [{ item: game.constants.createMonsterScroll(item.stars, 1) }],
+      toRemove: [{ item: game.constants.createMonsterScroll(monsterScroll.stars, 1) }],
       toAdd: [{ monster }],
     }
   );

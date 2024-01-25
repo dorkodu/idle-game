@@ -20,7 +20,11 @@ export { buyShopItem } from "./buy_shop_item";
 
 // Map
 export { resetArenaBattles } from "./reset_arena_battles";
+
+export { blacksmithUnlock } from "./blacksmith_unlock";
 export { blacksmithUpgrade } from "./blacksmith_upgrade";
+export { blacksmithSell } from "./blacksmith_sell";
+
 export { altarSummon } from "./altar_summon";
 export { altarEvolve } from "./altar_evolve";
 export { altarSacrifice } from "./altar_sacrifice";

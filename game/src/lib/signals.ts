@@ -11,8 +11,12 @@ export const signals = {
   buySpecialOffer: new Signal<{ player: IPlayer }>(),
   buyShopItem: new Signal<{ player: IPlayer }>(),
 
+  // Blacksmith
+  unlockItem: new Signal<{ player: IPlayer }>(),
   upgradeItem: new Signal<{ player: IPlayer }>(),
+  sellItem: new Signal<{ player: IPlayer }>(),
 
+  // Altar
   summonMonster: new Signal<{ player: IPlayer }>(),
   evolveMonster: new Signal<{ player: IPlayer }>(),
   sacrificeMonsters: new Signal<{ player: IPlayer }>(),

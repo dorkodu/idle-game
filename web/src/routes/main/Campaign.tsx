@@ -111,9 +111,6 @@ function Campaign() {
                 &nbsp;
                 <Text size="sm">{util.formatNumber(farm?.xp || 0)}</Text>
               </Flex>
-              <Flex>
-                <Emoji emoji="📦" size={20} />
-              </Flex>
             </Flex>
 
             <Button onClick={onFarm}>Get</Button>

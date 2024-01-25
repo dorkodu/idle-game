@@ -1,5 +1,6 @@
 import { game } from "..";
 import { ItemId } from "../data/items";
+import { IContent } from "../types/content";
 import { ItemType, ItemTypeEquipment, ItemTypeOther } from "../types/item_type";
 import { Tier } from "../types/tier";
 import { IStats } from "./stats";
@@ -56,6 +57,13 @@ export function getUpgradedItem(item: IItem): IItem | undefined {
   }
 
   return { id: item.id, tier: tier, stars: stars, count: 1 };
+}
+
+export function getSellRewards(items: IItem[]): IContent[] {
+  let count = 0;
+  items.forEach(item => { count += item.count });
+
+  return [{ item: game.constants.createGold(1000 * count) }]
 }
 
 export function getStats(item: IItem): IStats | undefined {

@@ -21,7 +21,7 @@ export { achievement } from "./core/achievement";
 export { stats } from "./core/stats";
 
 // Data
-export { items, itemData } from "./data/items";
+export { items, equipmentItems, otherItems, itemData } from "./data/items";
 export { monsters } from "./data/monsters";
 export { campaigns } from "./data/campaigns";
 export { battles } from "./data/battles";

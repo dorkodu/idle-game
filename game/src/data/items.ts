@@ -187,8 +187,9 @@ const other = {
   ot_food: createOtherData("other", 2),
   ot_xp: createOtherData("other", 3),
   ot_monster_scroll: createOtherData("other", 4),
-  ot_arena_trophy: createOtherData("other", 5),
-  ot_wheel_spin_token: createOtherData("other", 6),
+  ot_item_box: createOtherData("other", 5),
+  ot_arena_trophy: createOtherData("other", 6),
+  ot_wheel_spin_token: createOtherData("other", 7),
 }
 
 export type ItemId = keyof typeof items
@@ -199,6 +200,18 @@ export const items = {
   ...rune,
   ...ring,
 
+  ...other,
+}
+
+export const equipmentItems = {
+  ...weapon,
+  ...armor,
+  ...amulet,
+  ...rune,
+  ...ring,
+}
+
+export const otherItems = {
   ...other,
 }
 

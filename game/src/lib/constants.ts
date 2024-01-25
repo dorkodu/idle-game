@@ -1,6 +1,7 @@
 import { game } from "..";
 import { IItem } from "../core/item";
 import { IShopItem, IShopSpecialOffer } from "../types/shop";
+import { Tier } from "../types/tier";
 
 export const version = "0.1.0";
 
@@ -27,6 +28,7 @@ export const createGem = (count: number): IItem => ({ id: "ot_gem", tier: "F", s
 export const createFood = (count: number): IItem => ({ id: "ot_food", tier: "F", stars: 0, count });
 export const createXp = (count: number): IItem => ({ id: "ot_xp", tier: "F", stars: 0, count });
 export const createMonsterScroll = (stars: number, count: number): IItem => ({ id: "ot_monster_scroll", tier: "F", stars, count });
+export const createItemBox = (tier: Tier, stars: number, count: number): IItem => ({ id: "ot_item_box", tier, stars, count });
 export const createArenaTrophy = (count: number): IItem => ({ id: "ot_arena_trophy", tier: "F", stars: 0, count });
 export const createWheelSpinToken = (count: number): IItem => ({ id: "ot_wheel_spin_token", tier: "F", stars: 0, count });
 

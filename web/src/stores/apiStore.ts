@@ -34,6 +34,8 @@ const initialState: ApiStoreState = {
 
       "ot_monster_scroll-F-1": { id: "ot_monster_scroll", tier: "F", stars: 1, count: 5 },
       "ot_monster_scroll-F-5": { id: "ot_monster_scroll", tier: "F", stars: 5, count: 5 },
+      "ot_item_box-S-2": { id: "ot_item_box", tier: "S", stars: 2, count: 5 },
+      "ot_item_box-B-3": { id: "ot_item_box", tier: "B", stars: 3, count: 5 },
     },
     monsters: {
       "angel-1-1": { id: "angel", level: 1, stars: 1, time: 1 },

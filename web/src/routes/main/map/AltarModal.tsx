@@ -17,7 +17,7 @@ interface ModalProps {
 }
 
 function AltarModal({ opened, onClose }: ModalProps) {
-  const [tab, setTab] = useState<"summon" | "evolve" | "sacrifice">("summon");
+  const [tab, setTab] = useState<"summon" | "evolve" | "sacrifice">("evolve");
   const player = useApiStore(state => state.player);
 
   const gold = player?.items[game.constants.goldId]?.count ?? 0;
@@ -110,7 +110,12 @@ function Summon() {
       <Divider label="Monster Scrolls" />
 
       <ContentList>
-        {items?.map(i => <Content key={game.item.id(i)} item={i} onClick={() => onSelectItem(game.item.id(i))} />)}
+        {items?.map(i =>
+          <Content
+            key={game.item.id(i)}
+            item={selectedScrollId !== game.item.id(i) ? i : undefined}
+            onClick={() => onSelectItem(game.item.id(i))} />
+        )}
       </ContentList>
     </>
   )
