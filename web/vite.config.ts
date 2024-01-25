@@ -33,9 +33,9 @@ export default defineConfig({
       },
       base: "/",
       manifest: {
-        name: "App Template",
-        short_name: "App Template",
-        description: "An app template.",
+        name: "Idle Demo",
+        short_name: "Idle Demo",
+        description: "A demo of an idle game.",
         categories: [],
         start_url: "/",
         display: "standalone",
