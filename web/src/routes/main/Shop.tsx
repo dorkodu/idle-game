@@ -9,6 +9,7 @@ import { useApiStore } from "@/stores/apiStore";
 import { useAppStore } from "@/stores/appStore";
 import { IItem } from "@game/core/item";
 import { useTimer } from "@/components/hooks";
+import { util } from "@/lib/util";
 
 function Shop() {
   const player = useApiStore(state => state.player);
@@ -139,8 +140,8 @@ function ShopItem({ shop, index, shopItem }: ShopItemProps) {
 
       <Button fullWidth size="compact-sm" px={0} mt="xs" onClick={onBuy} disabled={!canBuy()}>
         {shopItem.price.money !== undefined && <>${shopItem.price.money}</>}
-        {shopItem.price.gem !== undefined && <><Emoji emoji="💎" />&nbsp;{shopItem.price.gem}</>}
-        {shopItem.price.gold !== undefined && <><Emoji emoji="🪙" />&nbsp;{shopItem.price.gold}</>}
+        {shopItem.price.gem !== undefined && <><Emoji emoji="💎" />&nbsp;{util.formatNumber(shopItem.price.gem)}</>}
+        {shopItem.price.gold !== undefined && <><Emoji emoji="🪙" />&nbsp;{util.formatNumber(shopItem.price.gold)}</>}
       </Button>
 
       <Text size="xs" my="xs">{`Limit ${limit < 0 ? "∞" : limit}`}</Text>

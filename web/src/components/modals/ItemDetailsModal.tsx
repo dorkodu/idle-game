@@ -23,7 +23,7 @@ function ItemDetailsModal() {
     <Modal
       opened={itemDetails.opened} onClose={close}
       centered lockScroll={false} size={360}
-      title="Item Details"
+      title="Item Details" zIndex={1001}
     >
       <Flex direction="column" align="center" gap="xs">
         {item &&
@@ -43,9 +43,9 @@ function ItemDetailsModal() {
               <TierBadge tier={item.tier} />
             }
 
-            {stats && <Stats stats={stats} />}
-
             <Badge size="xl">{util.formatNumber(item.count, true)}</Badge>
+
+            {stats && <Stats stats={stats} />}
           </>
         }
       </Flex>

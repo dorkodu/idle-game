@@ -76,7 +76,10 @@ function Summon() {
     if (!monster) return;
 
     useAppStore.setState(s => {
-      s.modals.contentList = { opened: true, contents: [{ monster }] };
+      s.modals.contentList = {
+        opened: true,
+        contents: [{ monster }],
+      };
     });
   }
 

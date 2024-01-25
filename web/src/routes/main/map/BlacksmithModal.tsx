@@ -70,7 +70,15 @@ function Unlock() {
     if (!item) return;
 
     useAppStore.setState(s => {
-      s.modals.contentList = { opened: true, contents: [{ item }] };
+      s.modals.contentList = {
+        opened: true,
+        contents: [{ item }],
+        onClick() {
+          useAppStore.setState(s => {
+            s.modals.itemDetails = { opened: true, item };
+          });
+        },
+      };
     });
   }
 

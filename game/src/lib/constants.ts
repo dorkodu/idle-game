@@ -49,24 +49,42 @@ export const shopSpecialOffer: IShopSpecialOffer = {
 };
 
 export const shopPremium: IShopItem[] = [
-  { item: createGem(1000), price: { money: 4 }, limit: 10 },
-  { item: createGem(2500), price: { money: 6 }, limit: 10 },
-  { item: createGem(5000), price: { money: 8 }, limit: 10 },
-  { item: createGem(10000), price: { money: 10 }, limit: 10 },
+  { item: createGem(1_000), price: { money: 4 }, limit: 10 },
+  { item: createGem(2_500), price: { money: 6 }, limit: 10 },
+  { item: createGem(5_000), price: { money: 8 }, limit: 10 },
+  { item: createGem(10_000), price: { money: 10 }, limit: 10 },
 ];
 
 export const shopGold: IShopItem[] = [
-  { item: createGem(1000), price: { gold: 4 }, limit: 10 },
-  { item: createGem(2500), price: { gold: 6 }, limit: 10 },
-  { item: createGem(5000), price: { gold: 8 }, limit: -1 },
-  { item: createGem(10000), price: { gold: 10 }, limit: 10 },
+  { item: createFood(1_000), price: { gold: 1_000 }, limit: 10 },
+  { item: createFood(100_000), price: { gold: 100_000 }, limit: 10 },
+  { item: createFood(1_000_000), price: { gold: 1_000_000 }, limit: 10 },
+
+  ...[...Array(5).keys()].map(i =>
+    ({ item: createMonsterScroll(i + 1, 1), price: { gold: 10_000 * (i + 1) }, limit: 10 })
+  ),
+
+  ...[...Array(5).keys()].map(i =>
+    ({ item: createItemBox("F", i + 1, 1), price: { gold: 10_000 * (i + 1) }, limit: 10 })
+  ),
 ];
 
 export const shopGem: IShopItem[] = [
-  { item: createGem(1000), price: { gem: 4 }, limit: 10 },
-  { item: createGem(2500), price: { gem: 6 }, limit: 10 },
-  { item: createGem(5000), price: { gem: 8 }, limit: 10 },
-  { item: createGem(10000), price: { gem: 10 }, limit: 10 },
+  { item: createGold(1_000), price: { gem: 10 }, limit: 10 },
+  { item: createGold(100_000), price: { gem: 100 }, limit: 10 },
+  { item: createGold(1_000_000), price: { gem: 250 }, limit: 10 },
+
+  { item: createFood(1_000), price: { gem: 10 }, limit: 10 },
+  { item: createFood(100_000), price: { gem: 100 }, limit: 10 },
+  { item: createFood(1_000_000), price: { gem: 250 }, limit: 10 },
+
+  ...[...Array(5).keys()].map(i =>
+    ({ item: createMonsterScroll(i + 1, 1), price: { gem: 50 * (i + 1) }, limit: -1 })
+  ),
+
+  ...[...Array(5).keys()].map(i =>
+    ({ item: createItemBox("F", i + 1, 1), price: { gem: 50 * (i + 1) }, limit: -1 })
+  ),
 ];
 
 export * as constants from "./constants";
