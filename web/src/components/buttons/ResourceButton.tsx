@@ -1,5 +1,5 @@
 import { util } from "@/lib/util";
-import { ActionIcon, Card, Flex, Text } from "@mantine/core";
+import { ActionIcon, Card, Flex, Text, Tooltip } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
 import Emoji from "../Emoji";
 
@@ -18,7 +18,12 @@ function ResourceButton({ emoji, count, button, onClick }: ResourceCardProps) {
       <Flex align="center">
         {emoji && <Emoji emoji={emoji} size={24} />}
 
-        <Text ta="center" style={{ flex: 1 }}>{util.formatNumber(count || 0)}</Text>
+        <Tooltip
+          label={util.formatNumber(count || 0, true)}
+          events={{ hover: true, focus: false, touch: true }}
+        >
+          <Text ta="center" style={{ flex: 1 }}>{util.formatNumber(count || 0)}</Text>
+        </Tooltip>
 
         {button &&
           <ActionIcon onClick={onClick}>
