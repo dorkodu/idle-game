@@ -13,11 +13,13 @@ import { util } from "@/lib/util";
 import Content from "../custom/Content";
 import { ItemTypeEquipment } from "@game/types/item_type";
 import Stats from "../custom/Stats";
+import { useTranslation } from "react-i18next";
 
 function MonsterDetailsModal() {
   const monsterDetails = useAppStore(state => state.modals.monsterDetails);
   const close = () => useAppStore.setState(s => { s.modals.monsterDetails.opened = false });
 
+  const { t } = useTranslation();
   const theme = useMantineTheme();
 
   const [tab, setTab] = useState<"stats" | "items">("stats");
@@ -75,14 +77,14 @@ function MonsterDetailsModal() {
           <Flex direction="column" gap="xl" mx="auto" mt={48} w="100%" maw={360}>
 
             <Flex direction="column" align="center" gap="xs">
-              <Title order={5}>{monster.id}</Title>
+              <Title order={5}>{t(monster.id)}</Title>
 
               <Flex gap={5}>
                 <Stars stars={monster.stars} size={16} />
               </Flex>
 
               <Flex align="center" justify="center" gap="md">
-                <ActionIcon onClick={() => onChange(-1)} variant="transparent" radius="xl" size={32} c="var(--text-color)">
+                <ActionIcon onClick={() => onChange(-1)} variant="subtle" radius="xl" size={32} c="var(--text-color)">
                   <IconArrowBigLeftFilled />
                 </ActionIcon>
 
@@ -92,7 +94,7 @@ function MonsterDetailsModal() {
                   draggable={false}
                 />
 
-                <ActionIcon onClick={() => onChange(+1)} variant="transparent" radius="xl" size={32} c="var(--text-color)">
+                <ActionIcon onClick={() => onChange(+1)} variant="subtle" radius="xl" size={32} c="var(--text-color)">
                   <IconArrowBigRightFilled />
                 </ActionIcon>
               </Flex>

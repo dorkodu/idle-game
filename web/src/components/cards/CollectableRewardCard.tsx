@@ -7,6 +7,7 @@ import { IDailyQuest } from "@game/core/daily_quest";
 import { useMemo } from "react";
 import { useApiStore } from "@/stores/apiStore";
 import { IAchievement } from "@game/core/achievement";
+import { useTranslation } from "react-i18next";
 
 interface Vars {
   name: string;
@@ -24,6 +25,8 @@ interface Props {
 }
 
 function CollectableRewardCard({ dailyQuest, achievement }: Props) {
+  const { t } = useTranslation();
+
   const player = useApiStore(state => state.player);
 
   const vars = useMemo((): Vars | undefined => {
@@ -31,7 +34,7 @@ function CollectableRewardCard({ dailyQuest, achievement }: Props) {
 
     if (dailyQuest) {
       return {
-        name: dailyQuest.id,
+        name: t(dailyQuest.id),
         rewards: game.dailyQuests[dailyQuest.id].rewards,
         done: player ? game.dailyQuest.getDone(player, dailyQuest) : 0,
         todo: game.dailyQuest.getTodo(dailyQuest),
@@ -47,7 +50,7 @@ function CollectableRewardCard({ dailyQuest, achievement }: Props) {
     }
     else if (achievement) {
       return {
-        name: achievement.id,
+        name: t(achievement.id),
         rewards: game.achievements[achievement.id].rewards,
         done: player ? game.achievement.getDone(player, achievement) : 0,
         todo: game.achievement.getTodo(achievement),

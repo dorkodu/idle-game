@@ -1,7 +1,10 @@
 //import React from "react"
 import ReactDOM from "react-dom/client"
 import { RouterProvider } from "react-router-dom";
+
 import { router } from "./routes/_Router.tsx";
+import "./lib/i18n";
+
 import "@mantine/core/styles.css";
 import "@/styles/global.css";
 

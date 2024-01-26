@@ -4,6 +4,8 @@ export const draggable = style({
   maxWidth: 360,
   height: "100%",
   maxHeight: 480,
+
+  zIndex: 9999,
 });
 
 export const handle = style({

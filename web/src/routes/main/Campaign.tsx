@@ -9,9 +9,11 @@ import { ActionIcon, Button, Card, Flex, Image, Modal, Progress, Select, Text, T
 import { useDisclosure } from "@mantine/hooks"
 import { IconCheck, IconMinus, IconSearch } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 function Campaign() {
   const [opened, { open, close }] = useDisclosure();
+  const { t } = useTranslation();
 
   const player = useApiStore(state => state.player);
   const campaign = useApiStore(state => state.player?.campaign);
@@ -68,7 +70,7 @@ function Campaign() {
           </Flex>
 
           <Flex maw={120} style={{ wordBreak: "break-word" }}>
-            <Text fz="lg" fw="bold" ta="center" lineClamp={3}>{campaign.id}</Text>
+            <Text fz="lg" fw="bold" ta="center" lineClamp={3}>{t(campaign.id)}</Text>
           </Flex>
 
           <Flex pl="xs" pos="absolute" left="100%">
@@ -133,6 +135,8 @@ interface CampaignDetailsModalProps {
 }
 
 function CampaignDetailsModal({ opened, onClose }: CampaignDetailsModalProps) {
+  const { t } = useTranslation();
+
   const player = useApiStore(state => state.player);
 
   const [tier, setTier] = useState<number>(game.tier.tierToIndex(player ? player.campaign.tier : "F"));
@@ -193,7 +197,7 @@ function CampaignDetailsModal({ opened, onClose }: CampaignDetailsModalProps) {
             return (
               <Timeline.Item
                 key={`${tier}-${i}`}
-                title={campaignId}
+                title={campaignId ? t(campaignId) : undefined}
                 bullet={completed ? <IconCheck size={12} /> : <IconMinus size={12} />}
               >
 

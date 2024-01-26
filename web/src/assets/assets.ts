@@ -6,6 +6,10 @@ import { game } from "@game/index";
 
 const _assets = import.meta.glob("@/assets/**/*.(png|svg)", { eager: true, as: "url" });
 
+export const locales: Record<string, Record<string, () => Promise<any>>> = {
+  en: { common: () => import("@/assets/locales/en/common.json") },
+}
+
 export function asset(path: string) {
   return _assets[`/src/assets/${path}`];
 }
