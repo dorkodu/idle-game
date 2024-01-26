@@ -87,6 +87,8 @@ export function act(player: IPlayer, props: Props) {
 
   // Add the item to the bag
   game.actions.changePlayerContents.act(player, { toAdd: [{ item: shopItem.item }] });
+
+  game.signals.buyShopItem.dispatch({ player });
 }
 
 export * as buyShopItem from "./buy_shop_item";

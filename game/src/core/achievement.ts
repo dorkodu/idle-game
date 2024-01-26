@@ -10,7 +10,7 @@ export interface IAchievement {
 export interface IAchievementData {
   targetProgress: number;
   rewards: IContent[];
-  onInit: () => void;
+  onInit: (achievement: IAchievement) => void;
 }
 
 export function getTodo(achievement: IAchievement): number {

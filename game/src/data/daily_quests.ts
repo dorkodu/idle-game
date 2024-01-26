@@ -3,36 +3,89 @@ import { IDailyQuest, IDailyQuestData } from "../core/daily_quest"
 import { IPlayer } from "../core/player";
 import { signals } from "../lib/signals"
 
-function listener(player: IPlayer, dailyQuestId: DailyQuestId) {
-  const dailyQuest: IDailyQuest = { id: dailyQuestId };
-
+function increaseProgress(player: IPlayer, dailyQuest: IDailyQuest) {
   let todo = game.dailyQuest.getTodo(dailyQuest);
   let done = game.dailyQuest.getDone(player, dailyQuest);
 
-  player.events.dailyQuests.progress[dailyQuestId] = Math.min(done + 1, todo);
+  player.events.dailyQuests.progress[dailyQuest.id] = Math.min(done + 1, todo);
 }
 
-function create_progressCampaign(): IDailyQuestData {
+function create_playCampaign(): IDailyQuestData {
   return {
     targetProgress: 1,
     rewards: [{ item: game.constants.createGold(1000) }],
-    onInit() { signals.progressCampaign.add(({ player }) => listener(player, "progressCampaign")) },
+    onInit(dailyQuest) {
+      signals.playCampaign.add(({ player }) => increaseProgress(player, dailyQuest));
+    },
   }
 }
 
-function create_progressTower(): IDailyQuestData {
+function create_playTower(): IDailyQuestData {
   return {
     targetProgress: 1,
     rewards: [{ item: game.constants.createGold(1000) }],
-    onInit() { signals.progressTower.add(({ player }) => listener(player, "progressTower")) },
+    onInit(dailyQuest) {
+      signals.playTower.add(({ player }) => increaseProgress(player, dailyQuest));
+    },
+  }
+}
+
+function create_collectCampaignFarm(): IDailyQuestData {
+  return {
+    targetProgress: 1,
+    rewards: [{ item: game.constants.createGold(1000) }],
+    onInit(dailyQuest) {
+      signals.collectCampaignFarm.add(({ player }) => increaseProgress(player, dailyQuest));
+    },
+  }
+}
+
+function create_buyShopItem(): IDailyQuestData {
+  return {
+    targetProgress: 3,
+    rewards: [{ item: game.constants.createGold(1000) }],
+    onInit(dailyQuest) {
+      signals.buyShopItem.add(({ player }) => increaseProgress(player, dailyQuest));
+    },
+  }
+}
+
+function create_summonMonster(): IDailyQuestData {
+  return {
+    targetProgress: 1,
+    rewards: [{ item: game.constants.createGold(1000) }],
+    onInit(dailyQuest) {
+      signals.summonMonster.add(({ player }) => increaseProgress(player, dailyQuest));
+    },
+  }
+}
+
+function create_unlockItem(): IDailyQuestData {
+  return {
+    targetProgress: 1,
+    rewards: [{ item: game.constants.createGold(1000) }],
+    onInit(dailyQuest) {
+      signals.unlockItem.add(({ player }) => increaseProgress(player, dailyQuest));
+    },
   }
 }
 
 export type DailyQuestId = keyof typeof dailyQuests
 export const dailyQuests = {
-  progressCampaign: create_progressCampaign(),
-  progressTower: create_progressTower(),
+  playCampaign: create_playCampaign(),
+  collectCampaignFarm: create_collectCampaignFarm(),
+
+  playTower: create_playTower(),
+
+  buyShopItem: create_buyShopItem(),
+
+  summonMonster: create_summonMonster(),
+  unlockItem: create_unlockItem(),
 }
 
 // Initialize all the daily quests with signals
-Object.values(dailyQuests).forEach(dailyQuest => { dailyQuest.onInit() });
+Object
+  .entries(dailyQuests)
+  .forEach(([dailyQuestId, dailyQuest]) => {
+    dailyQuest.onInit({ id: dailyQuestId as DailyQuestId });
+  });

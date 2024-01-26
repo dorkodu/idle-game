@@ -10,7 +10,7 @@ export interface IDailyQuest {
 export interface IDailyQuestData {
   targetProgress: number;
   rewards: IContent[];
-  onInit: () => void;
+  onInit: (dailyQuest: IDailyQuest) => void;
 }
 
 export function getTodoAll() {

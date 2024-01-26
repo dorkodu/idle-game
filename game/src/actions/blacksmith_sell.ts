@@ -34,7 +34,7 @@ export function act(player: IPlayer, props: Props): boolean {
     }
   );
 
-  game.signals.sellItem.dispatch({ player });
+  game.signals.sellItems.dispatch({ player });
 
   return true;
 }

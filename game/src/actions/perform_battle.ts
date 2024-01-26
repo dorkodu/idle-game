@@ -24,14 +24,19 @@ export function act(player: IPlayer, props: Props) {
   let result: BattleResult = "progress";
   while (result === "progress") result = game.battle.progress(battle);
 
-  if (result === "win") {
-    game.battles[props.battleId].onWin(player, battle);
+  if (result === "win") game.battles[props.battleId].onWin(player, battle);
 
-    switch (props.battleId) {
-      case "campaign": game.signals.progressCampaign.dispatch({ player }); break;
-      case "tower": game.signals.progressTower.dispatch({ player }); break;
-    }
+  switch (props.battleId) {
+    case "campaign":
+      game.signals.playCampaign.dispatch({ player });
+      if (result === "win") game.signals.progressCampaign.dispatch({ player });
+      break;
+    case "tower":
+      game.signals.playTower.dispatch({ player });
+      if (result === "win") game.signals.progressTower.dispatch({ player });
+      break;
   }
+
 }
 
 export * as performBattle from "./perform_battle";
