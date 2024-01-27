@@ -3,6 +3,7 @@ import ResourceButton from "@/components/buttons/ResourceButton";
 import Content from "@/components/custom/Content";
 import ContentList from "@/components/custom/ContentList";
 import FullscreenModal from "@/components/custom/FullscreenModal";
+import { util } from "@/lib/util";
 import { useApiStore } from "@/stores/apiStore";
 import { useAppStore } from "@/stores/appStore";
 import { IItem } from "@game/core/item";
@@ -56,7 +57,8 @@ function Unlock() {
   const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
   const selected = player && selectedId ? player.items[selectedId] : undefined;
 
-  const items = player ? Object.values(player.items).filter(i => i.id === "ot_item_box") : undefined;
+  const _items = player ? Object.values(player.items).filter(i => i.id === "ot_item_box") : [];
+  const items = util.sortItems(_items);
 
   const onUnlock = () => {
     let item: IItem | undefined = undefined;
@@ -130,7 +132,8 @@ function Upgrade() {
   const selectedItem = player && selectedItemId ? player.items[selectedItemId] : undefined;
   const upgradedItem = selectedItem ? game.item.getUpgradedItem(selectedItem) : undefined;
 
-  const items = player ? Object.values(player.items).filter(i => game.items[i.id].type !== "other") : undefined;
+  const _items = player ? Object.values(player.items).filter(i => game.items[i.id].type !== "other") : [];
+  const items = util.sortItems(_items);
 
   const onUpgrade = () => {
     useApiStore.setState(s => {
@@ -204,11 +207,13 @@ function Upgrade() {
 
 function Sell() {
   const player = useApiStore(state => state.player);
-  const items = player ? Object.values(player.items) : undefined;
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const selectedItems = player ? selectedIds.map(id => id ? player.items[id] : undefined).filter(Boolean) as IItem[] : undefined;
   const sellRewards = selectedItems ? game.item.getSellRewards(selectedItems) : [];
+
+  const _items = player ? Object.values(player.items).filter(i => game.items[i.id].type !== "other") : [];
+  const items = util.sortItems(_items);
 
   const onSell = () => {
     useApiStore.setState(s => {

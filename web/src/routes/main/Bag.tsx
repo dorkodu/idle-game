@@ -1,12 +1,13 @@
 import Content from "@/components/custom/Content";
 import ContentList from "@/components/custom/ContentList"
+import { util } from "@/lib/util";
 import { useApiStore } from "@/stores/apiStore";
 import { useAppStore } from "@/stores/appStore";
 import { IItem } from "@game/core/item";
 import { IMonster } from "@game/core/monster";
 import { game } from "@game/index";
 import { Button, Flex } from "@mantine/core"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 function Bag() {
   const [tab, setTab] = useState<"monster" | "item">("monster");
@@ -27,7 +28,11 @@ function Bag() {
 }
 
 function Monsters() {
-  const monsters = useApiStore(s => s.player?.monsters);
+  const _monsters = useApiStore(s => s.player?.monsters);
+  const monsters = useMemo((): IMonster[] => {
+    if (!_monsters) return [];
+    return util.sortMonsters(Object.values(_monsters));
+  }, [_monsters]);
 
   const onClick = (m: IMonster) => {
     useAppStore.setState(s => {
@@ -37,15 +42,17 @@ function Monsters() {
 
   return (
     <ContentList>
-      {monsters && Object.values(monsters).map(m =>
-        <Content key={game.monster.id(m)} monster={m} onClick={() => onClick(m)} />
-      )}
+      {monsters.map(m => <Content key={game.monster.id(m)} monster={m} onClick={() => onClick(m)} />)}
     </ContentList>
   )
 }
 
 function Items() {
-  const items = useApiStore(s => s.player?.items);
+  const _items = useApiStore(s => s.player?.items);
+  const items = useMemo((): IItem[] => {
+    if (!_items) return [];
+    return util.sortItems(Object.values(_items));
+  }, [_items]);
 
   const onClick = (i: IItem) => {
     useAppStore.setState(s => { s.modals.itemDetails = { opened: true, item: i } });
@@ -53,9 +60,7 @@ function Items() {
 
   return (
     <ContentList>
-      {items && Object.values(items).map(i =>
-        <Content key={game.item.id(i)} item={i} onClick={() => onClick(i)} />
-      )}
+      {items.map(i => <Content key={game.item.id(i)} item={i} onClick={() => onClick(i)} />)}
     </ContentList>
   )
 }

@@ -1,3 +1,7 @@
+import { IItem } from "@game/core/item";
+import { IMonster } from "@game/core/monster";
+import { game } from "@game/index";
+
 export function wait<T>(
   start: () => Promise<T>,
   before: number = 100,
@@ -36,6 +40,22 @@ export function clampNumber(number: number, min: number, max: number) {
   if (number < min) return min;
   if (number > max) return max;
   return number;
+}
+
+export function sortItems(items: IItem[]): IItem[] {
+  return items.sort((a, b) => {
+    if (a.id !== b.id) return game.items[b.id].index - game.items[a.id].index;
+    if (a.tier !== b.tier) return game.tier.tierToIndex(b.tier) - game.tier.tierToIndex(a.tier);
+    return b.stars - a.stars;
+  });
+}
+
+export function sortMonsters(monsters: IMonster[]): IMonster[] {
+  return monsters.sort((a, b) => {
+    if (a.id !== b.id) return game.monsters[b.id].index - game.monsters[a.id].index;
+    if (a.stars !== b.stars) return b.stars - a.stars;
+    return b.level - a.level;
+  });
 }
 
 export * as util from "./util";

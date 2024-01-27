@@ -3,6 +3,7 @@ import ResourceButton from "@/components/buttons/ResourceButton";
 import Content from "@/components/custom/Content";
 import ContentList from "@/components/custom/ContentList";
 import FullscreenModal from "@/components/custom/FullscreenModal";
+import { util } from "@/lib/util";
 import { useApiStore } from "@/stores/apiStore";
 import { useAppStore } from "@/stores/appStore";
 import { IMonster } from "@game/core/monster";
@@ -62,7 +63,8 @@ function Summon() {
   const [selectedScrollId, setSelectedItemId] = useState<string | undefined>(undefined);
   const selectedScroll = player && selectedScrollId ? player.items[selectedScrollId] : undefined;
 
-  const items = player ? Object.values(player.items).filter(i => i.id === "ot_monster_scroll") : undefined;
+  const _items = player ? Object.values(player.items).filter(i => i.id === "ot_monster_scroll") : [];
+  const items = util.sortItems(_items);
 
   const onSummon = () => {
     let monster: IMonster | undefined = undefined;
@@ -113,7 +115,7 @@ function Summon() {
       <Divider label="Monster Scrolls" />
 
       <ContentList>
-        {items?.map(i =>
+        {items.map(i =>
           <Content
             key={game.item.id(i)}
             item={selectedScrollId !== game.item.id(i) ? i : undefined}
@@ -126,7 +128,9 @@ function Summon() {
 
 function Evolve() {
   const player = useApiStore(state => state.player);
-  const monsters = player ? Object.values(player.monsters) : undefined;
+
+  const _monsters = player ? Object.values(player.monsters) : [];
+  const monsters = util.sortMonsters(_monsters);
 
   const [selectedIds, setSelectedIds] = useState<[string?, string?, string?]>([undefined, undefined, undefined]);
   const selectedMonsters = player ? selectedIds.map(id => id ? player.monsters[id] : undefined) as [IMonster?, IMonster?, IMonster?] : undefined;
@@ -202,7 +206,7 @@ function Evolve() {
       <Divider label="Monsters" />
 
       <ContentList>
-        {monsters?.map(m =>
+        {monsters.map(m =>
           <Content
             key={game.monster.id(m)}
             monster={!selectedIds.includes(game.monster.id(m)) ? m : undefined}
@@ -216,7 +220,9 @@ function Evolve() {
 
 function Sacrifice() {
   const player = useApiStore(state => state.player);
-  const monsters = player ? Object.values(player.monsters) : undefined;
+
+  const _monsters = player ? Object.values(player.monsters) : [];
+  const monsters = util.sortMonsters(_monsters);
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const selectedMonsters = player ? selectedIds.map(id => id ? player.monsters[id] : undefined).filter(Boolean) as IMonster[] : undefined;
@@ -295,7 +301,7 @@ function Sacrifice() {
       <Divider label="Monsters" />
 
       <ContentList>
-        {monsters?.map(m =>
+        {monsters.map(m =>
           <Content
             key={game.monster.id(m)}
             monster={!selectedIds.includes(game.monster.id(m)) ? m : undefined}

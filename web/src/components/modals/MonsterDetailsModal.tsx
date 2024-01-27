@@ -203,7 +203,8 @@ function ItemsSection({ monster }: Props) {
     useAppStore.setState(s => {
       if (!player) return;
 
-      const items = game.player.getItemsByType(player, type);
+      const _items = game.player.getItemsByType(player, type);
+      const items = util.sortItems(_items);
 
       const hasItems = items.length > 0;
       const hasEquipped = !!monster.items?.[type];
