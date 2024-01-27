@@ -2,11 +2,12 @@ import Emoji from "@/components/Emoji";
 import ResourceButton from "@/components/buttons/ResourceButton";
 import Content from "@/components/custom/Content";
 import FullscreenModal from "@/components/custom/FullscreenModal";
+import { util } from "@/lib/util";
 import { useApiStore } from "@/stores/apiStore";
 import { useAppStore } from "@/stores/appStore";
 import { IMonster } from "@game/core/monster";
 import { game } from "@game/index";
-import { Button, Card, Divider, Flex, Progress, ScrollArea } from "@mantine/core";
+import { Button, Card, Divider, Flex, Progress, ScrollArea, Title } from "@mantine/core";
 
 interface ModalProps {
   opened: boolean;
@@ -17,10 +18,12 @@ function TowerModal({ opened, onClose }: ModalProps) {
   const player = useApiStore(state => state.player);
 
   const gold = player?.items[game.constants.goldId]?.count ?? 0;
-
   const stage = player?.map.tower.stage ?? 0;
 
-  const enemies = player ? Object.values(game.battles.tower.getLineup(player)).filter(Boolean) as IMonster[] : undefined
+  const lineup = player ? game.battles.tower.getLineup(player) : undefined;
+  const power = game.lineup.getPower(lineup);
+
+  const enemies = lineup ? Object.values(lineup).filter(Boolean) as IMonster[] : undefined
   const rewards = player ? game.battles.tower.getRewards(player) : undefined;
 
   const onBattle = () => {
@@ -41,12 +44,20 @@ function TowerModal({ opened, onClose }: ModalProps) {
 
         <Card withBorder radius="md" w="100%" maw={360}>
           <Flex direction="column" gap="xs">
+
             <Divider label="Stage Enemies" />
+
+            <Flex align="center" gap="xs">
+              <Emoji emoji="⚡" />
+              <Title order={5}>{util.formatNumber(power)}</Title>
+            </Flex>
+
             <ScrollArea>
               <Flex gap="xs">
                 {enemies?.map((c, i) => <Content key={i} monster={c} />)}
               </Flex>
             </ScrollArea>
+
           </Flex>
         </Card>
 
