@@ -1,4 +1,4 @@
-import { Button, Card, Divider, Flex, ScrollArea, Text, Title } from "@mantine/core";
+import { Button, Card, Divider, Flex, ScrollArea, Text, TextInput, Title } from "@mantine/core";
 import ContentAsset from "@/components/custom/ContentAsset";
 import Content from "@/components/custom/Content";
 import ContentList from "@/components/custom/ContentList";
@@ -10,6 +10,7 @@ import { useAppStore } from "@/stores/appStore";
 import { IItem } from "@game/core/item";
 import { useTimer } from "@/components/hooks";
 import { util } from "@/lib/util";
+import { useState } from "react";
 
 function Shop() {
   const player = useApiStore(state => state.player);
@@ -24,6 +25,11 @@ function Shop() {
       });
     }
   );
+
+  const [giftCode, setGiftCode] = useState("");
+  const onRedeem = () => {
+
+  }
 
   return (
     <ScrollArea scrollbars="y">
@@ -58,6 +64,17 @@ function Shop() {
             <ShopItem key={i} shop="gem" index={i} shopItem={shopItem} />
           )}
         </ContentList>
+
+        <Divider label={<Flex align="center"><Emoji emoji="🎁" size={16} />&nbsp;Gift Codes</Flex>} />
+
+        <Flex align="center" gap="xs" mx="auto" w="100%" maw={300}>
+          <TextInput
+            placeholder="Enter gift code..."
+            value={giftCode} onChange={(ev) => setGiftCode(ev.currentTarget.value)}
+            style={{ flex: 1 }}
+          />
+          <Button onClick={onRedeem}>Redeem</Button>
+        </Flex>
 
       </Flex>
     </ScrollArea>
