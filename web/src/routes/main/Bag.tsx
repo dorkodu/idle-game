@@ -70,7 +70,7 @@ function Items() {
       default: items = Object.values(player.items); break;
     }
 
-    return items;
+    return util.sortItems(items);
   }, [tab, player]);
 
   const onClick = (i: IItem) => {
