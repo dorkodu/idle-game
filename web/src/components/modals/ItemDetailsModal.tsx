@@ -41,9 +41,7 @@ function ItemDetailsModal() {
               </Flex>
             }
 
-            {!item.id.startsWith("ot") &&
-              <TierBadge tier={item.tier} />
-            }
+            <TierBadge tier={item.tier} />
 
             <Badge size="xl">{util.formatNumber(item.count, true)}</Badge>
 
