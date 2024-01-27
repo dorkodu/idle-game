@@ -63,14 +63,14 @@ function PlayerDetailsModal({ opened, onClose }: Props) {
         </Flex>
 
         <Flex direction="column" align="center">
-          <Anchor href="https://dorkodu.com" mb="xs">
+          <Anchor href="https://dorkodu.com" target="_blank" mb="xs">
             <Image
               src={`${import.meta.env.BASE_URL}dorkodu-logo.svg`}
               mah={48}
             />
           </Anchor>
 
-          <Title order={5}>Dorkodu © {new Date().getFullYear()}</Title>
+          <Title order={5}>© Dorkodu {new Date().getFullYear()}</Title>
 
           <Title order={6}>{`Idle Demo v${game.constants.version}`}</Title>
 

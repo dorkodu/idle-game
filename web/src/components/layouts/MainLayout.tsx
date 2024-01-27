@@ -1,69 +1,81 @@
-import { Button, Divider, Flex, useMantineTheme } from "@mantine/core";
+import { ActionIcon, Anchor, Button, Divider, Flex, Image, Title, useMantineTheme } from "@mantine/core"
+import { IconBrandDiscord, IconBrandX } from "@tabler/icons-react";
+import { MouseEvent } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import LayoutButton from "../buttons/LayoutButton";
-import { useAppStore } from "@/stores/appStore";
-import ProfileButton from "../buttons/ProfileButton";
-import ResourceButton from "../buttons/ResourceButton";
-import { useApiStore } from "@/stores/apiStore";
-import { game } from "@game/index";
-import { useDisclosure } from "@mantine/hooks";
-import PlayerDetailsModal from "../modals/local/PlayerDetailsModal";
+import { footer, footerTopSection, glow, header } from "./GameLayout.css";
 
 function MainLayout() {
-  const [opened, { open, close }] = useDisclosure();
-
   const theme = useMantineTheme();
   const navigate = useNavigate();
 
-  const route = useAppStore(state => state.route);
-
-  const player = useApiStore(state => state.player);
-  const level = player?.level;
-  const gold = player?.items[game.constants.goldId]?.count;
-  const gem = player?.items[game.constants.gemId]?.count;
+  const onNavigate = (ev: MouseEvent<HTMLAnchorElement>) => {
+    ev.preventDefault();
+    const href = ev.currentTarget.href;
+    navigate(href.substring(href.lastIndexOf("/")));
+  }
 
   return (
     <>
       <Flex
-        direction="column" mx="auto"
+        align="center" justify="space-between"
+        px="xs" mx="auto" maw={theme.breakpoints.xs} h={64}
         pos="fixed" top={0} left={0} right={0}
-        maw={theme.breakpoints.xs} h={80}
+        className={`${header} ${glow}`}
       >
-        <Flex direction="row" align="center" gap="xs" px="md" h="100%">
-          <ProfileButton level={level} onClick={open} />
-
-          <Flex gap="xs" justify="end" style={{ flex: 1 }}>
-            <ResourceButton emoji="🪙" count={gold} button />
-            <ResourceButton emoji="💎" count={gem} button />
+        <Anchor onClick={onNavigate} href="/" underline="never">
+          <Flex align="center" gap="md">
+            <Image src={`${import.meta.env.BASE_URL}icon-512.png`} w={48} h={48} />
+            <Title order={3} c="#fff">Idle Demo</Title>
           </Flex>
-        </Flex>
-        <Divider />
+        </Anchor>
+
+        <Button onClick={onNavigate} component="a" href="/campaign">
+          Play Now
+        </Button>
       </Flex>
 
       <Flex
-        direction="column" mx="auto" p="md"
-        pos="fixed" top={80} bottom={64} left={0} right={0}
-        maw={theme.breakpoints.xs}
+        direction="column"
+        px="xs" pt={64} mx="auto" maw={theme.breakpoints.xs} mih="100%"
+        pos="relative"
       >
         <Outlet />
       </Flex>
 
       <Flex
-        direction="column" mx="auto"
-        pos="fixed" bottom={0} left={0} right={0}
-        maw={theme.breakpoints.xs} h={64}
+        direction="column" gap="md"
+        p="md" mx="auto" maw={theme.breakpoints.xs}
+        className={`${footer} ${glow}`}
       >
-        <Divider />
-        <Button.Group h="100%">
-          <LayoutButton onClick={() => navigate("/shop")} active={route === "shop"} emoji="🛒">Shop</LayoutButton>
-          <LayoutButton onClick={() => navigate("/bag")} active={route === "bag"} emoji="🎒">Bag</LayoutButton>
-          <LayoutButton onClick={() => navigate("/campaign")} active={route === "campaign"} emoji="⚔️">Campaign</LayoutButton>
-          <LayoutButton onClick={() => navigate("/map")} active={route === "map"} emoji="🗺">Map</LayoutButton>
-          <LayoutButton onClick={() => navigate("/events")} active={route === "events"} emoji="📢">Events</LayoutButton>
-        </Button.Group>
-      </Flex>
 
-      <PlayerDetailsModal opened={opened} onClose={close} />
+        <Flex className={footerTopSection} align="start">
+          <Anchor href="https://dorkodu.com" target="_blank" mb="xs" style={{ display: "inline-block" }}>
+            <Image src={`${import.meta.env.BASE_URL}dorkodu-logo.svg`} w={200} />
+          </Anchor>
+
+          <Flex direction="column" align="start">
+            <Title order={4}>Resources</Title>
+            <Anchor onClick={onNavigate} component="a" href="/privacy-policy">Privacy Policy</Anchor>
+            <Anchor onClick={onNavigate} component="a" href="/terms-of-service">Terms of Service</Anchor>
+          </Flex>
+        </Flex>
+
+        <Divider size="md" />
+
+        <Flex align="center" justify="space-between">
+          <Title order={5}>© Dorkodu {new Date().getFullYear()}</Title>
+
+          <Flex gap={5}>
+            <ActionIcon size={32} variant="light" onClick={onNavigate} component="a" href="/">
+              <IconBrandX />
+            </ActionIcon>
+            <ActionIcon size={32} variant="light" onClick={onNavigate} component="a" href="/">
+              <IconBrandDiscord />
+            </ActionIcon>
+          </Flex>
+        </Flex>
+
+      </Flex>
     </>
   )
 }
