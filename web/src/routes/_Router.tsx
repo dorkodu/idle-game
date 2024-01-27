@@ -11,6 +11,9 @@ const Campaign = React.lazy(util.wait(() => import("./main/Campaign")));
 const Map = React.lazy(util.wait(() => import("./main/Map")));
 const Events = React.lazy(util.wait(() => import("./main/Events")));
 
+const PrivacyPolicy = React.lazy(util.wait(() => import("./PrivacyPolicy")));
+const TermsOfService = React.lazy(util.wait(() => import("./TermsOfService")));
+
 const NotFound = React.lazy(util.wait(() => import("./NotFound")));
 // Lazy routes \\
 
@@ -39,6 +42,9 @@ export const router = createBrowserRouter(
         <Route path="/map" element={Page(Map)} />
         <Route path="/events" element={Page(Events)} />
       </Route>
+
+      <Route path="/privacy-policy" element={Page(PrivacyPolicy)} />
+      <Route path="/terms-of-service" element={Page(TermsOfService)} />
 
       {/* Error routes & catch all */}
       <Route path="/404" element={Page(NotFound)} />
