@@ -9,7 +9,14 @@ type Props = {
 }
 
 export function actable(player: IPlayer, props: Props): boolean {
-  const items = props.items.map(i => player.items[i]).filter(Boolean) as IItem[];
+  const items = props.items
+    .map(i => {
+      const item = player.items[i];
+      if (!item) return undefined;
+      if (game.items[item.id].type === "other") return undefined;
+      return item;
+    })
+    .filter(Boolean) as IItem[];
 
   if (items.length === 0) return false;
 

@@ -9,6 +9,9 @@ export function actable(player: IPlayer, props: Props): boolean {
   const item = player.items[props.itemId];
   if (!item) return false;
 
+  // Only type "equipment" items can be upgraded
+  if (game.items[item.id].type === "other") return false;
+
   // 3 copies of the same item is needed to upgrade
   if (item.count < 3) return false;
 

@@ -10,6 +10,7 @@ type Props = {
 export function actable(player: IPlayer, props: Props): boolean {
   const itemBox = player.items[props.itemId];
   if (!itemBox) return false;
+  if (itemBox.id !== "ot_item_box") return false;
   if (itemBox.count <= 0) return false;
 
   return true;

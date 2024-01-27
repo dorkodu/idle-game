@@ -10,6 +10,7 @@ type Props = {
 export function actable(player: IPlayer, props: Props): boolean {
   const monsterScroll = player.items[props.itemId];
   if (!monsterScroll) return false;
+  if (monsterScroll.id !== "ot_monster_scroll") return false;
   if (monsterScroll.count <= 0) return false;
 
   return true;
