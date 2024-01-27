@@ -3,7 +3,7 @@ import { AchievementId } from "../data/achievements";
 import { CampaignId } from "../data/campaigns";
 import { DailyQuestId } from "../data/daily_quests";
 import { Farm } from "../types/farm";
-import { ItemTypeEquipment } from "../types/item_type";
+import { ItemType, ItemTypeEquipment } from "../types/item_type";
 import { Lineup, MonsterLineup } from "../types/lineup";
 import { Tier } from "../types/tier";
 import { IItem } from "./item";
@@ -72,7 +72,7 @@ export interface IPlayer {
   };
 }
 
-export function getItemsByType(player: IPlayer, type: ItemTypeEquipment): IItem[] {
+export function getItemsByType(player: IPlayer, type: ItemType): IItem[] {
   const keys = Object.keys(player.items).filter(k => k.startsWith(type.substring(0, 2)));
   const items = keys.map(key => player.items[key]).filter(Boolean) as IItem[];
   return items;
