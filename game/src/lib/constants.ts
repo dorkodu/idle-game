@@ -79,11 +79,11 @@ export const shopGem: IShopItem[] = [
   { item: createFood(1_000_000), price: { gem: 250 }, limit: 10 },
 
   ...[...Array(5).keys()].map(i =>
-    ({ item: createMonsterScroll(i + 1, 1), price: { gem: 50 * (i + 1) }, limit: -1 })
+    ({ item: createMonsterScroll(i + 1, i), price: { gem: 50 * (i + 1) }, limit: -1 })
   ),
 
   ...[...Array(5).keys()].map(i =>
-    ({ item: createItemBox("F", i + 1, 1), price: { gem: 50 * (i + 1) }, limit: -1 })
+    ({ item: createItemBox("F", i + 1, i), price: { gem: 50 * (i + 1) }, limit: -1 })
   ),
 ];
 
